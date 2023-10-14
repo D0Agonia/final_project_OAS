@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="images/KLDLogo.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="login_student.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="dist/css/bootstrap.css" />
+    <title>KLD - OAS | Student Login</title>
+  </head>
+  <body class="body">
+    <div class="container">
+      <div class="login-box">
+        <div class="login-container overflow-auto">
+          <div class="back-box">
+            <a href="/landing.html">
+              <img src="images/back-icon.svg" alt="back to homepage">
+            </a>
+          </div>
+          <div class="logo-box">
+            <a href="/landing.html">
+              <img
+                src="images/KLDLogo.png"
+                alt="KLDLogo"
+                class="img-fluid logo-img"
+                style="width: 150px; height: 150px"
+                id="logo"
+              />
+            </a>
+          </div>
+          <h1 class="h1 fw-bolder">Student Login</h1>
+          <img
+            src="images/Login-amico.svg"
+            alt="Login Icon"
+            class="img-fluid login-icon"
+            style="width: 200px; height: 200px"
+          />
+          <form action="" class="form">
+            <div class="form-floating txtStudent-id">
+              <input
+                type="text"
+                class="form-control"
+                id="student-id"
+                placeholder="Enter Student ID"
+                name="student_id"
+              />
+              <label for="student-id" class="form-label">Student ID</label>
+            </div>
+            <div class="form-floating txtStudent-password">
+              <input
+                type="password"
+                class="form-control"
+                id="pass"
+                placeholder="Enter password"
+                name="password"
+              />
+              <label for="pass" class="form-label">Password</label>
+            </div>
+            <div class="forgot-pass">
+              <a href="/forgot_pass.html">Forgot Password?</a>
+            </div>
+            <div class="btn-submit-box d-flex justify-content-center">
+              <a href="index-student.html" type="submit" class="btn-submit">Login</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

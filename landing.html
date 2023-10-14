@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="images/KLDLogo.svg" type="image/x-icon" />
+    <title>KLD - OAS</title>
+    <link rel="stylesheet" href="dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="landing.css" />
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Main Content Column -->
+        <div
+          class="col-8 col-lg-7 min-vh-100 col-sm-12 overflow-auto"
+          id="main-content"
+        >
+          <header class="main-head text-center">
+            <p class="h4">WELCOME TO</p>
+            <h1 class="px-4" id="title">
+              Kolehiyo ng Lungsod ng Dasmariñas <br />OAS (Online Appointment
+              System)
+            </h1>
+          </header>
+          <article>
+            <p class="h2">What is KLD - OAS?</p>
+            <p class="fs-6 fw-normal">
+              An online appointment system used in schools is a software
+              application that allows students to book appointments with
+              teachers, administrators, or other staff members. The system
+              typically allows students to view available appointment times,
+              select a time slot, and provide their contact information.
+            </p>
+          </article>
+          <div>
+            <a class="btn-proceed" href="#sidebar" type="button">Proceed</a>
+          </div>
+        </div>
+        <!-- End of Main Content Column -->
+
+        <!-- Sidebar Column -->
+        <div class="col-4 col-lg-5 col-sm-12 vh-100 overflow-auto" id="sidebar">
+          <div class="row">
+            <div class="col" id="logo-box">
+              <div class="mt-5">
+                <img
+                  src="images/KLDLogo.png"
+                  alt="KLDLogo"
+                  class="img-fluid"
+                  style="width: 150px; height: 150px"
+                  id="logo"
+                />
+              </div>
+              <p class="h1" id="sidebar-title">KLD - OAS</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="role-box">
+              <div class="role-description">
+                <p class="sidebar-description fs-5">
+                  We want to know what is your role?
+                  <small>(click your role)</small>
+                </p>
+              </div>
+              <div class="student">
+                <a href="/login_student.html" class="btn-role" type="button">
+                  <img
+                    src="images/student.svg"
+                    alt="student"
+                    class="img-fluid"
+                    style="width: 150px"
+                  />
+                  <div class="student-login">Student</div>
+                </a>
+              </div>
+              <div class="guest">
+                <a href="/login_guest.html" class="btn-role" type="button">
+                  <img
+                    src="images/guest.svg"
+                    alt="student"
+                    class="img-fluid"
+                    style="width: 150px"
+                  />
+                  <div class="guest-login">Guest</div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="description-box">
+              <p class="sidebar-description fs-6">
+                The View Appointments will show your previous <br />
+                transactions or the appointments you have made.
+              </p>
+              <a href="/view_appointment.html" class="btn-view" type="button"
+                >View Apppointments</a
+              >
+            </div>
+          </div>
+          <div class="row">
+            <div class="col text-center">
+              <p class="sidebar-terms fs-6">
+                By using this service, you understood and agree to the <br />
+                KLD Online Services <a href="#">Terms of Use</a> and
+                <a href="#">Privacy Statement</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- End of Sidebar Column -->
+      </div>
+    </div>
+  </body>
+</html>

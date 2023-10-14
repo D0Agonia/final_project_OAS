@@ -1,0 +1,219 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.body {
+  background-color: #faf8f1;
+  color: #116530;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  margin-top: 3%;
+
+  justify-self: center;
+}
+
+.welcome-remarks {
+  grid-column: 1;
+}
+
+span {
+  font-weight: 400;
+}
+
+.welcome {
+  font-weight: 600;
+}
+
+.logout {
+  grid-column: 2;
+  align-self: center;
+  justify-self: right;
+}
+
+.form-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+
+  width: 100%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.logo {
+  margin: 0 auto;
+}
+
+.form-details {
+  margin-bottom: 100px;
+}
+
+.step-container {
+  position: relative;
+  text-align: center;
+  transform: translateY(-43%);
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+
+  border: 2px solid #0b4619;
+  background-color: #faf8f1;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  cursor: pointer; /* Added cursor pointer */
+}
+
+.form-parent {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 40px;
+}
+
+.description-child {
+  font-weight: 700;
+  text-align: center;
+}
+
+.personal-child {
+  grid-column: 1;
+
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: 2rem 2.5rem 2.5rem 2.5rem auto;
+
+  gap: 8px;
+}
+
+.personal-title {
+  grid-column: 1 / span 2;
+}
+
+.first-name {
+  grid-column: 1 / span 2;
+}
+
+.last-name {
+  grid-column: 1 / span 2;
+}
+
+.email {
+  grid-column: 1;
+}
+
+.contact-no {
+  grid-column: 2;
+}
+
+.student-no {
+  grid-column: 1;
+}
+
+.appointment-child {
+  grid-column: 2;
+
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: 2rem 2.5rem auto;
+
+  gap: 8px;
+}
+
+.appointment-title {
+  grid-column: 1 / span 2;
+}
+
+.appointment-type {
+  grid-column: 1;
+}
+
+.document-requested {
+  grid-column: 2;
+}
+
+.comments {
+  grid-column: 1 / span 2;
+
+  resize: none;
+  overflow: auto;
+}
+
+.btn-box {
+  margin-top: 8%;
+}
+
+.btn-parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-next {
+  appearance: none;
+  background-color: #0b4619;
+  border: 0.125em solid #0b4619;
+  border-radius: 2em;
+  color: #f5fe06;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: normal;
+  padding: 0.25em 1em;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  will-change: transform;
+}
+
+.btn-next:hover {
+  box-shadow: #8a795d88 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.btn-next:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+input.form-control:focus,
+textarea.form-control:focus,
+select.form-control:focus {
+  box-shadow: none;
+  border: 1.5px solid #0b461955;
+  color: #116530;
+}
+
+@media screen and (max-width: 992px) {
+  .form-parent {
+    display: block;
+  }
+
+  .personal-child {
+    margin-bottom: 30px;
+  }
+
+  .comments {
+    resize: vertical;
+  }
+
+}

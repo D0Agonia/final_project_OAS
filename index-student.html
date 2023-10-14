@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="images/KLDLogo.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="index-student.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="dist/css/bootstrap.css" />
+    <title>KLD - OAS | Student Appointment</title>
+  </head>
+  <body class="body">
+    <div class="container">
+      <header class="head">
+        <div class="logo">
+          <a href="/landing.html">
+            <img
+              src="images/KLDLogo.png"
+              alt="KLDLogo"
+              class="img-fluid logo-img"
+              style="width: 150px; height: 150px"
+              id="logo"
+            />
+          </a>
+        </div>
+      </header>
+      <section class="form-head">
+        <div class="welcome-remarks">
+          <p class="welcome fs-5">Welcome, <span>Josephine</span></p>
+        </div>
+        <div class="logout">
+          <a href="/logged-out.html">
+            <img
+              src="images/logout-icon.svg"
+              alt="logged-out"
+              data-bs-toggle="modal"
+              data-bs-target="#myModal"
+              style="width: 40px"
+            />
+          </a>
+        </div>
+      </section>
+      <main class="form-details">
+        <section class="progress-box">
+          <div class="progress px-1" style="height: 4px">
+            <div class="progress-bar" role="progressbar"></div>
+          </div>
+          <div class="step-container d-flex justify-content-between">
+            <div class="step-circle">
+              <img
+                src="images/form-icon.svg"
+                alt="form-icon"
+                style="width: 30px"
+              />
+            </div>
+            <div class="step-circle">
+              <img
+                src="images/schedule-icon.svg"
+                alt="form-icon"
+                style="width: 30px"
+              />
+            </div>
+            <div class="step-circle">
+              <img
+                src="images/check-icon.svg"
+                alt="form-icon"
+                style="width: 30px"
+              />
+            </div>
+          </div>
+        </section>
+        <section class="form-box">
+          <form action="#" class="form-process">
+            <div class="form-description">
+              <p class="description-child fs-5">
+                Fill out the fields to make an appointment
+              </p>
+              <hr />
+              <div class="form-parent">
+                <div class="personal-child">
+                  <p class="personal-title h5 fw-semibold">
+                    Personal Information
+                  </p>
+
+                  <input
+                    type="text"
+                    class="form-control first-name"
+                    placeholder="First Name"
+                    name="fname"
+                  />
+                  <input
+                    type="text"
+                    class="form-control last-name"
+                    placeholder="Last Name"
+                    name="lname"
+                  />
+                  <input
+                    type="email"
+                    class="form-control email"
+                    placeholder="Email"
+                    name="email"
+                  />
+                  <input
+                    type="number"
+                    class="form-control contact-no"
+                    placeholder="Contact No."
+                    name="contact_no"
+                  />
+                  <input
+                    type="text"
+                    class="form-control student-no"
+                    placeholder="Student No."
+                    name="student"
+                  />
+                </div>
+                <div class="appointment-child">
+                  <p class="appointment-title h5 fw-semibold">
+                    Appointment Details
+                  </p>
+                  <select type="text" class="form-control appointment-type">
+                    <option class="select-option" selected disabled>
+                      Appointment Type
+                    </option>
+                    <option value="document">Document Requested</option>
+                    <option value="information">Information Center</option>
+                  </select>
+                  <select type="text" class="form-control document-requested">
+                    <option class="select-option" selected disabled>
+                      Document Type
+                    </option>
+                    <option value="tor">Transcript of Records</option>
+                    <option value="tc">Transfer Credentials</option>
+                    <option value="cog">Certificate of Grades</option>
+                    <option value="coe">Certificate of Enrollment</option>
+                  </select>
+                  <textarea
+                    class="form-control comments"
+                    name="comment"
+                    id="purpose-comment"
+                    cols="30"
+                    placeholder="Purpose of visit / Comments"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </form>
+        </section>
+        <section class="btn-box">
+          <form action="#" class="btn-parent">
+            <button class="btn-next">Next</button>
+          </form>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
