@@ -65,7 +65,6 @@ include __DIR__ . '/php/login_form.php';
               <a href="/forgot_pass.html">Forgot Password?</a>
             </div>
             <div class="btn-submit-box d-flex justify-content-center">
-<<<<<<< HEAD:login_student.php
               <input
                 type="submit"
                 class="btn-submit fw-semibold"
@@ -73,14 +72,6 @@ include __DIR__ . '/php/login_form.php';
                 value="Login"
                 name="submit_button"
               />
-=======
-              <a
-                href="index-student.html"
-                type="submit"
-                class="btn-submit fw-semibold"
-                >Login</a
-              >
->>>>>>> 313f6b5efdb3e9e6a258752da2b4c1a764bfb5d4:login_student.html
             </div>
           </form>
           <?php if($show_error == true){
