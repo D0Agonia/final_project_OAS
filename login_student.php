@@ -1,3 +1,7 @@
+<?php
+include __DIR__ . '/php/login_form.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,7 +40,7 @@
             class="img-fluid login-icon"
             style="width: 200px; height: 200px"
           />
-          <form action="" class="form">
+          <form method="post" class="form">
             <div class="form-floating txtStudent-id">
               <input
                 type="text"
@@ -61,14 +65,18 @@
               <a href="/forgot_pass.html">Forgot Password?</a>
             </div>
             <div class="btn-submit-box d-flex justify-content-center">
-              <a
-                href="index-student.html"
+              <input
                 type="submit"
                 class="btn-submit fw-semibold"
-                >Login</a
-              >
+                id="submit"
+                value="Login"
+                name="submit_button"
+              />
             </div>
           </form>
+          <?php if($show_error == true){
+            echo '<p class="text-center fw-bold text-danger">' . $error_display . '</p>';
+          }?>
         </div>
       </div>
     </div>
