@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="images/KLDLogo.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="/calendar-02/calendar-02/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" href="index-student.css" />
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="dist/css/bootstrap.css" />
@@ -40,27 +45,34 @@
           </a>
         </div>
       </section>
-      <main class="form-details">
+      <main class="form-details mb-lg-0">
         <section class="progress-box">
           <div class="progress px-1" style="height: 4px">
-            <div class="progress-bar" role="progressbar"></div>
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 0%; background-color: #0b4619"
+              aria-valuenow="0"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
           </div>
           <div class="step-container d-flex justify-content-between">
-            <div class="step-circle">
+            <div class="step-circle" onclick="displayStep(1)">
               <img
                 src="images/form-icon.svg"
                 alt="form-icon"
                 style="width: 30px"
               />
             </div>
-            <div class="step-circle">
+            <div class="step-circle" onclick="displayStep(2)">
               <img
                 src="images/schedule-icon.svg"
                 alt="form-icon"
                 style="width: 30px"
               />
             </div>
-            <div class="step-circle">
+            <div class="step-circle" onclick="displayStep(3)">
               <img
                 src="images/check-icon.svg"
                 alt="form-icon"
@@ -70,8 +82,9 @@
           </div>
         </section>
         <section class="form-box">
-          <form action="#" class="form-process">
-            <div class="form-description">
+          <form action="#" id="multi-step-form">
+            <div class="step step-1">
+              <!-- STEP 1 OF FORM -->
               <p class="description-child fs-5">
                 Fill out the fields to make an appointment
               </p>
@@ -103,7 +116,7 @@
                   <input
                     type="number"
                     class="form-control contact-no"
-                    placeholder="Contact No."
+                    placeholder="Contact No. (optional)"
                     name="contact_no"
                   />
                   <input
@@ -142,15 +155,282 @@
                   ></textarea>
                 </div>
               </div>
+              <div class="btn-box">
+                <button
+                  type="submit"
+                  class="btn-next-back fw-semibold next-step"
+                  value="next"
+                >
+                  Next
+                </button>
+              </div>
             </div>
-          </form>
-        </section>
-        <section class="btn-box">
-          <form action="#" class="btn-parent">
-            <button class="btn-next fw-semibold">Next</button>
+            <div class="step step-2">
+              <!-- STEP 2 OF FORM -->
+              <p class="description-child fs-5">Select Date and Time</p>
+              <hr />
+              <div class="form-parent-calendar ">
+                <div class="calendar-child">
+                  <div class="elegant-calencar">
+                    <div class="wrap-header d-flex align-items-center">
+                      <p id="reset">reset</p>
+                      <div id="header" class="p-0">
+                        <div
+                          class="pre-button d-flex align-items-center justify-content-center"
+                        >
+                          <i class="fa fa-chevron-left"></i>
+                        </div>
+                        <div class="head-info">
+                          <div class="head-day"></div>
+                          <div class="head-month"></div>
+                        </div>
+                        <div
+                          class="next-button d-flex align-items-center justify-content-center"
+                        >
+                          <i class="fa fa-chevron-right"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="calendar-wrap">
+                      <table id="calendar">
+                        <thead>
+                          <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="time-child">
+                  <div class="time time-1">
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-01"
+                      name="btn1"
+                      value="08:00 AM"
+                    />
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-02"
+                      name="btn1"
+                      value="09:00 AM"
+                    />
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-03"
+                      name="btn1"
+                      value="10:00 AM"
+                    />
+                  </div>
+                  <div class="time time-2">
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-04"
+                      name="btn1"
+                      value="11:00 AM"
+                    />
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-05"
+                      name="btn1"
+                      value="12:00 PM"
+                    />
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-06"
+                      name="btn1"
+                      value="01:00 PM"
+                    />
+                  </div>
+                  <div class="time time-3">
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-07"
+                      name="btn1"
+                      value="02:00 PM"
+                    />
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-08"
+                      name="btn1"
+                      value="03:00 PM"
+                    />
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-09"
+                      name="btn1"
+                      value="04:00 PM"
+                    />
+                  </div>
+                  <div class="time time-4">
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-010"
+                      name="btn1"
+                      value="05:00 PM"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="btn-box">
+                <button
+                  type="submit"
+                  class="btn-next-back fw-semibold prev-step"
+                  value="back"
+                >
+                  Back
+                </button>
+                <button
+                  type="submit"
+                  class="btn-next-back fw-semibold next-step"
+                  value="next"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+            <div class="step step-3"></div>
           </form>
         </section>
       </main>
     </div>
+
+    <script src="/calendar-02/calendar-02/js/jquery.min.js"></script>
+    <script src="/calendar-02/calendar-02/js/bootstrap.min.js"></script>
+    <script src="/calendar-02/calendar-02/js/popper.js"></script>
+    <script src="/calendar-02/calendar-02/js/main.js"></script>
+    <script src="dist/js/bootstrap.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+    <script>
+      var currentStep = 1;
+      var updateProgressBar;
+
+      function displayStep(stepNumber) {
+        if (stepNumber >= 1 && stepNumber <= 3) {
+          $(".step-" + currentStep).hide();
+          $(".step-" + stepNumber).show();
+          currentStep = stepNumber;
+          updateProgressBar();
+        }
+      }
+
+      $(document).ready(function () {
+        $("#multi-step-form").find(".step").slice(1).hide();
+
+        $(".next-step").click(function () {
+          if (currentStep < 3) {
+            $(".step-" + currentStep).addClass(
+              "animate__animated animate__fadeOutLeft"
+            );
+            currentStep++;
+            setTimeout(function () {
+              $(".step")
+                .removeClass("animate__animated animate__fadeOutLeft")
+                .hide();
+              $(".step-" + currentStep)
+                .show()
+                .addClass("animate__animated animate__fadeInRight");
+              updateProgressBar();
+            }, 500);
+          }
+        });
+
+        $(".prev-step").click(function () {
+          if (currentStep > 1) {
+            $(".step-" + currentStep).addClass(
+              "animate__animated animate__fadeOutRight"
+            );
+            currentStep--;
+            setTimeout(function () {
+              $(".step")
+                .removeClass("animate__animated animate__fadeOutRight")
+                .hide();
+              $(".step-" + currentStep)
+                .show()
+                .addClass("animate__animated animate__fadeInLeft");
+              updateProgressBar();
+            }, 500);
+          }
+        });
+
+        updateProgressBar = function () {
+          var progressPercentage = ((currentStep - 1) / 2) * 100;
+          $(".progress-bar").css("width", progressPercentage + "%");
+        };
+      });
+    </script>
   </body>
 </html>

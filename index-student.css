@@ -1,18 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+/* ROOT */
 * {
   font-family: "Poppins", sans-serif;
+  /* outline: 1px solid red; */
 }
 
+/* section {
+  outline: 1px solid red;
+} */
+
+/* CLASS */
 .body {
   background-color: #faf8f1;
   color: #116530;
-}
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
 }
 
 .head {
@@ -23,12 +24,11 @@ input[type="number"]::-webkit-outer-spin-button {
   justify-self: center;
 }
 
+.logo {
+  margin: 0 auto;
+}
 .welcome-remarks {
   grid-column: 1;
-}
-
-span {
-  font-weight: 400;
 }
 
 .welcome {
@@ -51,33 +51,8 @@ span {
   margin-bottom: 5%;
 }
 
-.logo {
-  margin: 0 auto;
-}
-
 .form-details {
-  margin-bottom: 100px;
-}
-
-.step-container {
-  position: relative;
-  text-align: center;
-  transform: translateY(-43%);
-}
-
-.step-circle {
-  width: 40px;
-  height: 40px;
-
-  border: 2px solid #0b4619;
-  background-color: #faf8f1;
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-  cursor: pointer; /* Added cursor pointer */
+  margin-bottom: 3%;
 }
 
 .form-parent {
@@ -85,7 +60,23 @@ span {
   grid-auto-flow: column;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
-  gap: 40px;
+  gap: 5%;
+}
+.elegant-calencar {
+  display: flex;
+}
+
+.form-parent-calendar {
+  overflow-y: auto;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1.5fr 1fr;
+  grid-template-rows: auto;
+  gap: 10px;
+}
+
+.calendar-child {
+  display: block;
 }
 
 .description-child {
@@ -156,8 +147,65 @@ span {
   overflow: auto;
 }
 
+.time-child {
+  margin-top: 10%;
+  display: grid;
+  justify-content: center;
+  grid-template-rows: 2em 2em 2em 2em;
+  row-gap: 1.5em;
+}
+
+.time-1 {
+  grid-row: 1;
+}
+
+.time-2 {
+  grid-row: 2;
+}
+
+.time-3 {
+  grid-row: 3;
+}
+
+.time-4 {
+  grid-row: 4;
+}
+
+.time {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: 125px 125px 125px;   
+  grid-template-rows: 2.5em;
+}
+
+.step-container {
+  position: relative;
+  text-align: center;
+  transform: translateY(-43%);
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+
+  border: 2px solid #0b4619;
+  background-color: #faf8f1;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  cursor: pointer; /* Added cursor pointer */
+}
+
 .btn-box {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
   margin-top: 8%;
+  margin-bottom: 3%;
 }
 
 .btn-parent {
@@ -166,16 +214,17 @@ span {
   align-items: center;
 }
 
-.btn-next {
+.btn-time {
   appearance: none;
-  background-color: #0b4619;
+  background-color: #faf8f1;
   border: 0.125em solid #0b4619;
   border-radius: 2em;
-  color: #f5fe06;
+  color: #0b4619;
   cursor: pointer;
   font-weight: 400;
   font-size: normal;
-  padding: 0.25em 1em;
+  padding-block: 0.5em;
+  width: 7em;
   text-align: center;
   text-decoration: none;
   transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
@@ -185,12 +234,40 @@ span {
   will-change: transform;
 }
 
-.btn-next:hover {
+.btn-time:hover {
+  transform: translateY(-2px);
+}
+
+.btn-time:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.btn-next-back {
+  appearance: none;
+  background-color: #0b4619;
+  border: 0.125em solid #0b4619;
+  border-radius: 2em;
+  color: #f5fe06;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: normal;
+  padding: 0.5em 1.5em;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  will-change: transform;
+}
+
+.btn-next-back:hover {
   box-shadow: #8a795d88 0 8px 15px;
   transform: translateY(-2px);
 }
 
-.btn-next:active {
+.btn-next-back:active {
   box-shadow: none;
   transform: translateY(0);
 }
@@ -203,9 +280,34 @@ select.form-control:focus {
   color: #116530;
 }
 
+/* ID */
+#multi-step-form {
+  overflow-x: hidden;
+}
+
+/* ELEMENT SELECTOR */
+span {
+  font-weight: 400;
+}
+
+/* PSUEDO ELEMENT SELECTOR */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 @media screen and (max-width: 992px) {
   .form-parent {
     display: block;
+  }
+
+  .form-parent-calendar {
+    display: block;
+  }
+
+  .form-parent-calendar > * {
+    margin-bottom: 10px;
   }
 
   .personal-child {
@@ -216,4 +318,29 @@ select.form-control:focus {
     resize: vertical;
   }
 
+  .calendar-child {
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .elegant-calencar {
+    display: block;
+  }
+}
+
+/* TODO: need to fix this, transform the elements to fit the screen */
+@media screen and (max-width: 570px) {
+  .time-child {
+  }
+}
+
+@media screen and (min-width: 993px) and (max-width: 1199px) {
+  .elegant-calencar {
+    display: block;
+  }
+
+  .wrap-header {
+    width: 100%;
+  }
 }
