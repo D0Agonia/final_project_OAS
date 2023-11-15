@@ -1,8 +1,6 @@
 -- View queries to check when installing/debugging the database
 USE OnlineAppointment;
 
-SELECT *FROM StudentCourse;
-SELECT *FROM StudentYear;
 SELECT *FROM AppointmentDocument;
 SELECT *FROM AppointmentType;
 SELECT *FROM AuthenticationID;
@@ -39,5 +37,3 @@ DROP TABLE UserCredentials;
 DROP TABLE AuthenticationID;
 DROP TABLE AppointmentType;
 DROP TABLE AppointmentDocument;
-DROP TABLE StudentYear;
-DROP TABLE StudentCourse;

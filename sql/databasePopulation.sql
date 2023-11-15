@@ -1,15 +1,3 @@
-INSERT INTO StudentCourse(course_id, course_name) VALUES
-    ('BSIS', 'Bachelor Science in Information Systems'),
-    ('PSY', 'Bachelor Science in Psychology')
-;
-
-INSERT INTO StudentYear(year_name, year_number) VALUES
-    ('Freshman', 1),
-    ('Sophomore', 2),
-    ('Junior', 3),
-    ('Senior', 4)
-;
-
 INSERT INTO AppointmentDocument(doc_abbreviation, doc_name) VALUES
     ('NONE', 'No Document Requested'),
     ('TRR', 'Transcript of Records'),
@@ -38,7 +26,7 @@ INSERT INTO TypeDocRelationship(type_id, doc_abbreviation) VALUES
 ;
 
 INSERT INTO UserDetails(kld_id, course_id, year_name, firstname, middlename, surname, email, phone_number) VALUES
-    ('KLD-22-000247', 'BSIS', 'Sophomore', 'Kenji', '', 'Gabunada', 'gabunada.kenji.kld@gmail.com', '+639474309402')
+    ('KLD-22-000247', 'Kenji', '', 'Gabunada', 'gabunada.kenji.kld@gmail.com')
 ;
 
 INSERT INTO AppointmentList(user_id, auth_abbreviation, appointment_date, appointment_location, typeDoc_relationship_id, comment) VALUES
