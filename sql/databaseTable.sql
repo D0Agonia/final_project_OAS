@@ -2,16 +2,6 @@ CREATE DATABASE OnlineAppointment;
 
 USE OnlineAppointment;
 
-CREATE TABLE StudentCourse(
-    course_id VARCHAR(4) PRIMARY KEY NOT NULL,
-    course_name VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE StudentYear(
-    year_name VARCHAR(16) PRIMARY KEY NOT NULL,
-    year_number INT NOT NULL
-);
-
 CREATE TABLE AppointmentDocument(
     doc_abbreviation VARCHAR(16) PRIMARY KEY NOT NULL,
     doc_name VARCHAR(64) NOT NULL
@@ -46,16 +36,11 @@ CREATE TABLE TypeDocRelationship(
 CREATE TABLE UserDetails(
     user_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     kld_id VARCHAR(13),
-    course_id VARCHAR(4),
-    year_name VARCHAR(16),
     firstname VARCHAR(32) NOT NULL,
     middlename VARCHAR(32),
     surname VARCHAR(32) NOT NULL,
     email VARCHAR(128) NOT NULL,
-    phone_number VARCHAR(13) NOT NULL,
-    FOREIGN KEY(kld_id) REFERENCES UserCredentials(kld_id),
-    FOREIGN KEY(course_id) REFERENCES StudentCourse(course_id),
-    FOREIGN KEY(year_name) REFERENCES StudentYear(year_name)
+    FOREIGN KEY(kld_id) REFERENCES UserCredentials(kld_id)
 );
 
 CREATE TABLE AppointmentList(
