@@ -9,7 +9,7 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <link rel="stylesheet" href="index-student.css" />
+    <link rel="stylesheet" href="index-student-guest.css" />
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="dist/css/bootstrap.css" />
     <title>KLD - OAS | Student Appointment</title>
@@ -169,7 +169,7 @@
               <!-- STEP 2 OF FORM -->
               <p class="description-child fs-5">Select Date and Time</p>
               <hr />
-              <div class="form-parent-calendar ">
+              <div class="form-parent-calendar">
                 <div class="calendar-child">
                   <div class="elegant-calencar">
                     <div class="wrap-header d-flex align-items-center">
@@ -347,7 +347,7 @@
               </div>
               <div class="btn-box">
                 <button
-                  type="submit"
+                  type="button"
                   class="btn-next-back fw-semibold prev-step"
                   value="back"
                 >
@@ -362,7 +362,79 @@
                 </button>
               </div>
             </div>
-            <div class="step step-3"></div>
+            <div class="step step-3">
+              <!-- STEP 3 OF FORM -->
+              <p class="description-child fs-5">Appointment Summary</p>
+              <hr />
+              <div class="form-parent-summary">
+                <div class="personal-box box table-responsive">
+                  <table class="personal-details details">
+                    <tr>
+                      <th colspan="2">PERSONAL INFORMATION</th>
+                    </tr>
+                    <tr>
+                      <td class="info-identifier">Email Address</td>
+                      <td class="user-details">jbuscsgan@gmail.com</td>
+                    </tr>
+                    <tr>
+                      <td class="info-identifier">Full Name</td>
+                      <td class="user-details">Josephine A. Madrigal</td>
+                    </tr>
+                    <tr>
+                      <td class="info-identifier">Contact Number</td>
+                      <td class="user-details">09305771234</td>
+                    </tr>
+                    <tr>
+                      <td class="info-identifier">Type of ID</td>
+                      <td class="user-details">SSS</td>
+                    </tr>
+                    <tr>
+                      <td class="info-identifier">Identification No.</td>
+                      <td class="user-details">Optional</td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="appointment-box box table-responsive">
+                  <table class="appointment-details details">
+                    <tr>
+                      <th colspan="2">APPOINTMENT INFORMATION</th>
+                    </tr>
+                    <tr>
+                      <td class="info-identifier">Building</td>
+                      <td class="user-details">KLD Building No.1</td>
+                    </tr>
+                    <tr>
+                      <td class="info-identifier">Document Requested</td>
+                      <td class="user-details">
+                        Official Transcript of Record (TOR)
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="info-identifier">Control Number</td>
+                      <td class="user-details">
+                        0933567412389
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              <div class="btn-box">
+                <button
+                  type="button"
+                  class="btn-next-back fw-semibold prev-step"
+                  value="back"
+                >
+                  Back
+                </button>
+                <button
+                  type="submit"
+                  class="btn-next-back fw-semibold"
+                  value="next"
+                >
+                  Confirm Appointment
+                </button>
+              </div>
+            </div>
           </form>
         </section>
       </main>
