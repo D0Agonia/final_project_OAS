@@ -1,3 +1,8 @@
+<?php
+$directory_path = __DIR__;
+include __DIR__ . '/php/forgot_pass_form.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -39,7 +44,10 @@
             class="img-fluid login-icon"
             style="width: 200px; height: 200px"
           />
-          <form action="" class="form">
+          <form method="post" class="form">
+            <?php if($show_error == true){
+              echo '<p class="text-center fw-bold text-danger">' . $error_display . '</p>';
+            }?>
             <div class="form-floating txtFP-email">
               <input
                 type="email"
@@ -51,12 +59,13 @@
               <label for="email" class="form-label">Email Address</label>
             </div>
             <div class="btn-submit-box d-flex justify-content-center">
-              <a
-                href="forgot_pass-msg.html"
+              <input
                 type="submit"
                 class="btn-submit fw-semibold"
-                >Proceed</a
-              >
+                id="submit"
+                value="Proceed"
+                name="submit_button"
+              />
             </div>
           </form>
         </div>

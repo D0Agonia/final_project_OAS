@@ -1,3 +1,7 @@
+<?php
+include __DIR__ . '/php/login_guest_form.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -37,7 +41,13 @@
             class="img-fluid login-icon"
             style="width: 200px; height: 200px"
           />
-          <form action="" class="form">
+          <form method="post" class="form">
+            <?php 
+            if($_SESSION['showError'] == true){
+              echo '<p class="text-center fw-bold text-danger">' . $error_display . '</p>';}
+            elseif($_SESSION['showSuccess'] == true){
+              echo '<p class="text-center fw-bold text-success">' . $success_display . '</p>';}
+            ?>
             <div class="form-floating txtGuest-email">
               <input
                 type="email"
@@ -56,15 +66,22 @@
                 placeholder="Enter your otp"
                 name="otp"
               />
-              <button class="btn-send" type="submit" id="button-addon2">Send</button>
+              <input
+                type="submit" 
+                class="btn-send" 
+                id="button-addon2"
+                value="Send"
+                name="otp_send"
+              />
             </div>
             <div class="btn-submit-box d-flex justify-content-center">
-              <a
-                href="index-student-guest.html"
+              <input
                 type="submit"
                 class="btn-submit fw-semibold"
-                >Proceed</a
-              >
+                id="submit"
+                value="Proceed"
+                name="submit_button"
+              />
             </div>
           </form>
         </div>

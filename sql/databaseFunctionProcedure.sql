@@ -45,6 +45,7 @@ END;
 
 CREATE FUNCTION insertGuest()
 RETURNS VARCHAR(6)
+READS SQL DATA
 BEGIN
     DECLARE otp VARCHAR(6);
 
@@ -53,9 +54,76 @@ BEGIN
     UNTIL NOT EXISTS(SELECT otp_code FROM GuestCredentials WHERE otp_code = otp)
     END REPEAT;
 
-    INSERT INTO GuestCredentials(otp_code) VALUES(otp);
+    INSERT INTO GuestCredentials(otp_code, otp_expiration) VALUES(
+        otp, NOW() + INTERVAL 1 HOUR
+    );
 
     RETURN otp;
+END;
+
+CREATE FUNCTION requestPasswordChange(
+    input_email VARCHAR(128)
+)
+RETURNS VARCHAR(32)
+READS SQL DATA
+BEGIN
+    DECLARE result VARCHAR(32);
+    DECLARE user_kldID VARCHAR(13);
+
+    SELECT kld_id INTO user_kldID
+    FROM UserDetails WHERE email = input_email;
+
+    IF user_kldID IS NOT NULL AND NOT EXISTS(SELECT * FROM ChangePasswordRequest WHERE kld_id = user_kldID) THEN
+        CALL CreateChangePasswordCode(user_kldID);
+        SELECT changePassword_code INTO result
+        FROM ChangePasswordRequest WHERE kld_id = user_kldID;
+    ELSEIF user_kldID IS NOT NULL AND EXISTS(SELECT * FROM ChangePasswordRequest WHERE kld_id = user_kldID) THEN
+        SELECT changePassword_code INTO result
+        FROM ChangePasswordRequest WHERE kld_id = user_kldID;
+    ELSE
+        SET result = '1';
+    END IF;
+
+    RETURN result;
+END;
+
+CREATE FUNCTION verifyChangePasswordCode(
+    input_code VARCHAR(32)
+) RETURNS BOOLEAN
+READS SQL DATA
+BEGIN
+    IF EXISTS(SELECT * FROM ChangePasswordRequest WHERE changePassword_code = input_code) THEN
+        RETURN true;
+    ELSE
+        RETURN false;
+    END IF;
+END;
+
+CREATE FUNCTION verifyGuestLogin(
+    input_otp VARCHAR(6)
+) RETURNS VARCHAR(32)
+READS SQL DATA
+BEGIN
+    DECLARE result VARCHAR(32);
+    DECLARE guest_guestId BIGINT;
+
+    SELECT guest_id INTO guest_guestId
+    FROM GuestCredentials WHERE otp_code = input_otp;
+
+    IF guest_guestId IS NOT NULL THEN
+        CALL CreateGuestSessionToken(guest_guestId);
+
+        UPDATE GuestCredentials 
+        SET otp_code = NULL, otp_expiration = NULL
+        WHERE otp_code = input_otp;
+
+        SELECT session_token INTO result 
+        FROM LoginTokens WHERE guest_id = guest_guestId;
+    ELSE
+        SET result = '1';
+    END IF;
+
+    RETURN result;
 END;
 
 -- Output >>> [Token]: Success; 1: No User; 2: Wrong Password
@@ -159,6 +227,35 @@ END;
 
 
 
+CREATE PROCEDURE ChangeCredentials(
+    IN input_code VARCHAR(32),
+    IN input_password VARCHAR(32)
+)
+BEGIN
+    DECLARE user_kldID VARCHAR(13);
+    DECLARE input_salt VARCHAR(32);
+    DECLARE input_hashPassword BINARY(32);
+
+    IF verifyChangePasswordCode(input_code) = true THEN
+        SELECT kld_id INTO user_kldID
+        FROM ChangePasswordRequest WHERE changePassword_code = input_code;
+    
+        REPEAT
+            SET input_salt = MD5(CONCAT(RAND(), NOW()));
+        UNTIL NOT EXISTS (SELECT salt_password FROM UserCredentials WHERE salt_password = input_salt)
+        END REPEAT;
+
+        SET input_hashPassword = UNHEX(SHA2(CONCAT(input_password, input_salt), 256));
+
+        UPDATE UserCredentials
+        SET hash_password = input_hashPassword, salt_password = input_salt
+        WHERE kld_id = user_kldID;
+
+        DELETE FROM ChangePasswordRequest
+        WHERE changePassword_code = input_code;
+    END IF;
+END;
+
 CREATE PROCEDURE CreateChangePasswordCode(
     IN input_kldID VARCHAR(13)
 )
@@ -170,8 +267,8 @@ BEGIN
     UNTIL NOT EXISTS(SELECT changePassword_code FROM ChangePasswordRequest WHERE changePassword_code = code)
     END REPEAT;
 
-    INSERT INTO ChangePasswordRequest(kld_id, changePassword_code) VALUES(
-        input_kldID, code
+    INSERT INTO ChangePasswordRequest(changePassword_code, changePassword_expiration, kld_id) VALUES(
+        code, NOW() + INTERVAL 1 HOUR, input_kldID
     );
 END;
 

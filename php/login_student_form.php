@@ -2,7 +2,7 @@
 require_once 'db_connect.php';
 require_once 'functions.php';
 
-// Checks if user has already logged in. Will redirect to index-student.html if so
+// Checks if user has already logged in. Will redirect to index-student-guest.html if so
 tokenRedirect('Location: index-student-guest.html', '');
 
 // Since if statement only executes when submit button is pressed, initial state is false
@@ -31,7 +31,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_button"])){
         }
         // "Invalid characters on Password" Error
         elseif(filterPassword($password) == false){
-            $loginResult = '3'; $error_display = 'ERROR: Invalid Password Characters';
+            $loginResult = '3'; $error_display = 'ERROR: Invalid Password Format<br>(8 to 32 Characters, Alphanumeric + Special Characters)';
         }
         // Case [ACCEPT]: Inputs satisfied
         elseif(filterID($student_id) == true && filterPassword($password) == true){

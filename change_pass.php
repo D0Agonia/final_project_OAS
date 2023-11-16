@@ -1,3 +1,7 @@
+<?php
+include __DIR__ . '/php/change_pass_form.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -39,7 +43,10 @@
             class="img-fluid login-icon"
             style="width: 200px; height: 200px"
           />
-          <form action="" class="form">
+          <form method="post" class="form">
+            <?php if($show_error == true){
+              echo '<p class="text-center fw-bold text-danger">' . $error_display . '</p>';
+            }?>
             <div class="form-floating new-password">
               <input
                 type="password"
@@ -63,14 +70,14 @@
               >
             </div>
             <div class="btn-submit-box d-flex justify-content-center">
-              <a
-                href="/login_student.html"
+              <input
                 type="submit"
                 class="btn-submit fw-semibold"
-              >
-                Confirm
-              </a>
-            </div> 
+                id="submit"
+                value="Confirm"
+                name="submit_button"
+              />
+            </div>
           </form>
         </div>
       </div>

@@ -16,7 +16,8 @@ SELECT * FROM AppointmentList;
 SELECT *FROM mysql.user;
 SELECT *FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_SCHEMA = 'OnlineAppointment';
 SHOW EVENTS;
-SELECT HEX(RANDOM_BYTES(16)) AS STATUS;
+SELECT MD5(CONCAT(RAND(), NOW()));
+SELECT SUBSTRING(MD5(CONCAT(RAND(), NOW())), 1, 6) AS hashed_value;
 
 /* Drop/Revoke queries for testing
  * REMINDER: Re-execute guest EXECUTE privileges if deleting functions
@@ -27,11 +28,15 @@ DROP USER guest;
 DROP FUNCTION IF EXISTS insertCredentials;
 DROP FUNCTION IF EXISTS insertDetails;
 DROP FUNCTION IF EXISTS insertGuest;
-DROP FUNCTION IF EXISTS verifyLogin;
+DROP FUNCTION IF EXISTS requestPasswordChange;
+DROP FUNCTION IF EXISTS verifyChangePasswordCode;
+DROP FUNCTION IF EXISTS verifyGuestLogin;
+DROP FUNCTION IF EXISTS verifyUserLogin;
 DROP FUNCTION IF EXISTS verifyToken;
 DROP FUNCTION IF EXISTS searchKLDID;
 DROP FUNCTION IF EXISTS searchUserId;
 DROP FUNCTION IF EXISTS searchToken;
+DROP PROCEDURE IF EXISTS ChangeCredentials;
 DROP PROCEDURE IF EXISTS CreateChangePasswordCode;
 DROP PROCEDURE IF EXISTS CreateGuestSessionToken;
 DROP PROCEDURE IF EXISTS CreateUserSessionToken;

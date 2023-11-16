@@ -21,8 +21,8 @@ function filterEmail($input){
 }
 
 function filterOTP($input){
-    // 60-Character Alphanumeric regex filter
-    $filter = '/^[a-zA-Z0-9]{6}$/';
+    // 6-Character lowercase numeric regex filter
+    $filter = '/^[a-z0-9]{6}$/';
 
     // Simple if-else check. Returns "true" if correct, "false" if wrong
     if(preg_match($filter, $input)){
@@ -48,7 +48,7 @@ function filterID($input){
 
 function filterPassword($input){
     // Filter that only allows alphanumeric characters and some special characters
-    $filter = '/^[a-zA-Z0-9\!@#$%^&]+$/';
+    $filter = '/^[a-zA-Z0-9\!@#$%^&]{8,32}+$/';
 
     // Simple if-else check. Returns "true" if correct, "false" if wrong
     if(preg_match($filter, $input)){
