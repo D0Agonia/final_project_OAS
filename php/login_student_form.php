@@ -3,7 +3,7 @@ require_once 'db_connect.php';
 require_once 'functions.php';
 
 // Checks if user has already logged in. Will redirect to index-student.html if so
-tokenRedirect('Location: index-student.html', '');
+tokenRedirect('Location: index-student-guest.html', '');
 
 // Since if statement only executes when submit button is pressed, initial state is false
 $show_error = false;
@@ -36,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_button"])){
         // Case [ACCEPT]: Inputs satisfied
         elseif(filterID($student_id) == true && filterPassword($password) == true){
             // Verifies id and password through an SQL Function
-            $sql = "SELECT verifyLogin('$student_id', '$password') AS STATUS";
+            $sql = "SELECT verifyUserLogin('$student_id', '$password') AS STATUS";
             $queryResult = $conn->query($sql); $row = $queryResult->fetch_assoc();
             $loginResult = $row['STATUS'];
         }
@@ -54,7 +54,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_button"])){
         elseif(strlen($loginResult) == 32){
             $show_error = false;
             setcookie("session_token", $loginResult, time() + 86400, "/");
-            header("Location: index-student.html");
+            header("Location: index-student-guest.html");
             exit();
         }
     }

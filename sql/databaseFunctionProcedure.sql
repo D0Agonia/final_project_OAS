@@ -12,12 +12,12 @@ BEGIN
     IF searchKLDID(input_kldID) = false THEN
         REPEAT
             SET input_salt = MD5(CONCAT(RAND(), NOW()));
-        UNTIL NOT EXISTS (SELECT salt FROM UserCredentials WHERE salt = input_salt)
+        UNTIL NOT EXISTS (SELECT salt_password FROM UserCredentials WHERE salt_password = input_salt)
         END REPEAT;
 
         SET input_hashPassword = UNHEX(SHA2(CONCAT(input_password, input_salt), 256));
         
-        INSERT INTO UserCredentials(kld_id, hash_password, salt) VALUES(
+        INSERT INTO UserCredentials(kld_id, hash_password, salt_password) VALUES(
             input_kldID, input_hashPassword, input_salt
         );
 
@@ -43,8 +43,23 @@ BEGIN
     END IF;
 END;
 
+CREATE FUNCTION insertGuest()
+RETURNS VARCHAR(6)
+BEGIN
+    DECLARE otp VARCHAR(6);
+
+    REPEAT
+        SET otp := MD5(CONCAT(RAND(), NOW()));
+    UNTIL NOT EXISTS(SELECT otp_code FROM GuestCredentials WHERE otp_code = otp)
+    END REPEAT;
+
+    INSERT INTO GuestCredentials(otp_code) VALUES(otp);
+
+    RETURN otp;
+END;
+
 -- Output >>> [Token]: Success; 1: No User; 2: Wrong Password
-CREATE FUNCTION verifyLogin(
+CREATE FUNCTION verifyUserLogin(
     input_kldID VARCHAR(13),
     input_password VARCHAR(32)
 ) RETURNS VARCHAR(32)
@@ -54,14 +69,14 @@ BEGIN
     DECLARE user_password BINARY(32);
     DECLARE user_salt VARCHAR(32);
 
-    SELECT hash_password, salt 
+    SELECT hash_password, salt_password 
     INTO user_password, user_salt 
     FROM UserCredentials WHERE kld_id = input_kldID;
 
     IF SHA2(CONCAT(input_password, user_salt), 256) = HEX(user_password) THEN
-        CALL CreateSessionToken(input_kldID);
+        CALL CreateUserSessionToken(input_kldID);
         SELECT session_token INTO result 
-        FROM UserCredentials WHERE kld_id = input_kldID;
+        FROM LoginTokens WHERE kld_id = input_kldID;
     ELSEIF searchKLDID(input_kldID) = false THEN
         SET result = '1';
     ELSE
@@ -79,7 +94,7 @@ BEGIN
     DECLARE user_tokenExpiration DATETIME;
 
     SELECT token_expiration INTO user_tokenExpiration
-    FROM UserCredentials WHERE session_token = input_token;
+    FROM LoginTokens WHERE session_token = input_token;
 
     IF user_tokenExpiration <= NOW() THEN
         CALL DestroySessionToken(input_token);
@@ -133,7 +148,7 @@ BEGIN
     DECLARE user_token VARCHAR(32);
 
     SELECT session_token INTO user_token
-    FROM UserCredentials WHERE session_token = input_token;
+    FROM LoginTokens WHERE session_token = input_token;
 
     IF user_token IS NOT NULL THEN
         RETURN true;
@@ -144,7 +159,39 @@ END;
 
 
 
-CREATE PROCEDURE CreateSessionToken(
+CREATE PROCEDURE CreateChangePasswordCode(
+    IN input_kldID VARCHAR(13)
+)
+BEGIN
+    DECLARE code VARCHAR(32);
+
+    REPEAT
+        SET code := MD5(CONCAT(RAND(), NOW()));
+    UNTIL NOT EXISTS(SELECT changePassword_code FROM ChangePasswordRequest WHERE changePassword_code = code)
+    END REPEAT;
+
+    INSERT INTO ChangePasswordRequest(kld_id, changePassword_code) VALUES(
+        input_kldID, code
+    );
+END;
+
+CREATE PROCEDURE CreateGuestSessionToken(
+    IN input_guest BIGINT
+)
+BEGIN
+    DECLARE token VARCHAR(32);
+    
+    REPEAT
+        SET token := MD5(CONCAT(RAND(), NOW()));
+    UNTIL NOT EXISTS(SELECT session_token FROM LoginTokens WHERE session_token = token)
+    END REPEAT;
+
+    INSERT INTO LoginTokens(session_token, token_expiration, guest_id) VALUES(
+        token, NOW() + INTERVAL 1 DAY, input_guest
+    );
+END;
+
+CREATE PROCEDURE CreateUserSessionToken(
     IN input_kldID VARCHAR(13)
 )
 BEGIN
@@ -152,19 +199,26 @@ BEGIN
     
     REPEAT
         SET token := MD5(CONCAT(RAND(), NOW()));
-    UNTIL NOT EXISTS(SELECT session_token FROM UserCredentials WHERE session_token = token)
+    UNTIL NOT EXISTS(SELECT session_token FROM LoginTokens WHERE session_token = token)
     END REPEAT;
 
-    UPDATE UserCredentials
-    SET session_token = token, token_expiration = NOW() + INTERVAL 1 DAY
-    WHERE kld_id = input_kldID;
+    INSERT INTO LoginTokens(session_token, token_expiration, kld_id) VALUES(
+        token, NOW() + INTERVAL 1 DAY, input_kldID
+    );
+END;
+
+CREATE PROCEDURE DestroyChangePasswordCode(
+    IN input_code VARCHAR(32)
+)
+BEGIN
+    DELETE FROM ChangePasswordRequest
+    WHERE changePassword_code = input_code;
 END;
 
 CREATE PROCEDURE DestroySessionToken(
     IN input_token VARCHAR(32)
 )
 BEGIN
-    UPDATE UserCredentials
-    SET session_token = NULL, token_expiration = NULL
+    DELETE FROM LoginTokens
     WHERE session_token = input_token;
 END;

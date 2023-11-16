@@ -19,10 +19,13 @@ CREATE TABLE AuthenticationID(
 
 CREATE TABLE UserCredentials(
     kld_id VARCHAR(13) PRIMARY KEY NOT NULL,
-    session_token VARCHAR(32),
-    token_expiration DATETIME,
     hash_password BINARY(32) NOT NULL,
-    salt VARCHAR(32) NOT NULL
+    salt_password VARCHAR(32) NOT NULL
+);
+
+CREATE TABLE GuestCredentials(
+    guest_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    otp_code VARCHAR(6) NOT NULL
 );
 
 CREATE TABLE TypeDocRelationship(
@@ -33,21 +36,39 @@ CREATE TABLE TypeDocRelationship(
     FOREIGN KEY(doc_abbreviation) REFERENCES AppointmentDocument(doc_abbreviation)
 );
 
+CREATE TABLE ChangePasswordRequest(
+    changePassword_code VARCHAR(32) PRIMARY KEY NOT NULL,
+    kld_id VARCHAR(13) NOT NULL,
+    FOREIGN KEY(kld_id) REFERENCES UserCredentials(kld_id)
+);
+
+CREATE TABLE LoginTokens(
+    session_token VARCHAR(32) PRIMARY KEY NOT NULL,
+    token_expiration DATETIME NOT NULL,
+    kld_id VARCHAR(13),
+    guest_id BIGINT,
+    FOREIGN KEY(kld_id) REFERENCES UserCredentials(kld_id),
+    FOREIGN KEY(guest_id) REFERENCES GuestCredentials(guest_id)
+);
+
 CREATE TABLE UserDetails(
     user_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     kld_id VARCHAR(13),
+    guest_id BIGINT,
     firstname VARCHAR(32) NOT NULL,
     middlename VARCHAR(32),
     surname VARCHAR(32) NOT NULL,
     email VARCHAR(128) NOT NULL,
-    FOREIGN KEY(kld_id) REFERENCES UserCredentials(kld_id)
+    phone_number VARCHAR(13),
+    FOREIGN KEY(kld_id) REFERENCES UserCredentials(kld_id),
+    FOREIGN KEY(guest_id) REFERENCES GuestCredentials(guest_id)
 );
 
 CREATE TABLE AppointmentList(
-    appointment_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    control_number BIGINT PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT,
     auth_abbreviation VARCHAR(3),
-    appointment_date DATETIME NOT NULL,
+    appointment_datetime DATETIME NOT NULL,
     appointment_location VARCHAR(64) NOT NULL,
     typeDoc_relationship_id BIGINT,
     comment TEXT,

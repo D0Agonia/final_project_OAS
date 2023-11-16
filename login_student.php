@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/php/login_form.php';
+include __DIR__ . '/php/login_student_form.php';
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +41,9 @@ include __DIR__ . '/php/login_form.php';
             style="width: 200px; height: 200px"
           />
           <form method="post" class="form">
+            <?php if($show_error == true){
+              echo '<p class="text-center fw-bold text-danger">' . $error_display . '</p>';
+            }?>
             <div class="form-floating txtStudent-id">
               <input
                 type="text"
@@ -74,9 +77,6 @@ include __DIR__ . '/php/login_form.php';
               />
             </div>
           </form>
-          <?php if($show_error == true){
-            echo '<p class="text-center fw-bold text-danger">' . $error_display . '</p>';
-          }?>
         </div>
       </div>
     </div>

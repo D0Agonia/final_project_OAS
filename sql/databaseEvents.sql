@@ -2,7 +2,6 @@ CREATE EVENT refreshTokens
 ON SCHEDULE EVERY 1 DAY
 DO
 BEGIN
-    UPDATE UserCredentials
-    SET session_token = NULL, token_expiration = NULL
+    DELETE FROM LoginTokens
     WHERE token_expiration <= NOW();
 END;

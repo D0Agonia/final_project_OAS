@@ -7,9 +7,35 @@ function deleteCookie($cookieName){
     unset($_COOKIE[$cookieName]);
 }
 
+function filterEmail($input){
+    // Email regex filter
+    $filter = '/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]{2,6}$/';
+
+    // Simple if-else check. Returns "true" if correct, "false" if wrong
+    if(preg_match($filter, $input)){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function filterOTP($input){
+    // 60-Character Alphanumeric regex filter
+    $filter = '/^[a-zA-Z0-9]{6}$/';
+
+    // Simple if-else check. Returns "true" if correct, "false" if wrong
+    if(preg_match($filter, $input)){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 function filterID($input){
-    // Filter that only allows numbers and specific characters like K, L, D and hyphens (-)
-    $filter = '/^[0-9KLD\-]+$/';
+    // 'KLD-xx-xxxxxx' regex filter, with x being a number
+    $filter = '/^KLD-[0-9]{2}-[0-9]{6}$/';
 
     // Simple if-else check. Returns "true" if correct, "false" if wrong
     if(preg_match($filter, $input)){

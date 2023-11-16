@@ -1,6 +1,6 @@
 INSERT INTO AppointmentDocument(doc_abbreviation, doc_name) VALUES
     ('NONE', 'No Document Requested'),
-    ('TRR', 'Transcript of Records'),
+    ('TOR', 'Official Transcript of Records'),
     ('TRC', 'Transfer Credentials'),
     ('COG', 'Certificate of Grades'),
     ('COE', 'Certificate of Enrollment')
@@ -19,14 +19,14 @@ INSERT INTO AuthenticationID(auth_abbreviation, auth_name) VALUES
 
 INSERT INTO TypeDocRelationship(type_id, doc_abbreviation) VALUES
     ('INFOCEN', 'NONE'),
-    ('DOCREQ', 'TRR'),
+    ('DOCREQ', 'TOR'),
     ('DOCREQ', 'TRC'),
     ('DOCREQ', 'COG'),
     ('DOCREQ', 'COE')
 ;
 
 INSERT INTO UserDetails(kld_id, course_id, year_name, firstname, middlename, surname, email, phone_number) VALUES
-    ('KLD-22-000247', 'Kenji', '', 'Gabunada', 'gabunada.kenji.kld@gmail.com')
+    ('KLD-22-000247', 'Kenji', '', 'Gabunada', 'gabunada.kenji.kld@gmail.com', '+639474309402')
 ;
 
 INSERT INTO AppointmentList(user_id, auth_abbreviation, appointment_date, appointment_location, typeDoc_relationship_id, comment) VALUES
