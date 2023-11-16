@@ -75,7 +75,14 @@
   gap: 10px;
 }
 
-.form-parent-summary{
+.form-parent-summary {
+  overflow-y: auto;
+
+  border: 3px solid #116530;
+  border-radius: 15px;
+  box-shadow: 0px 10px 10px #8a795d88;
+  padding: 30px;
+
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 1fr 1fr;
@@ -97,7 +104,7 @@
 
   display: grid;
   grid-template-columns: auto auto;
-  grid-template-rows: 2rem 2.5rem 2.5rem 2.5rem auto;
+  grid-template-rows: 2rem 2.5rem 2.5rem 2.5rem 2.5rem;
 
   gap: 8px;
 }
@@ -126,6 +133,13 @@
   grid-column: 1;
 }
 
+.type-of-id {
+  grid-column: 1;
+}
+
+.identification-no {
+  grid-column: 2;
+}
 .appointment-child {
   grid-column: 2;
 
@@ -145,7 +159,106 @@
 }
 
 .document-requested {
+  display: flex;
+  justify-content: space-between;
+
+  cursor: pointer;
+
   grid-column: 2;
+  
+  position: relative;
+}
+
+.position-box {
+  position: relative;
+}
+
+.document-items {
+  grid-column: 2;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  min-width: 270px;
+
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  display: none;
+}
+
+.document-items .item {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  height: 33px;
+  cursor: pointer;
+  padding: 0 10px;
+  border-radius: 8px;
+}
+
+.document-requested.open ~ .document-items {
+  height: 80px;
+  padding: 0;
+
+  position: absolute;
+
+  overflow-y: scroll;
+
+  display: block;
+}
+
+.document-requested .arrow-dwn {
+  transition: 0.8s ease-out;
+}
+  
+.document-requested.open .arrow-dwn {
+  transform: rotate(-180deg);
+}
+
+.document-items .item.checked:hover .checkbox{
+  background-color: #0b4619;
+}
+
+.document-items .item:hover {
+  background-color: #1967D2;
+  color: white;
+}
+
+.document-items .item:hover .checkbox {
+  border-color: white;
+}
+
+.document-items .item:hover .checkbox .check-icon {
+  filter: brightness(0) invert(1);
+  user-select: none;
+}
+
+.item .checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 16px;
+  width: 16px;
+  border-radius: 4px;
+  margin-right: 12px;
+  border: 1.75px solid #0b4619;
+  transition: all 0.3s ease-in-out;
+}
+
+.checkbox .check-icon {
+  width: 12px;
+  transform: scale(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.item.checked .checkbox {
+  background-color: #faf8f1;
+}
+
+.item.checked .check-icon {
+  transform: scale(1);
 }
 
 .comments {
@@ -212,8 +325,8 @@
   display: flex;
   gap: 20px;
   justify-content: center;
-  margin-top: 8%;
-  margin-bottom: 3%;
+  margin-top: 10%;
+  margin-bottom: 5%;
 }
 
 .btn-parent {
@@ -224,7 +337,7 @@
 
 .btn-time {
   appearance: none;
-  background-color: #faf8f1;
+  background-color: #ffffff;
   border: 0.125em solid #0b4610;
   border-radius: 2em;
   color: #0b4619;
@@ -246,39 +359,16 @@
   transform: translateY(-2px);
 }
 
+.btn-time:focus {
+  background-color: #0b4610;
+  color: #ffffff;
+}
+
 .btn-time:active {
   box-shadow: none;
   transform: translateY(0);
 }
 
-.btn-next-back {
-  appearance: none;
-  background-color: #0b4619;
-  border: 0.125em solid #0b4619;
-  border-radius: 2em;
-  color: #f5fe06;
-  cursor: pointer;
-  font-weight: 400;
-  font-size: normal;
-  padding: 0.5em 1.5em;
-  text-align: center;
-  text-decoration: none;
-  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  will-change: transform;
-}
-
-.btn-next-back:hover {
-  box-shadow: #8a795d88 0 8px 15px;
-  transform: translateY(-2px);
-}
-
-.btn-next-back:active {
-  box-shadow: none;
-  transform: translateY(0);
-}
 .btn-next-back {
   appearance: none;
   background-color: #0b4619;
@@ -338,7 +428,7 @@ table.details {
   pointer-events: none; /* Disable pointer events */
 }
 
-.details th, td{
+.details th {
   color: #116530;
 }
 
@@ -370,6 +460,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
   .form-parent-summary {
     display: block;
+    gap: 10px;
   }
 
   .form-parent-calendar > * {
@@ -378,6 +469,11 @@ input[type="number"]::-webkit-outer-spin-button {
 
   .personal-child {
     margin-bottom: 30px;
+  }
+
+  .personal-box {
+    margin-bottom: 30px;
+    overflow-y: auto;
   }
 
   .comments {
@@ -417,6 +513,12 @@ input[type="number"]::-webkit-outer-spin-button {
     top: 29em;
     left: 50%;
     right: 50%;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .document-requested.open ~ .document-items {
+    right: 0;
   }
 }
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="images/KLDLogo.svg" type="image/x-icon" />
-    <link rel="stylesheet" href="/calendar-02/calendar-02/css/style.css" />
+    <link rel="stylesheet" href="calendar-02/calendar-02/css/style.css" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -31,15 +31,13 @@
       </header>
       <section class="form-head">
         <div class="welcome-remarks">
-          <p class="welcome fs-5">Welcome, <span>Student</span></p>
+          <p class="welcome fs-5">Welcome, <span>Human</span></p>
         </div>
         <div class="logout">
-          <a href="/logged-out.html">
+          <a href="logged-out.html">
             <img
               src="images/logout-icon.svg"
               alt="logged-out"
-              data-bs-toggle="modal"
-              data-bs-target="#myModal"
               style="width: 40px"
             />
           </a>
@@ -125,6 +123,20 @@
                     placeholder="Student No."
                     name="student"
                   />
+                  <select type="text" class="form-control type-of-id">
+                    <option class="select-option" selected disabled>
+                      Type of ID
+                    </option>
+                    <option value="school-id">School ID</option>
+                    <option value="gov-id">Government-Issued ID</option>
+                    <option value="private-id">Private ID</option>
+                  </select>
+                  <input
+                    type="text"
+                    class="form-control intification-no"
+                    placeholder="Identification No."
+                    name="indentification"
+                  />
                 </div>
                 <div class="appointment-child">
                   <p class="appointment-title h5 fw-semibold">
@@ -137,7 +149,65 @@
                     <option value="document">Document Requested</option>
                     <option value="information">Information Center</option>
                   </select>
-                  <select type="text" class="form-control document-requested">
+                  <div class="position-box">
+                    <div
+                      class="document-requested form-control d-flex"
+                      style="overflow: hidden"
+                    >
+                      <span class="document-placeholder">Document Type</span>
+                      <span class="arrow-dwn">
+                        <img
+                          src="images/drop_down.svg "
+                          alt="drop_down"
+                          style="width: 25px"
+                        />
+                      </span>
+                    </div>
+
+                    <ul class="document-items" style="overflow-x: auto">
+                      <li class="item">
+                        <span class="checkbox">
+                          <img
+                            class="check-icon"
+                            src="images/check.svg"
+                            alt="check"
+                          />
+                        </span>
+                        <span class="item-text">Transcript of Records</span>
+                      </li>
+                      <li class="item">
+                        <span class="checkbox">
+                          <img
+                            class="check-icon"
+                            src="images/check.svg"
+                            alt="check"
+                          />
+                        </span>
+                        <span class="item-text">Transfer Credentials</span>
+                      </li>
+                      <li class="item">
+                        <span class="checkbox">
+                          <img
+                            class="check-icon"
+                            src="images/check.svg"
+                            alt="check"
+                          />
+                        </span>
+                        <span class="item-text">Certificate of Grades</span>
+                      </li>
+                      <li class="item">
+                        <span class="checkbox">
+                          <img
+                            class="check-icon"
+                            src="images/check.svg"
+                            alt="check"
+                          />
+                        </span>
+                        <span class="item-text">Certificate of Enrollment</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- <select type="text" class="form-control document-requested">
                     <option class="select-option" selected disabled>
                       Document Type
                     </option>
@@ -145,7 +215,7 @@
                     <option value="tc">Transfer Credentials</option>
                     <option value="cog">Certificate of Grades</option>
                     <option value="coe">Certificate of Enrollment</option>
-                  </select>
+                  </select> -->
                   <textarea
                     class="form-control comments"
                     name="comment"
@@ -385,6 +455,10 @@
                       <td class="user-details">09305771234</td>
                     </tr>
                     <tr>
+                      <td class="info-identifier">Student Number</td>
+                      <td class="user-details">KLD-22-000234</td>
+                    </tr>
+                    <tr>
                       <td class="info-identifier">Type of ID</td>
                       <td class="user-details">SSS</td>
                     </tr>
@@ -400,6 +474,10 @@
                       <th colspan="2">APPOINTMENT INFORMATION</th>
                     </tr>
                     <tr>
+                      <td class="info-identifier">Control Number</td>
+                      <td class="user-details">0933567412389</td>
+                    </tr>
+                    <tr>
                       <td class="info-identifier">Building</td>
                       <td class="user-details">KLD Building No.1</td>
                     </tr>
@@ -410,10 +488,12 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="info-identifier">Control Number</td>
-                      <td class="user-details">
-                        0933567412389
-                      </td>
+                      <td class="info-identifier">Date Released</td>
+                      <td class="user-details">Sample Date</td>
+                    </tr>
+                    <tr>
+                      <td class="info-identifier">Time</td>
+                      <td class="user-details">Sample Time</td>
                     </tr>
                   </table>
                 </div>
@@ -503,6 +583,28 @@
           $(".progress-bar").css("width", progressPercentage + "%");
         };
       });
+
+      const selectBtn = document.querySelector(".document-requested");
+      const items = document.querySelectorAll(".item");
+
+      selectBtn.addEventListener("click", () => {
+        selectBtn.classList.toggle("open");
+      });
+
+      items.forEach(item =>{
+        item.addEventListener("click", () =>{
+          item.classList.toggle("checked");
+
+          let checked = document.querySelectorAll(".checked");
+          let btnText = document.querySelector(".document-placeholder");
+
+          if (checked && checked.length > 0) {
+            btnText.innerText = `${checked.length} Selected`;
+          }else{
+            btnText.innerText = `Document Type`;
+          }
+        })
+      })
     </script>
   </body>
 </html>

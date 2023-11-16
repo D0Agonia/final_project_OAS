@@ -70,8 +70,13 @@
   padding-bottom: 5%;
 }
 
-
 .form-floating input.form-control:focus {
+  box-shadow: none;
+  border: 1.5px solid #0b461955;
+  color: #116530;
+}
+
+input.form-control:focus {
   box-shadow: none;
   border: 1.5px solid #0b461955;
   color: #116530;
@@ -113,4 +118,16 @@
 .btn-submit:active {
   box-shadow: none;
   transform: translateY(0);
+}
+
+.btn-send {
+  appearance: none;
+  background-color: #0b4619;
+  border: 0.125em solid transparent;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: large;
+  padding: 0.5em 2em;
+  text-align: center;
 }

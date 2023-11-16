@@ -65,7 +65,7 @@ include __DIR__ . '/php/login_form.php';
               <label for="pass" class="form-label">Password</label>
             </div>
             <div class="forgot-pass">
-              <a href="/forgot_pass.html">Forgot Password?</a>
+              <a href="forgot_pass.html">Forgot Password?</a>
             </div>
             <div class="btn-submit-box d-flex justify-content-center">
               <input
