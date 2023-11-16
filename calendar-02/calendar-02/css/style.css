@@ -10648,7 +10648,7 @@ a {
   -webkit-transition: 0.3s all ease;
   -o-transition: 0.3s all ease;
   transition: 0.3s all ease;
-  color: #39cb75;
+  color: #0b4619;
 }
 a:hover,
 a:focus {
@@ -10675,7 +10675,7 @@ h5,
 }
 
 .bg-primary {
-  background: #39cb75 !important;
+  background: #0b4619 !important;
 }
 
 .ftco-section {
@@ -10716,7 +10716,7 @@ h5,
 .wrap-header {
   position: relative;
   width: 45%;
-  background: #39cb75;
+  background: #0b4619;
 }
 @media (max-width: 767.98px) {
   .wrap-header {
@@ -10850,7 +10850,7 @@ tbody td:active {
   color: #fff;
 }
 #today:after {
-  background: #39cb75;
+  background: #0b4619;
 }
 
 #disabled {
