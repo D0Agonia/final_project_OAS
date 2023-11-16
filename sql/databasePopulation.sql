@@ -1,6 +1,6 @@
 INSERT INTO AppointmentDocument(doc_abbreviation, doc_name) VALUES
     ('NONE', 'No Document Requested'),
-    ('TOR', 'Official Transcript of Records'),
+    ('TOR', 'Transcript of Records'),
     ('TRC', 'Transfer Credentials'),
     ('COG', 'Certificate of Grades'),
     ('COE', 'Certificate of Enrollment')
