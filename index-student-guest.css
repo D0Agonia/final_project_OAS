@@ -254,7 +254,11 @@
 }
 
 .item.checked .checkbox {
-  background-color: #faf8f1;
+  background-color: #0b4619;
+}
+
+.item.checked .checkbox .check-icon{
+  filter: brightness(0) invert(1);
 }
 
 .item.checked .check-icon {

@@ -70,6 +70,13 @@
   padding-bottom: 5%;
 }
 
+.confirm-password {
+  padding-bottom: 2%;
+}
+
+.show-pass {
+  padding-left: 2%;
+}
 
 .form-floating input.form-control:focus {
   box-shadow: none;

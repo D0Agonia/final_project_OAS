@@ -61,6 +61,7 @@ include __DIR__ . '/php/login_student_form.php';
                 name="password"
               />
               <label for="pass" class="form-label">Password</label>
+              <img src="images/eyes-closed.svg" alt="eye-close" id="eye" style="width: 20px; height: 20px;">
             </div>
             <div class="forgot-pass">
               <a href="forgot_pass.php">Forgot Password?</a>
@@ -78,5 +79,20 @@ include __DIR__ . '/php/login_student_form.php';
         </div>
       </div>
     </div>
+
+    <script>
+      let eye = document.getElementById('eye');
+      let pass = document.getElementById('pass');
+
+      eye.onclick = function(){
+        if(pass.type === "password"){
+          pass.type = "text";
+          eye.src = "images/eye-open.svg";
+        }else{
+          pass.type = "password";
+          eye.src = "images/eyes-closed.svg";
+        }
+      }
+    </script>
   </body>
 </html>

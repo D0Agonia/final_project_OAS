@@ -1,6 +1,5 @@
 <?php
 require_once 'db_connect.php';
-require_once 'email_logic.php';
 require_once 'functions.php';
 
 session_start();
@@ -11,14 +10,14 @@ $show_error = false;
 // Obtaining changePassword_code through POST from URL
 $_SESSION['code'] = isset($_GET['code']) ? $_GET['code'] : '';
 
-// Checking if changePassword_code is valid; if not, redirect to landing.html
+// Checking if changePassword_code is valid; if not, redirect to index.html
 try{
     $sql = "SELECT verifyChangePasswordCode('{$_SESSION['code']}') AS STATUS";
     $queryResult = $conn->query($sql); $row = $queryResult->fetch_assoc();
     $checkResult = $row['STATUS'];
 
     if($checkResult == false){
-        header("Location: landing.html");
+        header("Location: index.html");
     }
 }
 catch(Exception $e){
