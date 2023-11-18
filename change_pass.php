@@ -18,12 +18,11 @@ include __DIR__ . '/php/change_pass_form.php';
       <div class="login-box">
         <div class="login-container overflow-auto">
           <div class="back-box">
-            <a href="/forgot_pass.html">
+            <a href="forgot_pass.html">
               <img src="images/back-icon.svg" alt="back to forgot password" />
             </a>
           </div>
           <div class="logo-box">
-            <a href="/landing.html">
               <img
                 src="images/KLDLogo.png"
                 alt="KLDLogo"
@@ -31,7 +30,6 @@ include __DIR__ . '/php/change_pass_form.php';
                 style="width: 150px; height: 150px"
                 id="logo"
               />
-            </a>
           </div>
           <h1 class="h1 fw-bolder">
             Change <br />
