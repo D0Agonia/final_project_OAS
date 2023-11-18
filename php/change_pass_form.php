@@ -1,6 +1,5 @@
 <?php
 require_once 'db_connect.php';
-require_once 'email_logic.php';
 require_once 'functions.php';
 
 session_start();
@@ -33,11 +32,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_button"])){
 
         $show_error = true; // Always true until filter is successful
 
+        // "Empty Password" Error
+        if(empty($password) || empty($confirm_password)){
+            $error_display = 'ERROR: All fields are required';
+        }
         // "Passwords do not match" Error
-        if($password != $confirm_password){
+        elseif($password != $confirm_password){
             $error_display = 'ERROR: Passwords do not match';
         }
-        // "Empty Password" Error
+        // "Invalid Password Format" Error
         elseif(filterPassword($password) == false || filterPassword($confirm_password) == false){
             $error_display = 'ERROR: Invalid Password Format<br>(8 to 32 Characters, Alphanumeric + Special Characters)';
         }
