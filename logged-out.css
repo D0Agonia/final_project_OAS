@@ -2,6 +2,7 @@
 
 * {
   font-family: "Poppins", sans-serif;
+  /* outline: 1px solid red; */
 }
 
 .body {
@@ -90,6 +91,10 @@
 }
 
 @media screen and (max-width: 576px) {
+  .body {
+    height: auto;
+  }
+
   .logout-box {
     display: flex;
     flex-direction: column;

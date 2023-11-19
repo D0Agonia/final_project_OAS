@@ -18,13 +18,13 @@
     <div class="container">
       <header class="head">
         <div class="logo">
-            <img
-              src="images/KLDLogo.png"
-              alt="KLDLogo"
-              class="img-fluid logo-img"
-              style="width: 150px; height: 150px"
-              id="logo"
-            />
+          <img
+            src="images/KLDLogo.png"
+            alt="KLDLogo"
+            class="img-fluid logo-img"
+            style="width: 150px; height: 150px"
+            id="logo"
+          />
         </div>
       </header>
       <section class="form-head">
@@ -472,10 +472,6 @@
                       <th colspan="2">APPOINTMENT INFORMATION</th>
                     </tr>
                     <tr>
-                      <td class="info-identifier">Control Number</td>
-                      <td class="user-details">0933567412389</td>
-                    </tr>
-                    <tr>
                       <td class="info-identifier">Building</td>
                       <td class="user-details">KLD Building No.1</td>
                     </tr>
@@ -504,13 +500,14 @@
                 >
                   Back
                 </button>
-                <button
+                <a
+                  href="thankyou-page.html"
                   type="submit"
                   class="btn-next-back fw-semibold"
                   value="next"
                 >
                   Confirm Appointment
-                </button>
+                </a>
               </div>
             </div>
           </form>
@@ -589,8 +586,8 @@
         selectBtn.classList.toggle("open");
       });
 
-      items.forEach(item =>{
-        item.addEventListener("click", () =>{
+      items.forEach((item) => {
+        item.addEventListener("click", () => {
           item.classList.toggle("checked");
 
           let checked = document.querySelectorAll(".checked");
@@ -598,11 +595,11 @@
 
           if (checked && checked.length > 0) {
             btnText.innerText = `${checked.length} Selected`;
-          }else{
+          } else {
             btnText.innerText = `Document Type`;
           }
-        })
-      })
+        });
+      });
     </script>
   </body>
 </html>

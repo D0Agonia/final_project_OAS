@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
+  /* outline: 1px solid red; */
 }
 
 .body {
@@ -10,83 +11,180 @@
 }
 
 .head {
-    display: flex;
-    align-items: center;
-    margin-top: 3%;
+  display: flex;
+  align-items: center;
+  margin-top: 3%;
 
-    justify-self: center;
-    position: relative;
+  justify-self: center;
+  position: relative;
 }
 
 .back {
-    position: absolute;
-    top: 50;
+  position: absolute;
+  top: 50;
 }
 
 .logo {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
 .slip {
-    margin-top: 100px;
-    margin-bottom: 100px;
+  margin-top: 100px;
+  margin-bottom: 100px;
 
-    border: 3px solid #116530;
-    border-radius: 15px;
-    box-shadow: 0px 10px 10px #8a795d88 ;
-    padding: 30px;
+  border: 3px solid #116530;
+  border-radius: 15px;
+  box-shadow: 0px 10px 10px #8a795d88;
+  padding: 30px;
 }
 
 .info-box {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
+  min-height: 20em;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 10px;
 }
 
 .box {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 th {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .info-identifier {
-    padding-right: 40px;
-    padding-bottom: 10px;
+  padding-right: 40px;
+  padding-bottom: 10px;
 
-    color: #116530bb;
-    font-weight: 500;
+  color: #116530bb;
+  font-weight: 500;
 }
 
 .user-details {
-    padding-right: 40px;
-    padding-bottom: 10px;
+  padding-right: 40px;
+  padding-bottom: 10px;
+}
+
+.btn-box {
+  margin-top: 5%;
+}
+
+#cancelModal .modal-content {
+  justify-content: center;
+  padding: 3%;
+  background-color: #0b4619;
+  color: #faf8f1;
+}
+
+#cancelModal .modal-header,
+#cancelModal .modal-footer{
+  border: none;
+  justify-content: center;
+}
+
+.modal-body {
+  text-align: center;
+}
+
+.btn-back {
+  appearance: none;
+  background-color: #0b4619;
+  border: 0.125em solid #faf8f1;
+  border-radius: 2em;
+  color: #faf8f1;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: medium;
+  padding: 0.5em 2em;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  will-change: transform;
+}
+
+.btn-home {
+  appearance: none;
+  background-color: #faf8f1;
+  border-radius: 2em;
+  color: #0b4619;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: medium;
+  padding: 0.5em 2em;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  will-change: transform;
+}
+
+.btn-appointment {
+  appearance: none;
+  background-color: #0b4619;
+  border: 0.125em solid #0b4619;
+  border-radius: 2em;
+  color: #f5fe06;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: small;
+  padding: 0.5em 2em;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  will-change: transform;
+}
+
+.btn-appointment:hover {
+  box-shadow: #8a795d88 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.btn-appointment:active {
+  box-shadow: none;
+  transform: translateY(0);
 }
 
 @media screen and (max-width: 492px) {
-    th {
-        padding-bottom: 10px;
-    }
+  th {
+    padding-bottom: 10px;
+  }
 
-    td {
-        display: block;
-        text-wrap: wrap;
-    }
-    
-    .user-details {
-        line-height: 1.50rem;
-        padding-bottom: 25px;
-    }
-    
-    .info-identifier {
-        line-height: 15px;
-    }
+  td {
+    display: block;
+    text-wrap: wrap;
+  }
+
+  .user-details {
+    line-height: 1.5rem;
+    padding-bottom: 25px;
+  }
+
+  .info-identifier {
+    line-height: 15px;
+  }
+}
+
+@media screen and (max-width: 507px) {
+  .btn-box {
+    display: block;
+  }
+  .btn-box a {
+    margin-bottom: 3%;
+  }
 }
 
 @media screen and (max-width: 1198px) {
-    .info-box {
-        justify-content: left;
-    }
+  .info-box {
+    justify-content: left;
+  }
 }

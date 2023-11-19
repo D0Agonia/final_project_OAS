@@ -394,6 +394,7 @@
 
 .btn-next-back:hover {
   box-shadow: #8a795d88 0 8px 15px;
+  color: #f5fe06;
   transform: translateY(-2px);
 }
 
