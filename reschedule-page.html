@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="images/KLDLogo.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="calendar-02/calendar-02/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="reschedule-page.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="dist/css/bootstrap.css" />
+    <title>KLD - OAS | Reschedule Appointment</title>
+  </head>
+  <body class="body">
+    <div class="container">
+      <header class="head">
+        <div class="back-box">
+          <a href="view-appointment_page.html">
+            <img src="images/back-icon.svg" alt="back to homepage" />
+          </a>
+        </div>
+        <div class="logo">
+          <img
+            src="images/KLDLogo.png"
+            alt="KLDLogo"
+            class="img-fluid logo-img"
+            style="width: 150px; height: 150px"
+            id="logo"
+          />
+        </div>
+      </header>
+      <section class="form-head">
+        <div class="welcome-remarks">
+          <p class="welcome fs-5">Control Number: <span>123456789</span></p>
+        </div>
+      </section>
+      <main class="form-details mb-lg-0">
+        <section class="form-box">
+          <form method="post">
+            <div class="step step-2">
+              <!-- STEP 2 OF FORM -->
+              <p class="description-child fs-5">Reschedule your Appointment</p>
+              <hr />
+              <div class="form-parent-calendar">
+                <div class="calendar-child">
+                  <div class="elegant-calencar">
+                    <div class="wrap-header d-flex align-items-center">
+                      <p id="reset">reset</p>
+                      <div id="header" class="p-0">
+                        <div
+                          class="pre-button d-flex align-items-center justify-content-center"
+                        >
+                          <i class="fa fa-chevron-left"></i>
+                        </div>
+                        <div class="head-info">
+                          <div class="head-day"></div>
+                          <div class="head-month"></div>
+                        </div>
+                        <div
+                          class="next-button d-flex align-items-center justify-content-center"
+                        >
+                          <i class="fa fa-chevron-right"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="calendar-wrap">
+                      <table id="calendar">
+                        <thead>
+                          <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="time-child">
+                  <div class="time time-1">
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-01"
+                      name="btn1"
+                      value="08:00 AM"
+                    />
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-02"
+                      name="btn1"
+                      value="09:00 AM"
+                    />
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-03"
+                      name="btn1"
+                      value="10:00 AM"
+                    />
+                  </div>
+                  <div class="time time-2">
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-04"
+                      name="btn1"
+                      value="11:00 AM"
+                    />
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-05"
+                      name="btn1"
+                      value="12:00 PM"
+                    />
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-06"
+                      name="btn1"
+                      value="01:00 PM"
+                    />
+                  </div>
+                  <div class="time time-3">
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-07"
+                      name="btn1"
+                      value="02:00 PM"
+                    />
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-08"
+                      name="btn1"
+                      value="03:00 PM"
+                    />
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-09"
+                      name="btn1"
+                      value="04:00 PM"
+                    />
+                  </div>
+                  <div class="time time-4">
+                    <input
+                      type="button"
+                      class="btn-time"
+                      id="TMSLOT-010"
+                      name="btn1"
+                      value="05:00 PM"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="btn-box">
+                <a href="view-appointment_page.html" type="submit" class="btn-next-back fw-semibold" value="next">
+                  Confirm
+                </a>
+              </div>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script src="/calendar-02/calendar-02/js/jquery.min.js"></script>
+    <script src="/calendar-02/calendar-02/js/bootstrap.min.js"></script>
+    <script src="/calendar-02/calendar-02/js/popper.js"></script>
+    <script src="/calendar-02/calendar-02/js/main.js"></script>
+  </body>
+</html>

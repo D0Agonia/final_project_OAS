@@ -500,7 +500,6 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
-/* TODO: need to fix this, transform the elements to fit the screen */
 @media screen and (max-width: 570px) {
   .form-parent-calendar {
     position: relative;
