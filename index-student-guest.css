@@ -254,7 +254,11 @@
 }
 
 .item.checked .checkbox {
-  background-color: #faf8f1;
+  background-color: #0b4619;
+}
+
+.item.checked .checkbox .check-icon{
+  filter: brightness(0) invert(1);
 }
 
 .item.checked .check-icon {
@@ -390,6 +394,7 @@
 
 .btn-next-back:hover {
   box-shadow: #8a795d88 0 8px 15px;
+  color: #f5fe06;
   transform: translateY(-2px);
 }
 
@@ -495,7 +500,6 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
-/* TODO: need to fix this, transform the elements to fit the screen */
 @media screen and (max-width: 570px) {
   .form-parent-calendar {
     position: relative;

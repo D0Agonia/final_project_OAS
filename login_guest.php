@@ -19,12 +19,11 @@ include __DIR__ . '/php/login_guest_form.php';
       <div class="login-box">
         <div class="login-container overflow-auto">
           <div class="back-box">
-            <a href="/landing.html">
+            <a href="index.html">
               <img src="images/back-icon.svg" alt="back to homepage" />
             </a>
           </div>
           <div class="logo-box">
-            <a href="/landing.html">
               <img
                 src="images/KLDLogo.png"
                 alt="KLDLogo"
@@ -32,7 +31,6 @@ include __DIR__ . '/php/login_guest_form.php';
                 style="width: 150px; height: 150px"
                 id="logo"
               />
-            </a>
           </div>
           <h1 class="h1 fw-bolder">Guest Login</h1>
           <img

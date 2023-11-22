@@ -18,12 +18,11 @@ include __DIR__ . '/php/login_student_form.php';
       <div class="login-box">
         <div class="login-container">
           <div class="back-box">
-            <a href="/landing.html">
+            <a href="index.html">
               <img src="images/back-icon.svg" alt="back to homepage" />
             </a>
           </div>
           <div class="logo-box">
-            <a href="/landing.html">
               <img
                 src="images/KLDLogo.png"
                 alt="KLDLogo"
@@ -31,7 +30,6 @@ include __DIR__ . '/php/login_student_form.php';
                 style="width: 150px; height: 150px"
                 id="logo"
               />
-            </a>
           </div>
           <h1 class="h1 fw-bolder">Student Login</h1>
           <img
@@ -64,6 +62,7 @@ include __DIR__ . '/php/login_student_form.php';
                 name="password"
               />
               <label for="pass" class="form-label">Password</label>
+              <img src="images/eyes-closed.svg" alt="eye-close" id="eye" style="width: 20px; height: 20px;">
             </div>
             <div class="forgot-pass">
               <a href="forgot_pass.php">Forgot Password?</a>
@@ -81,5 +80,20 @@ include __DIR__ . '/php/login_student_form.php';
         </div>
       </div>
     </div>
+
+    <script>
+      let eye = document.getElementById('eye');
+      let pass = document.getElementById('pass');
+
+      eye.onclick = function(){
+        if(pass.type === "password"){
+          pass.type = "text";
+          eye.src = "images/eye-open.svg";
+        }else{
+          pass.type = "password";
+          eye.src = "images/eyes-closed.svg";
+        }
+      }
+    </script>
   </body>
 </html>

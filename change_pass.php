@@ -18,12 +18,11 @@ include __DIR__ . '/php/change_pass_form.php';
       <div class="login-box">
         <div class="login-container overflow-auto">
           <div class="back-box">
-            <a href="/forgot_pass.html">
+            <a href="forgot_pass.html">
               <img src="images/back-icon.svg" alt="back to forgot password" />
             </a>
           </div>
           <div class="logo-box">
-            <a href="/landing.html">
               <img
                 src="images/KLDLogo.png"
                 alt="KLDLogo"
@@ -31,7 +30,6 @@ include __DIR__ . '/php/change_pass_form.php';
                 style="width: 150px; height: 150px"
                 id="logo"
               />
-            </a>
           </div>
           <h1 class="h1 fw-bolder">
             Change <br />
@@ -51,7 +49,7 @@ include __DIR__ . '/php/change_pass_form.php';
               <input
                 type="password"
                 class="form-control"
-                id="change-password"
+                id="newPass"
                 placeholder="Enter Student ID"
                 name="change_pass"
               />
@@ -61,13 +59,16 @@ include __DIR__ . '/php/change_pass_form.php';
               <input
                 type="password"
                 class="form-control"
-                id="confirm-pass"
+                id="confirmPass"
                 placeholder="Enter your otp"
                 name="confirm-pass"
               />
               <label for="confirm-pass" class="form-label"
                 >Confirm New Password</label
               >
+            </div>
+            <div class="show-pass">
+              <input type="checkbox" onclick="myFunction()"> Show Password
             </div>
             <div class="btn-submit-box d-flex justify-content-center">
               <input
@@ -82,5 +83,20 @@ include __DIR__ . '/php/change_pass_form.php';
         </div>
       </div>
     </div>
+
+    <script>
+      let newPass = document.getElementById('newPass');
+      let confirmPass = document.getElementById('confirmPass');
+
+      function myFunction() {
+        if(newPass.type === "password" || confirmPass.type === "password"){
+          confirmPass.type = "text";
+          newPass.type = "text";
+        }else{
+          confirmPass.type = "password";
+          newPass.type = "password";
+        }
+      }
+    </script>
   </body>
 </html>

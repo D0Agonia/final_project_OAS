@@ -24,7 +24,6 @@ include __DIR__ . '/php/forgot_pass_form.php';
             </a>
           </div>
           <div class="logo-box">
-            <a href="/landing.html">
               <img
                 src="images/KLDLogo.png"
                 alt="KLDLogo"
@@ -32,7 +31,6 @@ include __DIR__ . '/php/forgot_pass_form.php';
                 style="width: 150px; height: 150px"
                 id="logo"
               />
-            </a>
           </div>
           <h1 class="h1 fw-bolder">
             Forgot <br />

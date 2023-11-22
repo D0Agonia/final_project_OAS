@@ -68,6 +68,16 @@
   padding-bottom: 5%;
 }
 
+.txtStudent-password{
+  position: relative;
+}
+
+.txtStudent-password img {
+  position: absolute;
+  top: 35%;
+  right: 5%;
+}
+
 .form-floating input.form-control:focus {
   box-shadow: none;
   border: 1.5px solid #0b461955;
