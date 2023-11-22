@@ -2,7 +2,7 @@
 // Database connection details
 $host = "localhost";
 $dbname = "OnlineAppointment";
-$username = "guest";
+$username = "root";
 $password = "";
 
 // Establishing database connection

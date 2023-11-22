@@ -24,9 +24,9 @@ CREATE TABLE UserCredentials(
 );
 
 CREATE TABLE GuestCredentials(
-    guest_id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    otp_code VARCHAR(6) NOT NULL,
-    otp_expiration DATETIME NOT NULL
+    guest_id VARCHAR(11) PRIMARY KEY NOT NULL,
+    otp_code VARCHAR(6),
+    otp_expiration DATETIME
 );
 
 CREATE TABLE TypeDocRelationship(
@@ -38,7 +38,7 @@ CREATE TABLE TypeDocRelationship(
 );
 
 CREATE TABLE ChangePasswordRequest(
-    changePassword_code VARCHAR(32) PRIMARY KEY NOT NULL,
+    changePassword_code VARCHAR(64) PRIMARY KEY NOT NULL,
     changePassword_expiration DATETIME NOT NULL,
     kld_id VARCHAR(13) NOT NULL,
     FOREIGN KEY(kld_id) REFERENCES UserCredentials(kld_id)
@@ -48,7 +48,7 @@ CREATE TABLE LoginTokens(
     session_token VARCHAR(32) PRIMARY KEY NOT NULL,
     token_expiration DATETIME NOT NULL,
     kld_id VARCHAR(13),
-    guest_id BIGINT,
+    guest_id VARCHAR(11),
     FOREIGN KEY(kld_id) REFERENCES UserCredentials(kld_id),
     FOREIGN KEY(guest_id) REFERENCES GuestCredentials(guest_id)
 );
@@ -56,7 +56,7 @@ CREATE TABLE LoginTokens(
 CREATE TABLE UserDetails(
     user_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     kld_id VARCHAR(13),
-    guest_id BIGINT,
+    guest_id VARCHAR(11),
     firstname VARCHAR(32) NOT NULL,
     middlename VARCHAR(32),
     surname VARCHAR(32) NOT NULL,

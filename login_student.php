@@ -51,6 +51,7 @@ include __DIR__ . '/php/login_student_form.php';
                 id="student-id"
                 placeholder="Enter Student ID"
                 name="student_id"
+                value="<?php echo $studentID_value_text;?>"
               />
               <label for="student-id" class="form-label">Student ID</label>
             </div>

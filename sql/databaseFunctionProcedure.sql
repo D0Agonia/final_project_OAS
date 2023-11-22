@@ -64,10 +64,10 @@ END;
 CREATE FUNCTION requestPasswordChange(
     input_email VARCHAR(128)
 )
-RETURNS VARCHAR(32)
+RETURNS VARCHAR(64)
 READS SQL DATA
 BEGIN
-    DECLARE result VARCHAR(32);
+    DECLARE result VARCHAR(64);
     DECLARE user_kldID VARCHAR(13);
 
     SELECT kld_id INTO user_kldID
@@ -88,7 +88,7 @@ BEGIN
 END;
 
 CREATE FUNCTION verifyChangePasswordCode(
-    input_code VARCHAR(32)
+    input_code VARCHAR(64)
 ) RETURNS BOOLEAN
 READS SQL DATA
 BEGIN
@@ -105,7 +105,7 @@ CREATE FUNCTION verifyGuestLogin(
 READS SQL DATA
 BEGIN
     DECLARE result VARCHAR(32);
-    DECLARE guest_guestId BIGINT;
+    DECLARE guest_guestId VARCHAR(11);
 
     SELECT guest_id INTO guest_guestId
     FROM GuestCredentials WHERE otp_code = input_otp;
@@ -192,11 +192,11 @@ BEGIN
 END;
 
 CREATE FUNCTION searchUserId(
-    input_id BIGINT
+    input_id VARCHAR(11)
 ) RETURNS BOOLEAN
 READS SQL DATA
 BEGIN
-    DECLARE user_userId BIGINT;
+    DECLARE user_userId VARCHAR(11);
 
     SELECT user_id INTO user_userId 
     FROM UserDetails WHERE user_id = input_id;
@@ -228,7 +228,7 @@ END;
 
 
 CREATE PROCEDURE ChangeCredentials(
-    IN input_code VARCHAR(32),
+    IN input_code VARCHAR(64),
     IN input_password VARCHAR(32)
 )
 BEGIN
@@ -260,7 +260,7 @@ CREATE PROCEDURE CreateChangePasswordCode(
     IN input_kldID VARCHAR(13)
 )
 BEGIN
-    DECLARE code VARCHAR(32);
+    DECLARE code VARCHAR(64);
 
     REPEAT
         SET code := MD5(CONCAT(RAND(), NOW()));
@@ -273,7 +273,7 @@ BEGIN
 END;
 
 CREATE PROCEDURE CreateGuestSessionToken(
-    IN input_guest BIGINT
+    IN input_guest VARCHAR(11)
 )
 BEGIN
     DECLARE token VARCHAR(32);
@@ -305,7 +305,7 @@ BEGIN
 END;
 
 CREATE PROCEDURE DestroyChangePasswordCode(
-    IN input_code VARCHAR(32)
+    IN input_code VARCHAR(64)
 )
 BEGIN
     DELETE FROM ChangePasswordRequest

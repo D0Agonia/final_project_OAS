@@ -55,6 +55,7 @@ include __DIR__ . '/php/login_guest_form.php';
                 id="guest-email"
                 placeholder="Enter your Email"
                 name="email"
+                value="<?php echo $guestEmail_value_email; ?>"
               />
               <label for="email" class="form-label">Email Address</label>
             </div>

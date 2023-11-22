@@ -29,7 +29,8 @@ function sendMail($recipient, $subject, $message){
     try {
         $apiInstance->emailsPost($email);
     } catch (Exception $e) {
-        echo 'Exception when calling EE API: ', $e->getMessage(), PHP_EOL;
+        header("Location: temporary.html");
+        logError($e);
     }
 }
 ?>
