@@ -134,7 +134,7 @@ html {
 
 #main-content {
   background-image: linear-gradient(145deg, #0b4619bb, #0b4619bb 50%),
-    url(images/kldBuildingBlur.jpeg);
+    url(/images/kldBuildingBlur.jpeg);
   background-size: cover;
   height: 100vh;
   object-fit: cover;

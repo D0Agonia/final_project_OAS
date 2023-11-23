@@ -8,7 +8,7 @@ include __DIR__ . '/php/login_student_form.php';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="images/KLDLogo.svg" type="image/x-icon" />
-    <link rel="stylesheet" href="login_student.css" />
+    <link rel="stylesheet" href="./css/login_student.css" />
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="dist/css/bootstrap.css" />
     <title>KLD - OAS | Student Login</title>
