@@ -2,8 +2,8 @@
 // Database connection details
 $host = "localhost";
 $dbname = "OnlineAppointment";
-$username = "root";
-$password = "";
+$username = "if0_35481943";
+$password = "V8cHrK2S8zu7";
 
 // Establishing database connection
 $conn = new mysqli($host, $username, $password, $dbname);
