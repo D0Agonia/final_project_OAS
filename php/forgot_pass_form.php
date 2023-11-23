@@ -1,6 +1,6 @@
 <?php
-require_once 'db_connect.php';
 require_once 'database_functions.php';
+require_once 'email_logic.php';
 require_once 'functions.php';
 
 session_start();
