@@ -19,7 +19,7 @@ include __DIR__ . '/php/forgot_pass_form.php';
       <div class="login-box">
         <div class="login-container overflow-auto">
           <div class="back-box">
-            <a href="login_student.php">
+            <a href="login_student">
               <img src="images/back-icon.svg" alt="back to homepage" />
             </a>
           </div>

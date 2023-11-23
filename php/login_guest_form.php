@@ -16,7 +16,7 @@ $_SESSION['showSuccess'] = false;
 $guestEmail_value_email = "";
 
 // Checks if user has already logged in. Will redirect to index-student-guest.html if so
-tokenRedirect('Location: index-student-guest.html', '');
+tokenRedirect('Location: index-student-guest', '');
 
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["otp_send"])){
     // To display in value attribute of textbox
@@ -115,7 +115,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_button"])){
         $show_error = false;
         session_unset(); session_destroy(); deleteCookie("guestSession"); 
         setcookie("session_token", $loginResult, time() + 86400, "/");
-        header("Location: index-student-guest.html");
+        header("Location: index-student-guest");
         exit();
     }
 }

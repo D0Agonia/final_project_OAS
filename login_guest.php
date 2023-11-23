@@ -19,7 +19,7 @@ include __DIR__ . '/php/login_guest_form.php';
       <div class="login-box">
         <div class="login-container overflow-auto">
           <div class="back-box">
-            <a href="index.html">
+            <a href="index?i=1">
               <img src="images/back-icon.svg" alt="back to homepage" />
             </a>
           </div>

@@ -1,13 +1,14 @@
-# Remove .php extension
+Options -Indexes
 RewriteEngine On
+
+# Redirect requests for .php and .html files without the extension
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f
-RewriteRule ^([^/]+)/$ $1.php
+RewriteRule ^([^/]+)/?$ $1.php [L]
 
-# Remove .html extension
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.html -f
-RewriteRule ^([^/]+)/$ $1.html
+RewriteRule ^([^/]+)/?$ $1.html [L]
 
 # Error Documents
 ErrorDocument 404 /error404.html

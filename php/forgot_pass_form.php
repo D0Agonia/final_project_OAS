@@ -9,7 +9,7 @@ session_start();
 $show_error = false;
 
 // Checks if user has already logged in. Will redirect to index-student-guest.html if so
-tokenRedirect('Location: index-student-guest.html', '');
+tokenRedirect('Location: index-student-guest', '');
 
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_button"])){
     // User-input variables
@@ -39,7 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_button"])){
     elseif(strlen($requestResult) == 64){
         $show_error = false;
 
-        $url = 'localhost/final_project_OAS/change_pass.php?' . http_build_query(['code' => $requestResult]);
+        $url = $_SERVER['HTTP_HOST'] . '/change_pass?' . http_build_query(['code' => $requestResult]);
         $message = "
         <!DOCTYPE html>
         <body>
@@ -53,7 +53,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_button"])){
         ";
         sendMail($email, 'KLD OAS - Change Password', $message);
 
-        header("Location: forgot_pass-msg.html");
+        header("Location: forgot_pass-msg");
         exit();
     }
 }

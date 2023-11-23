@@ -18,7 +18,7 @@ include __DIR__ . '/php/login_student_form.php';
       <div class="login-box">
         <div class="login-container">
           <div class="back-box">
-            <a href="index.html">
+            <a href="index?i=1">
               <img src="images/back-icon.svg" alt="back to homepage" />
             </a>
           </div>
@@ -65,7 +65,7 @@ include __DIR__ . '/php/login_student_form.php';
               <img src="images/eyes-closed.svg" alt="eye-close" id="eye" style="width: 20px; height: 20px;">
             </div>
             <div class="forgot-pass">
-              <a href="forgot_pass.php">Forgot Password?</a>
+              <a href="forgot_pass">Forgot Password?</a>
             </div>
             <div class="btn-submit-box d-flex justify-content-center">
               <input

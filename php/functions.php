@@ -114,8 +114,10 @@ function tokenRedirect($header_ifTrue, $header_ifFalse){
 
     // Checks if token is verified (true)
     if($tokenResult == true){
-        header($header_ifTrue);
-        exit();
+        if(!empty($header_ifTrue)){
+            header($header_ifTrue);
+            exit();
+        }
     }
     else{
         deleteCookie('session_token');

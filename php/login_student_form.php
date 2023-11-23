@@ -3,7 +3,7 @@ require_once 'database_functions.php';
 require_once 'functions.php';
 
 // Checks if user has already logged in. Will redirect to index-student-guest.html if so
-tokenRedirect('Location: index-student-guest.html', '');
+tokenRedirect('Location: index-student-guest', '');
 
 // Initial states of some variables
 $studentID_value_text = ""; $show_error = false;
@@ -58,7 +58,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_button"])){
     elseif(strlen($loginResult) == 32){
         $show_error = false;
         setcookie("session_token", $loginResult, time() + 86400, "/");
-        header("Location: index-student-guest.html");
+        header("Location: index-student-guest");
         exit();
     }
 }

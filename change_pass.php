@@ -18,7 +18,7 @@ include __DIR__ . '/php/change_pass_form.php';
       <div class="login-box">
         <div class="login-container overflow-auto">
           <div class="back-box">
-            <a href="forgot_pass.html">
+            <a href="forgot_pass">
               <img src="images/back-icon.svg" alt="back to forgot password" />
             </a>
           </div>

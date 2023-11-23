@@ -42,7 +42,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_button"])){
             if(isset($_COOKIE['session_token'])){
                 deleteCookie('session_token');
             }
-            header("Location: login_student.php");
+            header("Location: login_student");
             exit();
         }
         else{
