@@ -1,7 +1,7 @@
 <?php
 // Database connection details
-$host = "localhost";
-$dbname = "OnlineAppointment";
+$host = "sql207.infinityfree.com:3306";
+$dbname = "if0_35481943_OnlineAppointment";
 $username = "if0_35481943";
 $password = "V8cHrK2S8zu7";
 

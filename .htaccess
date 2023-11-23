@@ -1,1 +1,14 @@
-ErrorDocument 404 /error.html
+# Remove .php extension
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^/]+)/$ $1.php
+
+# Remove .html extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^([^/]+)/$ $1.html
+
+# Error Documents
+ErrorDocument 404 /error404.html
+ErrorDocument 500 /error500.html
