@@ -42,7 +42,8 @@ include __DIR__ . '/php/login_student_form.php';
             <?php if($show_error == true){
               echo '<p class="text-center fw-bold text-danger">' . $error_display . '</p>';
             }?>
-
+            <p>KLD-22-000101</p>
+            <p>password101</p>
             <div class="form-floating txtStudent-id">
               <input
                 type="text"
