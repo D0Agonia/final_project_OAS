@@ -13,11 +13,11 @@ include __DIR__ . '/php/login_guest_form.php';
     <link rel="stylesheet" href="dist/css/bootstrap.css" />
     <title>KLD - OAS | Guest Login</title>
   </head>
-  <body class="body">
+  <body class="body overflow-auto">
     <!-- TODO: ADJUST THE LAYOUT AND RESPONSIVENESS -->
-    <div class="container">
+    <div class="container mt-5">
       <div class="login-box">
-        <div class="login-container overflow-auto">
+        <div class="login-container">
           <div class="back-box">
             <a href="index?i=1">
               <img src="images/back-icon.svg" alt="back to homepage" />

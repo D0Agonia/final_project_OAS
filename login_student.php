@@ -13,8 +13,8 @@ include __DIR__ . '/php/login_student_form.php';
     <link rel="stylesheet" href="dist/css/bootstrap.css" />
     <title>KLD - OAS | Student Login</title>
   </head>
-  <body class="body">
-    <div class="container overflow-auto">
+  <body class="body overflow-auto">
+    <div class="container mt-5">
       <div class="login-box">
         <div class="login-container">
           <div class="back-box">
@@ -42,6 +42,7 @@ include __DIR__ . '/php/login_student_form.php';
             <?php if($show_error == true){
               echo '<p class="text-center fw-bold text-danger">' . $error_display . '</p>';
             }?>
+
             <div class="form-floating txtStudent-id">
               <input
                 type="text"

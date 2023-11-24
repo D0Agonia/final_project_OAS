@@ -14,10 +14,10 @@ include __DIR__ . '/php/forgot_pass_form.php';
     <link rel="stylesheet" href="dist/css/bootstrap.css" />
     <title>KLD - OAS | Forgot Password</title>
   </head>
-  <body class="body">
-    <div class="container">
+  <body class="body overflow-auto">
+    <div class="container mt-5">
       <div class="login-box">
-        <div class="login-container overflow-auto">
+        <div class="login-container">
           <div class="back-box">
             <a href="login_student">
               <img src="images/back-icon.svg" alt="back to homepage" />

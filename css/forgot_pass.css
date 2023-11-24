@@ -10,8 +10,6 @@
 }
 
 .container {
-  height: 100vh;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,7 +61,6 @@
 .form {
   grid-column: 1;
   grid-row: 4;
-
 }
 
 .txtFP-email {
