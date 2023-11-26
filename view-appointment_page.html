@@ -89,24 +89,31 @@
                 <td class="user-details">Sample Time</td>
               </tr>
             </table>
-            <div class="btn-box">
-              <a href="reschedule-page" type="button" class="btn-appointment fw-semibold">
-                Reschedule Appointment
-              </a>
-              <button
-                type="submit"
-                class="btn-appointment fw-semibold"
-                data-bs-toggle="modal"
-                data-bs-target="#cancelModal"
-                >Cancel Appointment</button
-              >
-            </div>
+            <form action="#">
+              <div class="btn-box">
+                <a
+                  href="reschedule-page"
+                  type="button"
+                  class="btn-appointment fw-semibold"
+                >
+                  Reschedule Appointment
+                </a>
+                <button
+                  type="submit"
+                  class="btn-appointment fw-semibold"
+                  data-bs-toggle="modal"
+                  data-bs-target="#cancelModal"
+                >
+                  Cancel Appointment
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </main>
     </div>
 
-    <div class="modal" tabindex="-1" id="cancelModal">
+    <div class="modal fade" tabindex="-1" id="cancelModal">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
