@@ -129,3 +129,57 @@ input.form-control:focus {
   padding: 0.5em 2em;
   text-align: center;
 }
+
+
+#confirmModal .modal-content {
+  justify-content: center;
+  padding: 3%;
+  background-color: #0b4619;
+  color: #faf8f1;
+}
+
+#confirmModal .modal-header,
+#confirmModal .modal-footer{
+  border: none;
+  justify-content: center;
+}
+
+.modal-body {
+  text-align: center;
+}
+
+.btn-back2 {
+  appearance: none;
+  background-color: #0b4619;
+  border: 0.125em solid #faf8f1;
+  border-radius: 2em;
+  color: #faf8f1;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: medium;
+  padding: 0.5em 2em;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  will-change: transform;
+}
+
+.btn-home2 {
+  appearance: none;
+  background-color: #faf8f1;
+  border-radius: 2em;
+  color: #0b4619;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: medium;
+  padding: 0.5em 2em;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  will-change: transform;
+}
