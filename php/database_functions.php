@@ -37,7 +37,7 @@ function changeCredentials($input_code, $input_password){
             return true;
         }
         catch(Exception $e){
-            header("Location: error500");
+            header("Location: ../error_message/error500");
             logError($e);
         }
     }
@@ -68,7 +68,7 @@ function insertCredentials($input_kldID, $input_password){
             return true;
         }
         catch(Exception $e){
-            header("Location: error500");
+            header("Location: ../error_message/error500");
             logError($e);
         }
     }
@@ -102,7 +102,7 @@ function insertDetails($input_ID, $input_firstname, $input_middlename, $input_su
             break;
     }}
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 }
@@ -133,7 +133,7 @@ function insertGuest(){
         return $otp;
     }
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 }
@@ -184,7 +184,7 @@ function requestPasswordChange($input_email){
         }
     }
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 }
@@ -199,7 +199,7 @@ function searchKLDID($input_kldID){
         $kldID_count = $stmt->num_rows; $stmt->close();
     }
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 
@@ -221,7 +221,7 @@ function searchGuestID($input_guestID){
         $guestID_count = $stmt->num_rows; $stmt->close();
     }
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 
@@ -243,7 +243,7 @@ function searchUserID($input_ID){
         $userID_count = $stmt->num_rows; $stmt->close();
     }
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 
@@ -264,7 +264,7 @@ function searchToken($input_token){
         $stmt->execute(); $stmt->store_result(); $userToken_count = $stmt->num_rows; $stmt->close();
     }
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 
@@ -285,7 +285,7 @@ function verifyChangePasswordCode($input_code){
         $stmt->execute(); $stmt->store_result(); $kldID_count = $stmt->num_rows; $stmt->close();
     }
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 
@@ -330,7 +330,7 @@ function verifyGuestLogin($input_otp){
         }
     }
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 }
@@ -369,7 +369,7 @@ function verifyUserLogin($input_kldID, $input_password){
         }
     }
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 }
@@ -385,7 +385,7 @@ function verifyToken($input_token){
         $stmt->fetch(); $stmt->close();
     }
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 
@@ -420,7 +420,7 @@ function CreateChangePasswordCode($input_kldID){
         $stmt->execute(); $stmt->close();
     }
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 }
@@ -439,7 +439,7 @@ function CreateGuestSessionToken($input_guest){
         $stmt->execute(); $stmt->close();
     }
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 }
@@ -458,7 +458,7 @@ function CreateUserSessionToken($input_kldID){
         $stmt->execute(); $stmt->close();
     }
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 }
@@ -472,7 +472,7 @@ function DestroyChangePasswordCode($input_code){
         $stmt->execute(); $stmt->close();
     }
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 }
@@ -486,7 +486,7 @@ function DestroySessionToken($input_token){
         $stmt->execute(); $stmt->close();
     }
     catch(Exception $e){
-        header("Location: error500");
+        header("Location: ../error_message/error500");
         logError($e);
     }
 }
