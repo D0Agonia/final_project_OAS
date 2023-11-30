@@ -200,6 +200,10 @@ span {
     display: block;
   }
 
+  .head-info {
+    padding-block: 8%;
+  }
+
   .wrap-header {
     width: 100%;
   }
@@ -219,7 +223,7 @@ span {
     transform: scale(0.8);
     transform-origin: top;
     position: absolute;
-    top: 29em;
+    top: 32em;
     left: 50%;
     right: 50%;
   }
@@ -228,6 +232,10 @@ span {
 @media screen and (min-width: 993px) and (max-width: 1199px) {
   .elegant-calencar {
     display: block;
+  }
+
+  .head-info {
+    padding-block: 8%;
   }
 
   .wrap-header {
