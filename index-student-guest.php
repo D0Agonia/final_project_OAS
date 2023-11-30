@@ -729,7 +729,7 @@ include __DIR__ . '/php/index_student_guest_form.php';
       });
 
       timeInputs.forEach((input) => {
-        timeInput.addEventListener('change', function() {
+        input.addEventListener('change', function() {
           if(this.checked) {
             // Input is selected
             selectedTime = this.value;
