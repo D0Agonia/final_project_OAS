@@ -56,23 +56,37 @@ function fetchDetails($input_token){
         $stmt->execute(); $stmt->store_result(); $stmt->bind_result($login_id);
         $stmt->fetch();
 
-        // Fetches user details tied to the login_id of the session_token
-        $query = "SELECT COALESCE(kld_id, guest_id), firstname, middlename, surname, email, phone_number FROM UserDetails WHERE kld_id = ? OR guest_id = ?";
-        $stmt = $conn->prepare($query); $stmt->bind_param("ss", $login_id, $login_id);
-        $stmt->execute(); $stmt->store_result(); $stmt->bind_result($id, $firstname, $middlename, $surname, $email, $phone_number);
-        $stmt->fetch();
+        // Fetches user details tied to the kld_id of the session_token
+        if(preg_match("/^KLD/", $login_id)){
+            $query = "SELECT kld_id, firstname, middlename, surname, email, phone_number FROM UserDetails WHERE kld_id = ? OR guest_id = ?";
+            $stmt = $conn->prepare($query); $stmt->bind_param("ss", $login_id, $login_id);
+            $stmt->execute(); $stmt->store_result(); $stmt->bind_result($kld_id, $firstname, $middlename, $surname, $email, $phone_number);
+            $stmt->fetch();
 
-        // Returns stored results in an array.
-        $details = array(
-            'loginID' => $id,
-            'fName' => $firstname,
-            'mName' => $middlename,
-            'lName' => $surname,
-            'email' => $email,
-            'contactNum' => $phone_number
-        );
-        
-        return $details;
+            // Returns stored results in an array.
+            $details = array(
+                'loginID' => $kld_id,
+                'fName' => $firstname,
+                'mName' => $middlename,
+                'lName' => $surname,
+                'email' => $email,
+                'contactNum' => $phone_number
+            );
+            
+            return $details;
+        }
+        elseif(preg_match("/^GUEST/", $login_id)){
+            $details = array(
+                'loginID' => $login_id,
+                'fName' => '',
+                'mName' => '',
+                'lName' => '',
+                'email' => '',
+                'contactNum' => ''
+            );
+
+            return $details;
+        }
     }
     catch(Exception $e){
         header("Location: ../error_message/error500");

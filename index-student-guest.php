@@ -1,3 +1,7 @@
+<?php
+include __DIR__ . '/php/index_student_guest_form.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,7 +33,9 @@
       </header>
       <section class="form-head">
         <div class="welcome-remarks">
-          <p class="welcome fs-5">Welcome, <span>Human</span></p>
+          <p class="welcome fs-5">Welcome, 
+            <span><?php if($userType == 'STUDENT'){echo $_SESSION['fName'];}else{echo 'Guest';}?></span>
+          </p>
         </div>
         <div class="logout">
           <a href="logout">
@@ -96,37 +102,45 @@
                     class="form-control first-name"
                     placeholder="First Name"
                     name="fname"
+                    value="<?php echo $_SESSION['fName']; ?>"
                   />
                   <input
                     type="text"
                     class="form-control last-name"
                     placeholder="Last Name"
                     name="lname"
+                    value="<?php echo $_SESSION['lName']; ?>"
                   />
                   <input
                     type="text"
                     class="form-control last-name"
                     placeholder="Middle Name"
                     name="mname"
+                    value="<?php echo $_SESSION['mName']; ?>"
                   />
                   <input
                     type="email"
                     class="form-control email"
                     placeholder="Email"
                     name="email"
+                    value="<?php echo $_SESSION['email']; ?>"
                   />
                   <input
-                    type="number"
+                    type="tel"
                     class="form-control contact-no"
                     placeholder="Contact No. (optional)"
                     name="contact_no"
+                    value="<?php echo $_SESSION['contactNum']; ?>"
                   />
+                  <?php if($userType == 'STUDENT'){ echo '
                   <input
                     type="text"
                     class="form-control student-no"
                     placeholder="Student No."
                     name="student"
-                  />
+                    value="' . $_SESSION['loginID'] . '"
+                  />';
+                  } elseif($userType == 'GUEST'){ echo '
                   <select type="text" class="form-control type-of-id">
                     <option class="select-option" selected disabled>
                       Type of ID
@@ -139,8 +153,9 @@
                     type="text"
                     class="form-control intification-no"
                     placeholder="Identification No."
-                    name="indentification"
-                  />
+                    name="identification"
+                  />';
+                  }?>
                 </div>
                 <div class="appointment-child">
                   <p class="appointment-title h5 fw-semibold">
