@@ -10856,6 +10856,7 @@ tbody td:active {
 #disabled {
   cursor: default;
   background: #fff;
+  color: #c9c9c9;
 }
 
 #disabled:hover {
