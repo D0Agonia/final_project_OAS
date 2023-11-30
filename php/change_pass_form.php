@@ -2,7 +2,7 @@
 require_once 'database_functions.php';
 require_once 'functions.php';
 
-session_start();
+session_name('changePassSession'); session_start();
 
 // Since if statement only executes when submit button is pressed, initial state is false
 $show_error = false;
@@ -10,8 +10,16 @@ $show_error = false;
 // Obtaining changePassword_code through POST from URL
 $_SESSION['code'] = isset($_GET['code']) ? $_GET['code'] : '';
 
-// Checking if changePassword_code is valid; if not, redirect to landing.html
-verifyChangePasswordCode($_SESSION['code']);
+// Filters changePassword_code, then checks if valid. If not, redirect to index.html
+if(!filterTokenCode($_SESSION['code'])){
+    header("Location: ../error_message/error500");
+    logError("Invalid characters used for code in " . __DIR__);
+    exit();
+}
+elseif(!verifyChangePasswordCode(sanitizeInput($_SESSION['code']))){
+    header("Location: index");
+    exit();
+}
 
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_button"])){
     // User-input variables
@@ -42,6 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_button"])){
             if(isset($_COOKIE['session_token'])){
                 deleteCookie('session_token');
             }
+            session_unset(); session_destroy(); deleteCookie("changePassSession"); 
             header("Location: login_student");
             exit();
         }

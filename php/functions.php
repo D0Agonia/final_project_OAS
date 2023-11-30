@@ -60,6 +60,19 @@ function filterPassword($input){
     }
 }
 
+function filterAlphanumeric($input){
+    // Filter that only allows alphanumeric characters
+    $filter = '/^[a-zA-Z0-9]+$/';
+
+    // Simple if-else check. Returns "true" if correct, "false" if wrong
+    if(preg_match($filter, $input)){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 function logError($error){
     $logDirectory = __DIR__ . '/log';
     $logFilePath = $logDirectory . '/database_error_log.txt';
@@ -72,7 +85,7 @@ function logError($error){
     }
 
     $timestamp = date("Y-m-d H:i:s");
-    if ($error instanceof Exception){
+    if($error instanceof Exception){
         $errorMessage = "Error: " . $error->getMessage();
     }
     else{
@@ -81,6 +94,20 @@ function logError($error){
     $logMessage = "[" . $timestamp . "]" . " - " . $errorMessage . "\n";
   
     file_put_contents($logFilePath, $logMessage, FILE_APPEND);
+}
+
+function labelID($input_id){
+    if(preg_match("/^KLD/", $input_id)){
+        return "STUDENT";
+    }
+    elseif(preg_match("/^GUEST/", $input_id)){
+        return "GUEST";
+    }
+    else{
+        header("Location: ../error_message/error500");
+        logError("Invalid ID type stored at \$input_id in " . __DIR__);
+        exit();
+    }
 }
 
 function lowercaseNumericString($length) {
@@ -97,12 +124,16 @@ function lowercaseNumericString($length) {
     return $randomString;
 }
 
-
 function tokenRedirect($header_ifTrue, $header_ifFalse){
     global $conn;
 
-    // Checks if the token cookie hasn't expired. Sets $input_token to an empty string if non-existent.
-    if(isset($_COOKIE['session_token'])){
+    // Checks if the token cookie hasn't expired and has valid characters. Sets $input_token to an empty string if non-existent.
+    if(isset($_COOKIE['session_token']) && !filterAlphanumeric($_COOKIE['session_token'])){
+        header("Location: ../error_message/error500");
+        logError("Invalid characters used for token in " . __DIR__);
+        exit();
+    }
+    elseif(isset($_COOKIE['session_token']) && filterAlphanumeric($_COOKIE['session_token'])){
         $input_token = $_COOKIE['session_token'];
     }
     else{

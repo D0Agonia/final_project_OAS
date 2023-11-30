@@ -46,6 +46,40 @@ function changeCredentials($input_code, $input_password){
     }
 }
 
+function fetchDetails($input_token){
+    global $conn;
+
+    try{
+        // Fetches either kld_id or guest_id from LoginTokens if it matches the session_token
+        $query = "SELECT COALESCE(kld_id, guest_id) FROM LoginTokens WHERE session_token = ?";
+        $stmt = $conn->prepare($query); $stmt->bind_param("s", $input_token);
+        $stmt->execute(); $stmt->store_result(); $stmt->bind_result($login_id);
+        $stmt->fetch();
+
+        // Fetches user details tied to the login_id of the session_token
+        $query = "SELECT COALESCE(kld_id, guest_id), firstname, middlename, surname, email, phone_number FROM UserDetails WHERE kld_id = ? OR guest_id = ?";
+        $stmt = $conn->prepare($query); $stmt->bind_param("ss", $login_id, $login_id);
+        $stmt->execute(); $stmt->store_result(); $stmt->bind_result($id, $firstname, $middlename, $surname, $email, $phone_number);
+        $stmt->fetch();
+
+        // Returns stored results in an array.
+        $details = array(
+            'loginID' => $id,
+            'fName' => $firstname,
+            'mName' => $middlename,
+            'lName' => $surname,
+            'email' => $email,
+            'contactNum' => $phone_number
+        );
+        
+        return $details;
+    }
+    catch(Exception $e){
+        header("Location: ../error_message/error500");
+        logError($e);
+    }
+}
+
 function insertCredentials($input_kldID, $input_password){
     global $conn;
 

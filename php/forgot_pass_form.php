@@ -3,8 +3,6 @@ require_once 'database_functions.php';
 require_once 'email_logic.php';
 require_once 'functions.php';
 
-session_start();
-
 // Since if statement only executes when submit button is pressed, initial state is false
 $show_error = false;
 
