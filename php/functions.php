@@ -8,9 +8,35 @@ function deleteCookie($cookieName){
     unset($_COOKIE[$cookieName]);
 }
 
+function filterAlphanumeric($input){
+    // Filter that only allows alphanumeric characters
+    $filter = '/^[a-zA-Z0-9]+$/';
+
+    // Simple if-else check. Returns "true" if correct, "false" if wrong
+    if(preg_match($filter, $input)){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 function filterEmail($input){
     // Email regex filter
     $filter = '/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]{2,6}$/';
+
+    // Simple if-else check. Returns "true" if correct, "false" if wrong
+    if(preg_match($filter, $input)){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function filterName($input){
+    // Name regex filter
+    $filter = '/^[a-zA-Z\s]{0,32}$/';
 
     // Simple if-else check. Returns "true" if correct, "false" if wrong
     if(preg_match($filter, $input)){
@@ -34,6 +60,20 @@ function filterOTP($input){
     }
 }
 
+function filterPhoneNumber($input){
+    // Regex for both global and local phone numbers
+    $global_filter = '/^\+[0-9]{10,15}$/';
+    $local_filter = '/^09[0-9]{9}$/';
+
+    // Simple if-else check. Returns "true" if correct, "false" if wrong
+    if(preg_match($global_filter, $input) || preg_match($local_filter, $input)){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 function filterID($input){
     // 'KLD-xx-xxxxxx' regex filter, with x being a number
     $filter = '/^KLD-[0-9]{2}-[0-9]{6}$/';
@@ -50,19 +90,6 @@ function filterID($input){
 function filterPassword($input){
     // Filter that only allows alphanumeric characters and some special characters
     $filter = '/^[a-zA-Z0-9\!@$^&-._]{8,32}+$/';
-
-    // Simple if-else check. Returns "true" if correct, "false" if wrong
-    if(preg_match($filter, $input)){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
-
-function filterAlphanumeric($input){
-    // Filter that only allows alphanumeric characters
-    $filter = '/^[a-zA-Z0-9]+$/';
 
     // Simple if-else check. Returns "true" if correct, "false" if wrong
     if(preg_match($filter, $input)){

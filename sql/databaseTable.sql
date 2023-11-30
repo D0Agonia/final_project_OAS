@@ -61,7 +61,7 @@ CREATE TABLE UserDetails(
     middlename VARCHAR(32),
     surname VARCHAR(32) NOT NULL,
     email VARCHAR(128) NOT NULL,
-    phone_number VARCHAR(13),
+    phone_number VARCHAR(15),
     FOREIGN KEY(kld_id) REFERENCES UserCredentials(kld_id),
     FOREIGN KEY(guest_id) REFERENCES GuestCredentials(guest_id) ON DELETE SET NULL
 );
