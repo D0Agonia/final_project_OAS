@@ -234,15 +234,6 @@ include __DIR__ . '/php/index_student_guest_form.php';
                       </li>
                     </ul>
                   </div>
-                  <!-- <select type="text" class="form-control document-requested">
-                    <option class="select-option" selected disabled>
-                      Document Type
-                    </option>
-                    <option value="tor">Transcript of Records</option>
-                    <option value="tc">Transfer Credentials</option>
-                    <option value="cog">Certificate of Grades</option>
-                    <option value="coe">Certificate of Enrollment</option>
-                  </select> -->
                   <textarea
                     class="form-control comments"
                     name="comment"
