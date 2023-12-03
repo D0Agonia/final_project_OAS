@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="styles.css">
+    <title>Admin panel</title>
+</head>
+
+<body>
+    
+    <div class="container">
+        <div class="topbar">
+            <div class="logo">
+                <h3>Online Appointment System</h3>
+            </div>
+            <div class="search">
+                <input type="text" name="search" placeholder="search here">
+                <label for="search"><i class="fas fa-search"></i></label>
+            </div>
+            <i class="fas fa-bell"></i>
+            <div class="user">
+                <img src="img/user.png" alt="">
+            </div>
+        </div>
+        <div class="sidenav">
+            <a href="index.html">Dashboard</a>
+            
+            <button class="dropdown-btn">Appointment Management
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-container">
+                <a href="appointment.html">Table</a>
+                <a href="registration.html">Remider Messages</a>
+              </div>
+           
+            <button class="dropdown-btn">System Monitoring
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-container">
+                <a href="appointment.html">Maintenance Button</a>
+                
+              </div>
+           
+            <button class="dropdown-btn">Settings
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-container">
+                <a href="darkmode.js">Dark Mode</a>
+                <a href="#">Back up and Recovery</a>
+                <a href="#">Report Generation </a>
+                
+              </div>
+            <button class="dropdown-btn">User Management
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+              <a href="students.html">Student</a>
+              <a href="registration.html">Student Registration</a>
+              <a href="staff.html">Staff Registration</a>
+            </div>
+            <a href="#contact">Logout</a>
+          </div>
+        <div class="main">
+            <div class="cards">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="number">1217</div>
+                        <div class="card-name">Visitors</div>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="number">68</div>
+                        <div class="card-name">Walkins</div>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="number">42</div>
+                        <div class="card-name">Students</div>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="number">68</div>
+                        <div class="card-name">Guest</div>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="number">500</div>
+                        <div class="card-name">Today's Appointment</div>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="number">500</div>
+                        <div class="card-name">Cancelled Appointments</div>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="number">500</div>
+                        <div class="card-name">Follow-up Appointments</div>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="charts">
+                <div class="chart">
+                    <h2>Appointments (past 12 months)</h2>
+                    <div>
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart doughnut-chart">
+                    <h2>Appointment Today</h2>
+                    <div>
+                        <canvas id="doughnut"></canvas>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <script src="chart1.js"></script>
+    <script src="chart2.js"></script>
+    <script src="appoint.js"></script>
+</body>
+
+</html>
