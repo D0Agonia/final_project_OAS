@@ -46,6 +46,42 @@ function changeCredentials($input_code, $input_password){
     }
 }
 
+function fetchAppointmentBlacklist(){
+    global $conn;
+
+    try{
+        // Array to store the blacklisted dates and times
+        $blacklist = [
+            'dates' => [],
+            'times' => []
+        ];
+
+        $query = "SELECT DATE(appointment_datetime) AS appointment_date, COUNT(*) AS count FROM AppointmentList GROUP BY DATE(appointment_datetime)";
+        $stmt = $conn->query($query);
+        while ($row = $stmt->fetch_assoc()) {
+            if ($row['count'] >= 300) {
+                $blacklist['dates'][] = $row['appointment_date'];
+            }
+        }
+
+        $query = "SELECT appointment_datetime, COUNT(*) AS count FROM AppointmentList GROUP BY appointment_datetime";
+        $stmt = $conn->query($query);
+        while ($row = $stmt->fetch_assoc()) {
+            if ($row['count'] >= 9) {
+                $blacklist['times'][] = date('H:i', strtotime($row['appointment_datetime']));
+            }
+        }
+        
+        $stmt->close();
+
+        return $blacklist;
+    }
+    catch(Exception $e){
+        header("Location: ../error_message/error500");
+        logError($e);
+    }
+}
+
 function fetchDetails($input_token){
     global $conn;
 

@@ -428,6 +428,12 @@ select.form-control:focus {
   padding-bottom: 10px;
 }
 
+.item-disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  user-select: none; 
+}
+
 table.details {
   border: none; /* Disable borders */
   pointer-events: none; /* Disable pointer events */

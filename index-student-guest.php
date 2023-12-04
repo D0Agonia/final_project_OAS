@@ -84,7 +84,7 @@ include __DIR__ . '/php/index_student_guest_form.php';
           </div>
         </section>
         <section class="form-box">
-          <form action="#" id="multi-step-form">
+          <form id="multi-step-form" method="post">
             <div class="step step-1">
               <!-- STEP 1 OF FORM -->
               <p class="description-child fs-5">
@@ -103,6 +103,7 @@ include __DIR__ . '/php/index_student_guest_form.php';
                     placeholder="First Name"
                     name="fname"
                     value="<?php echo $_SESSION['fName']; ?>"
+                    <?php if($userType == 'STUDENT'){echo "readonly";}?>
                   />
                   <input
                     type="text"
@@ -110,13 +111,15 @@ include __DIR__ . '/php/index_student_guest_form.php';
                     placeholder="Last Name"
                     name="lname"
                     value="<?php echo $_SESSION['lName']; ?>"
+                    <?php if($userType == 'STUDENT'){echo "readonly";}?>
                   />
                   <input
                     type="text"
                     class="form-control last-name"
-                    placeholder="Middle Name"
+                    placeholder="Middle Name (optional)"
                     name="mname"
                     value="<?php echo $_SESSION['mName']; ?>"
+                    <?php if($userType == 'STUDENT'){echo "readonly";}?>
                   />
                   <input
                     type="email"
@@ -139,6 +142,7 @@ include __DIR__ . '/php/index_student_guest_form.php';
                     placeholder="Student No."
                     name="student"
                     value="' . $_SESSION['loginID'] . '"
+                    readonly
                   />';
                   } elseif($userType == 'GUEST'){ echo '
                   <select type="text" class="form-control type-of-id">
@@ -184,7 +188,7 @@ include __DIR__ . '/php/index_student_guest_form.php';
                     </div>
 
                     <ul class="document-items" style="overflow-x: auto">
-                      <li class="item">
+                      <li class="item item-disabled">
                         <span class="checkbox">
                           <img
                             class="check-icon"
@@ -193,8 +197,9 @@ include __DIR__ . '/php/index_student_guest_form.php';
                           />
                         </span>
                         <span class="item-text">Transcript of Records</span>
+                        <input type="hidden" name="selectedDocuments[]" value="TOR" disabled/>
                       </li>
-                      <li class="item">
+                      <li class="item item-disabled">
                         <span class="checkbox">
                           <img
                             class="check-icon"
@@ -203,8 +208,9 @@ include __DIR__ . '/php/index_student_guest_form.php';
                           />
                         </span>
                         <span class="item-text">Transfer Credentials</span>
+                        <input type="hidden" name="selectedDocuments[]" value="TRC" disabled/>
                       </li>
-                      <li class="item">
+                      <li class="item item-disabled">
                         <span class="checkbox">
                           <img
                             class="check-icon"
@@ -213,8 +219,9 @@ include __DIR__ . '/php/index_student_guest_form.php';
                           />
                         </span>
                         <span class="item-text">Certificate of Grades</span>
+                        <input type="hidden" name="selectedDocuments[]" value="COG" disabled/>
                       </li>
-                      <li class="item">
+                      <li class="item item-disabled">
                         <span class="checkbox">
                           <img
                             class="check-icon"
@@ -223,6 +230,7 @@ include __DIR__ . '/php/index_student_guest_form.php';
                           />
                         </span>
                         <span class="item-text">Certificate of Enrollment</span>
+                        <input type="hidden" name="selectedDocuments[]" value="COE" disabled/>
                       </li>
                     </ul>
                   </div>
@@ -235,6 +243,11 @@ include __DIR__ . '/php/index_student_guest_form.php';
                   ></textarea>
                 </div>
               </div>
+              <p 
+                class="text-center fw-bold text-danger" 
+                id="step1-error-message" 
+                style="display: none; margin-top: 10px; margin-bottom: 0">
+              </p>
               <div class="btn-box">
                 <button
                   type="submit"
@@ -533,6 +546,7 @@ include __DIR__ . '/php/index_student_guest_form.php';
     <script src="/calendar-02/calendar-02/js/dist/main.dev.js"></script>
     <script src="dist/js/bootstrap.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
       var currentStep = 1;
       var updateProgressBar;
@@ -550,39 +564,18 @@ include __DIR__ . '/php/index_student_guest_form.php';
         $("#multi-step-form").find(".step").slice(1).hide();
 
         $(".next-step").click(function () {
-          if (currentStep < 3) {
-            $(".step-" + currentStep).addClass(
-              "animate__animated animate__fadeOutLeft"
-            );
-            currentStep++;
-            setTimeout(function () {
-              $(".step")
-                .removeClass("animate__animated animate__fadeOutLeft")
-                .hide();
-              $(".step-" + currentStep)
-                .show()
-                .addClass("animate__animated animate__fadeInRight");
-              updateProgressBar();
-            }, 500);
+          event.preventDefault();
+          if(currentStep == 1){
+            processStep1();
+          }
+          if(currentStep == 2){
+            processStep2();
           }
         });
 
         $(".prev-step").click(function () {
-          if (currentStep > 1) {
-            $(".step-" + currentStep).addClass(
-              "animate__animated animate__fadeOutRight"
-            );
-            currentStep--;
-            setTimeout(function () {
-              $(".step")
-                .removeClass("animate__animated animate__fadeOutRight")
-                .hide();
-              $(".step-" + currentStep)
-                .show()
-                .addClass("animate__animated animate__fadeInLeft");
-              updateProgressBar();
-            }, 500);
-          }
+          event.preventDefault();
+          handlePrevStep();
         });
 
         updateProgressBar = function () {
@@ -591,8 +584,93 @@ include __DIR__ . '/php/index_student_guest_form.php';
         };
       });
 
+      function handleNextStep() {
+        if (currentStep < 3) {
+          $(".step-" + currentStep).addClass("animate__animated animate__fadeOutLeft");
+          currentStep++;
+          setTimeout(function () {
+              $(".step").removeClass("animate__animated animate__fadeOutLeft").hide();
+              $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInRight");
+              updateProgressBar();
+          }, 500);
+        }
+      }
+
+      function handlePrevStep() {
+        if (currentStep > 1) {
+          $(".step-" + currentStep).addClass("animate__animated animate__fadeOutRight");
+          currentStep--;
+          setTimeout(function () {
+              $(".step").removeClass("animate__animated animate__fadeOutRight").hide();
+              $(".step-" + currentStep).show().addClass("animate__animated animate__fadeInLeft");
+              updateProgressBar();
+          }, 500);
+        }
+      }
+
+      function processStep1() {
+        const appointmentTypeSelect = document.querySelector('.form-control.appointment-type');
+        const selectedValue = appointmentTypeSelect.value;
+
+        const formData = $(".step.step-1 :input").serializeArray().reduce((obj, item) => {
+          obj[item.name] = item.value;
+          return obj;
+        }, {});
+
+        const selectedDocuments = [];
+        $('.document-items li input[name="selectedDocuments[]"]').each(function() {
+          if (!$(this).is(':disabled')) {
+            selectedDocuments.push($(this).val());
+          }
+        });
+
+        formData.appointmentType = selectedValue;
+        formData.selectedDocuments = selectedDocuments;
+
+        const jsonData = JSON.stringify(formData);
+
+        console.log(jsonData);
+
+        $.ajax({
+          url: "phpAction/sanitize_information_details.php",
+          method: "POST",
+          data: {jsonData: jsonData},
+          dataType: "json",
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+          },
+          success: function(response){
+            if(response.processed == true){
+              document.getElementById('step1-error-message').style.display = 'none';
+              console.log(response.calendar_blacklist);
+              handleNextStep();
+            }
+            else{
+              document.getElementById('step1-error-message').style.display = '';
+              $("#step1-error-message").text(response.error_message);
+            }
+          },
+          error: function(error){
+            console.error(error);
+          }
+        });
+      }
+
+      function processStep2() {
+        const cookieName = "selected_day";
+        const cookieValue = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith(cookieName))
+          ?.split("=")[1]
+        ;
+        handleNextStep();
+      }
+
+      let selectedTime;
       const selectBtn = document.querySelector(".document-requested");
       const items = document.querySelectorAll(".item");
+      const appointmentTypeSelect = document.querySelector('.form-control.appointment-type');
+      const timeInputs = document.querySelectorAll('.btn-time');
 
       selectBtn.addEventListener("click", () => {
         selectBtn.classList.toggle("open");
@@ -601,14 +679,63 @@ include __DIR__ . '/php/index_student_guest_form.php';
       items.forEach((item) => {
         item.addEventListener("click", () => {
           item.classList.toggle("checked");
-
           let checked = document.querySelectorAll(".checked");
           let btnText = document.querySelector(".document-placeholder");
 
           if (checked && checked.length > 0) {
             btnText.innerText = `${checked.length} Selected`;
+
+            // Enable hidden inputs for checked items
+            checked.forEach((checkedItem) => {
+              let hiddenInput = checkedItem.querySelector('input[name="selectedDocuments[]"]');
+              if (hiddenInput) {
+                hiddenInput.disabled = false;
+              }
+            });
           } else {
             btnText.innerText = `Document Type`;
+
+            // Disable all hidden inputs when no items are checked
+            let allHiddenInputs = document.querySelectorAll('input[name="selectedDocuments[]"]');
+            allHiddenInputs.forEach((hiddenInput) => {
+              hiddenInput.disabled = true;
+            });
+          }
+        });
+      });
+
+      appointmentTypeSelect.addEventListener('change', function() {
+        // Get the selected value from the select tag
+        var selectedValue = this.value;
+
+        // Get the list elements by class name along with hidden inputs
+        var docList = document.querySelectorAll('.document-items .item');
+        var btnText = document.querySelector(".document-placeholder");
+        var allHiddenInputs = document.querySelectorAll('input[name="selectedDocuments[]"]');
+
+        // Uncheck checkboxes and apply the item-disabled class to all items if Information is selected
+        btnText.innerText = `Document Type`;
+        docList.forEach(function(item) {
+          if (selectedValue === 'information') {
+            allHiddenInputs.forEach((hiddenInput) => {
+              hiddenInput.disabled = true;
+            });
+            item.classList.remove('checked');
+            item.classList.add('item-disabled');
+          } else if (selectedValue === 'document') {
+            item.classList.remove('item-disabled');
+          }
+        });
+      });
+
+      timeInputs.forEach((input) => {
+        input.addEventListener('change', function() {
+          if(this.checked) {
+            // Input is selected
+            selectedTime = this.value;
+          } else {
+            // Input is deselected
+            selectedTime = null;
           }
         });
       });
