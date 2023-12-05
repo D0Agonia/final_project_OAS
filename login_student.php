@@ -71,13 +71,15 @@ include __DIR__ . '/php/login_student_form.php';
             </div>
             <div class="btn-submit-box d-flex justify-content-center">
               <input
-                type="submit"
-                class="btn-submit fw-semibold"
-                id="submit"
-                value="Login"
-                name="submit_button"
+              type="submit"
+              class="btn-submit fw-semibold"
+              id="submit"
+              value="Login"
+              name="submit_button"
               />
             </div>
+            <p class="text-center">The registration page is located within the admin site. Here is the link to access our admin portal: <br>
+              admin login url</p>
           </form>
         </div>
       </div>
