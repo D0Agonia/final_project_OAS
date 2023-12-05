@@ -34,7 +34,7 @@ include __DIR__ . '/php/index_student_guest_form.php';
       <section class="form-head">
         <div class="welcome-remarks">
           <p class="welcome fs-5">Welcome, 
-            <span><?php if($userType == 'STUDENT'){echo $_SESSION['fName'];}else{echo 'Guest';}?></span>
+            <span><?php if($userType == 'STUDENT'){echo $_SESSION['fName'];} else{echo 'Guest';}?></span>
           </p>
         </div>
         <div class="logout">
@@ -60,21 +60,21 @@ include __DIR__ . '/php/index_student_guest_form.php';
             ></div>
           </div>
           <div class="step-container d-flex justify-content-between">
-            <div class="step-circle" onclick="displayStep(1)">
+            <div class="step-circle">
               <img
                 src="images/form-icon.svg"
                 alt="form-icon"
                 style="width: 30px"
               />
             </div>
-            <div class="step-circle" onclick="displayStep(2)">
+            <div class="step-circle">
               <img
                 src="images/schedule-icon.svg"
                 alt="form-icon"
                 style="width: 30px"
               />
             </div>
-            <div class="step-circle" onclick="displayStep(3)">
+            <div class="step-circle">
               <img
                 src="images/check-icon.svg"
                 alt="form-icon"
@@ -140,13 +140,18 @@ include __DIR__ . '/php/index_student_guest_form.php';
                     type="text"
                     class="form-control student-no"
                     placeholder="Student No."
-                    name="student"
+                    name="student-id"
                     value="' . $_SESSION['loginID'] . '"
                     readonly
                   />';
                   } elseif($userType == 'GUEST'){ echo '
+                  <input
+                    type="hidden"
+                    name="guest-id"
+                    value="' . $_SESSION['loginID'] . '"
+                  />
                   <select type="text" class="form-control type-of-id">
-                    <option class="select-option" selected disabled>
+                    <option value="no-id" class="select-option" selected disabled>
                       Type of ID
                     </option>
                     <option value="school-id">School ID</option>
@@ -155,7 +160,7 @@ include __DIR__ . '/php/index_student_guest_form.php';
                   </select>
                   <input
                     type="text"
-                    class="form-control intification-no"
+                    class="form-control identification-no"
                     placeholder="Identification No."
                     name="identification"
                   />';
@@ -166,11 +171,11 @@ include __DIR__ . '/php/index_student_guest_form.php';
                     Appointment Details
                   </p>
                   <select type="text" class="form-control appointment-type">
-                    <option class="select-option" selected disabled>
+                    <option value="NONE" class="select-option" selected disabled>
                       Appointment Type
                     </option>
-                    <option value="document">Document Requested</option>
-                    <option value="information">Information Center</option>
+                    <option value="DOCREQ">Document Request</option>
+                    <option value="INFOCEN">Information Center</option>
                   </select>
                   <div class="position-box">
                     <div
@@ -246,7 +251,7 @@ include __DIR__ . '/php/index_student_guest_form.php';
               <p 
                 class="text-center fw-bold text-danger" 
                 id="step1-error-message" 
-                style="display: none; margin-top: 10px; margin-bottom: 0">
+                style="display: none; margin-top: 10px; margin-bottom: 0px">
               </p>
               <div class="btn-box">
                 <button
@@ -431,13 +436,18 @@ include __DIR__ . '/php/index_student_guest_form.php';
                     <input
                       type="button"
                       class="btn-time"
-                      id="TMSLOT-010"
+                      id="TMSLOT-10"
                       name="btn1"
                       value="05:00 PM"
                     />
                   </div>
                 </div>
               </div>
+              <p 
+                class="text-center fw-bold text-danger" 
+                id="step2-error-message" 
+                style="display: none; margin-top: 10px; margin-bottom: 0px">
+              </p>
               <div class="btn-box">
                 <button
                   type="button"
@@ -467,28 +477,31 @@ include __DIR__ . '/php/index_student_guest_form.php';
                     </tr>
                     <tr>
                       <td class="info-identifier">Email Address</td>
-                      <td class="user-details">jbuscsgan@gmail.com</td>
+                      <td class="user-details" id="summary-email"></td>
                     </tr>
                     <tr>
                       <td class="info-identifier">Full Name</td>
-                      <td class="user-details">Josephine A. Madrigal</td>
+                      <td class="user-details" id="summary-name"></td>
                     </tr>
                     <tr>
                       <td class="info-identifier">Contact Number</td>
-                      <td class="user-details">09305771234</td>
+                      <td class="user-details" id="summary-phone_number"></td>
                     </tr>
+                    <?php if($userType == 'STUDENT'){ echo '
                     <tr>
-                      <td class="info-identifier">Student Number</td>
-                      <td class="user-details">KLD-22-000234</td>
-                    </tr>
+                      <td class="info-identifier">Student ID</td>
+                      <td class="user-details" id="summary-student_id"></td>
+                    </tr>';
+                    } elseif($userType == 'GUEST'){ echo '
                     <tr>
                       <td class="info-identifier">Type of ID</td>
-                      <td class="user-details">SSS</td>
+                      <td class="user-details" id="summary-authentication"></td>
                     </tr>
                     <tr>
                       <td class="info-identifier">Identification No.</td>
-                      <td class="user-details">Optional</td>
-                    </tr>
+                      <td class="user-details" id="summary-identification"></td>
+                    </tr>';
+                    }?>
                   </table>
                 </div>
                 <div class="appointment-box box table-responsive">
@@ -498,25 +511,28 @@ include __DIR__ . '/php/index_student_guest_form.php';
                     </tr>
                     <tr>
                       <td class="info-identifier">Building</td>
-                      <td class="user-details">KLD Building No.1</td>
+                      <td class="user-details" id="summary-building"></td>
                     </tr>
-                    <tr>
-                      <td class="info-identifier">Document Requested</td>
-                      <td class="user-details">
-                        Official Transcript of Record (TOR)
-                      </td>
+                    <tr id="summary-documents">
+                      <td class="info-identifier">Appointment Type</td>
+                      <td class="user-details" id="summary-appointType"></td>
                     </tr>
                     <tr>
                       <td class="info-identifier">Date Released</td>
-                      <td class="user-details">Sample Date</td>
+                      <td class="user-details" id="summary-date"></td>
                     </tr>
                     <tr>
                       <td class="info-identifier">Time</td>
-                      <td class="user-details">Sample Time</td>
+                      <td class="user-details" id="summary-time"></td>
                     </tr>
                   </table>
                 </div>
               </div>
+              <p 
+                class="text-center fw-bold text-danger" 
+                id="step3-error-message" 
+                style="display: none; margin-top: 10px; margin-bottom: 0px">
+              </p>
               <div class="btn-box">
                 <button
                   type="button"
@@ -525,14 +541,13 @@ include __DIR__ . '/php/index_student_guest_form.php';
                 >
                   Back
                 </button>
-                <a
-                  href="thankyou-page"
+                <button
                   type="submit"
-                  class="btn-next-back fw-semibold"
-                  value="next"
+                  class="btn-next-back fw-semibold submit-data"
+                  value="submit"
                 >
                   Confirm Appointment
-                </a>
+                </button>
               </div>
             </div>
           </form>
@@ -550,6 +565,12 @@ include __DIR__ . '/php/index_student_guest_form.php';
     <script>
       var currentStep = 1;
       var updateProgressBar;
+      var calendarBlacklist;
+      var selectedTime;
+
+      var AppointmentDocument = <?php echo json_encode(fetchTable("AppointmentDocument"))?>;
+      var AppointmentType = <?php echo json_encode(fetchTable("AppointmentType"))?>;
+      var AuthenticationID = <?php echo json_encode(fetchTable("AuthenticationID"))?>;
 
       function displayStep(stepNumber) {
         if (stepNumber >= 1 && stepNumber <= 3) {
@@ -577,6 +598,11 @@ include __DIR__ . '/php/index_student_guest_form.php';
           event.preventDefault();
           handlePrevStep();
         });
+
+        $(".submit-data").click(function () {
+          event.preventDefault();
+          submitData();
+        })
 
         updateProgressBar = function () {
           var progressPercentage = ((currentStep - 1) / 2) * 100;
@@ -608,14 +634,23 @@ include __DIR__ . '/php/index_student_guest_form.php';
         }
       }
 
-      function processStep1() {
-        const appointmentTypeSelect = document.querySelector('.form-control.appointment-type');
-        const selectedValue = appointmentTypeSelect.value;
-
+      function fetchFormData() {
         const formData = $(".step.step-1 :input").serializeArray().reduce((obj, item) => {
-          obj[item.name] = item.value;
+          if(item.name !== 'selectedDocuments[]' && item.name !== 'identification'){
+            obj[item.name] = item.value;
+          }
           return obj;
         }, {});
+
+        const userType = '<?php echo $userType;?>';
+        if (userType === 'GUEST') {
+          formData.idType = document.querySelector('.form-control.type-of-id').value;
+          formData.identification = document.querySelector('.form-control.identification-no').value;
+        }
+        else if (userType === 'STUDENT'){
+          formData.idType = 'KLD';
+          formData.identification = '';
+        }
 
         const selectedDocuments = [];
         $('.document-items li input[name="selectedDocuments[]"]').each(function() {
@@ -624,12 +659,22 @@ include __DIR__ . '/php/index_student_guest_form.php';
           }
         });
 
-        formData.appointmentType = selectedValue;
+        formData.appointmentBuilding = 'KLD Building No. 1';
+        formData.appointmentType = document.querySelector('.form-control.appointment-type').value;
         formData.selectedDocuments = selectedDocuments;
+        if(selectedTime != null){
+          formData.appointmentDate = calendarDate + " " + convertTo24hr(selectedTime);
+        }
+        else{
+          formData.appointmentDate = calendarDate;
+        }
+        formData.userType = userType;
 
-        const jsonData = JSON.stringify(formData);
+        return JSON.stringify(formData);
+      }
 
-        console.log(jsonData);
+      function processStep1() {
+        const jsonData = fetchFormData();
 
         $.ajax({
           url: "phpAction/sanitize_information_details.php",
@@ -642,7 +687,8 @@ include __DIR__ . '/php/index_student_guest_form.php';
           success: function(response){
             if(response.processed == true){
               document.getElementById('step1-error-message').style.display = 'none';
-              console.log(response.calendar_blacklist);
+              calendarBlacklist = response.blacklist;
+              updateCalendar();
               handleNextStep();
             }
             else{
@@ -656,21 +702,255 @@ include __DIR__ . '/php/index_student_guest_form.php';
         });
       }
 
-      function processStep2() {
+      function convertTo12hr(time24hr) {
+        var [hours, minutes] = time24hr.split(':');
+        hours = parseInt(hours, 10);
+        minutes = parseInt(minutes, 10);
+        var meridiem = hours >= 12 ? 'PM' : 'AM';
+        hours = (hours % 12 || 12).toString().padStart(2, '0');
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        var time12hr = hours + ':' + minutes + ' ' + meridiem;
+
+        return time12hr;
+      }
+
+      function convertTo24hr(time12hr) {
+        var [time, meridiem] = time12hr.split(' ');
+        var [hours, minutes] = time.split(':');
+        hours = parseInt(hours, 10);
+
+        if (meridiem === 'PM' && hours < 12) {
+          hours += 12;
+        } else if (meridiem === 'AM' && hours === 12) {
+          hours = 0;
+        }
+
+        hours = hours.toString().padStart(2, '0');
+        minutes = parseInt(minutes, 10);
+
+        return hours + ':' + (minutes < 10 ? '0' + minutes : minutes);
+      }
+
+      function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const day = String(date.getDate()).padStart(2, '0');
+
+        const formattedDate = `${year}-${month}-${day}`;
+
+        return formattedDate;
+      }
+
+      function getCurrentDate() {
+        const today = new Date();
+
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const day = String(today.getDate()).padStart(2, '0');
+
+        const formattedDate = `${year}-${month}-${day}`;
+
+        return formattedDate;
+      }
+
+      var calendarDate;
+
+      function grabCalendarDate() {
         const cookieName = "selected_day";
-        const cookieValue = document.cookie
+        calendarDate = document.cookie
           .split("; ")
           .find((row) => row.startsWith(cookieName))
           ?.split("=")[1]
         ;
-        handleNextStep();
+        if(calendarDate !== undefined){
+          calendarDate = formatDate(new Date(calendarDate));
+        }
+        else{
+          calendarDate = getCurrentDate();
+        }
       }
 
-      let selectedTime;
+      function grabDate(input) {
+        const datePart = input.split(' ')[0];
+        return datePart;
+      }
+
+      function grabTime(input) {
+        const timePart = input.split(' ')[1];
+        return timePart;
+      }
+
+      const timeInputs = document.querySelectorAll('.btn-time');
+
+      timeInputs.forEach((input) => {
+        input.addEventListener('click', function() {
+          if(!this.classList.contains('time-selected')) {
+            // Input is selected
+            timeInputs.forEach((input) => {input.classList.remove('time-selected')});
+            input.classList.add('time-selected');
+            selectedTime = this.value;
+          } else {
+            // Input is deselected
+            input.classList.remove('time-selected');
+            selectedTime = null;
+          }
+        });
+      });
+
+      function updateCalendar() {
+        grabCalendarDate();
+
+        timeInputs.forEach(function(input) {
+          input.disabled = false;
+          input.classList.remove('time-selected');
+          input.classList.remove('item-disabled');
+        });
+
+        for(let i = 0; i < calendarBlacklist.length; i++){
+          let blacklistDate = grabDate(calendarBlacklist[i]);
+          let blacklistTime = convertTo12hr(grabTime(calendarBlacklist[i]));
+          if(calendarDate === blacklistDate){
+            let specificCalendarTime = document.querySelector(`.btn-time[value="${blacklistTime}"]`);
+            specificCalendarTime.disabled = true;
+            specificCalendarTime.classList.add('item-disabled');
+          }
+        }
+
+        selectedTime = null;
+      }
+
+      document.getElementById('calendar').addEventListener('click', function(event) {
+        updateCalendar();
+      });
+
+      function addDocument(data) {
+        var docRequestedRow = document.getElementById("summary-documents");
+
+        var newRow = document.createElement("tr");
+
+        newRow.innerHTML = `
+          <td class="info-identifier">Requested Document</td>
+          <td class="user-details" id="summary-docreq">${data}</td>
+        `;
+
+        newRow.id = "auto-generated-row";
+
+        docRequestedRow.parentNode.insertBefore(newRow, docRequestedRow.nextSibling);
+      }
+
+      function buildName(firstname, middlename, surname) {
+        // Construct the full name without middle initial
+        let fullName = `${firstname} ${surname}`;
+
+        // Include middle initial if middlename exists
+        if (middlename && middlename.length > 0) {
+          const middleInitial = middlename.charAt(0);
+          fullName = `${firstname} ${middleInitial}. ${surname}`;
+        }
+
+        return fullName;
+      }
+
+      function deleteDocument() {
+        document.querySelectorAll('#auto-generated-row').forEach(function(row) {
+          row.parentNode.removeChild(row);
+        });
+      }
+
+      function processStep2() {
+        const jsonData = fetchFormData();
+
+        $.ajax({
+          url: "phpAction/sanitize_calendar.php",
+          method: "POST",
+          data: {jsonData: jsonData},
+          dataType: "json",
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+          },
+          success: function(response){
+            if(response.processed == true){
+              deleteDocument();
+              document.getElementById('step2-error-message').style.display = 'none';
+
+              document.querySelector('#summary-email').textContent = response.email;
+              document.querySelector('#summary-name').textContent = buildName(response.fname, response.mname, response.lname);
+              document.querySelector('#summary-phone_number').textContent = response.contact_no;
+              if(document.getElementById('summary-student_id')){
+                document.querySelector('#summary-student_id').textContent = response['student-id'];
+              }
+              if(document.getElementById('summary-authentication') && document.getElementById('summary-identification')){
+                for(let i = 0; i < AuthenticationID.length; i++){
+                  if(AuthenticationID[i].auth_abbreviation === response.idType){
+                    document.querySelector('#summary-authentication').textContent = AuthenticationID[i].auth_name;
+                    break;
+                  }
+                }
+                document.querySelector('#summary-identification').textContent = response.identification;
+              }
+              document.querySelector('#summary-building').textContent = response.appointmentBuilding;
+              for(let i = 0; i < AppointmentType.length; i++){
+                if(AppointmentType[i].type_id === response.appointmentType){
+                  document.querySelector('#summary-appointType').textContent = AppointmentType[i].type_name;
+                  break;
+                }
+              }
+              if(response.appointmentType === 'DOCREQ'){
+                for(let i = 0; i < response.selectedDocuments.length; i++){
+                  for(let j = 0; j < AppointmentDocument.length; j++){
+                    if(AppointmentDocument[j].doc_abbreviation === response.selectedDocuments[i]){
+                      addDocument(AppointmentDocument[j].doc_name);
+                      break;
+                    }
+                  }
+                }
+              }
+              document.querySelector('#summary-date').textContent = grabDate(response.appointmentDate);
+              document.querySelector('#summary-time').textContent = convertTo12hr(grabTime(response.appointmentDate));
+
+              handleNextStep();
+            }
+            else{
+              document.getElementById('step2-error-message').style.display = '';
+              $("#step2-error-message").text(response.error_message);
+            }
+          },
+          error: function(error){
+            console.error(error);
+          }
+        });
+      }
+
+      function submitData() {
+        const jsonData = fetchFormData();
+
+        $.ajax({
+          url: "phpAction/submit_data.php",
+          method: "POST",
+          data: {jsonData: jsonData},
+          dataType: "json",
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+          },
+          success: function(response){
+            if(response.processed == true){
+              document.getElementById('step3-error-message').style.display = 'none';
+              window.location.href = window.location.origin + "/thankyou-page?control_number=" + response.control_number;
+            }
+            else{
+              document.getElementById('step3-error-message').style.display = '';
+              $("#step3-error-message").text(response.error_message);
+            }
+          },
+          error: function(error){
+            console.error(error);
+          }
+        });
+      }
+
       const selectBtn = document.querySelector(".document-requested");
       const items = document.querySelectorAll(".item");
       const appointmentTypeSelect = document.querySelector('.form-control.appointment-type');
-      const timeInputs = document.querySelectorAll('.btn-time');
 
       selectBtn.addEventListener("click", () => {
         selectBtn.classList.toggle("open");
@@ -716,26 +996,14 @@ include __DIR__ . '/php/index_student_guest_form.php';
         // Uncheck checkboxes and apply the item-disabled class to all items if Information is selected
         btnText.innerText = `Document Type`;
         docList.forEach(function(item) {
-          if (selectedValue === 'information') {
+          if (selectedValue === 'INFOCEN') {
             allHiddenInputs.forEach((hiddenInput) => {
               hiddenInput.disabled = true;
             });
             item.classList.remove('checked');
             item.classList.add('item-disabled');
-          } else if (selectedValue === 'document') {
+          } else if (selectedValue === 'DOCREQ') {
             item.classList.remove('item-disabled');
-          }
-        });
-      });
-
-      timeInputs.forEach((input) => {
-        input.addEventListener('change', function() {
-          if(this.checked) {
-            // Input is selected
-            selectedTime = this.value;
-          } else {
-            // Input is deselected
-            selectedTime = null;
           }
         });
       });

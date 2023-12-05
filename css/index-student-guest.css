@@ -363,7 +363,7 @@
   transform: translateY(-2px);
 }
 
-.btn-time:focus {
+.time-selected {
   background-color: #0b4610;
   color: #ffffff;
 }

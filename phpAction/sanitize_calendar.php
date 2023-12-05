@@ -1,7 +1,6 @@
 <?php
 require_once '../php/database_functions.php';
 require_once '../php/functions.php';
-require_once '../php/sanitize_functions.php';
 
 // Checks if user is not logged in. Will redirect to index.html if so
 tokenRedirect('', 'Location: index');
@@ -16,10 +15,19 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
         exit();
     }
 
-    $userInput = json_decode(sanitizeInfoDetails($userInput), true);
-    $userInput['blacklist'] = fetchAppointmentBlacklist();
-    echo json_encode($userInput);
-    exit();
+    if(preg_match('/^\d{4}-\d{2}-\d{2}$/', $userInput['appointmentDate']) == true){
+        echo json_encode(['processed' => false, 'error_message' => 'Please select a date']);
+        exit();
+    }
+    elseif(filterDate($userInput['appointmentDate']) == false){
+        echo json_encode(['processed' => false, 'error_message' => 'Invalid date format (Y-m-d H:i)']);
+        exit();
+    }
+    else{
+        $userInput['processed'] = true;
+        echo json_encode($userInput);
+        exit();
+    }
 }
 else {
     header("Location: ../error_message/error403");

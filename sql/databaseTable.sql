@@ -67,9 +67,11 @@ CREATE TABLE UserDetails(
 );
 
 CREATE TABLE AppointmentList(
-    control_number VARCHAR(13) PRIMARY KEY,
+    appointment_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    control_number VARCHAR(13),
     user_id BIGINT,
     auth_abbreviation VARCHAR(3),
+    auth_identification TEXT,
     appointment_datetime DATETIME NOT NULL,
     appointment_location VARCHAR(64) NOT NULL,
     typeDoc_relationship_id BIGINT,

@@ -8,13 +8,14 @@ INSERT INTO AppointmentDocument(doc_abbreviation, doc_name) VALUES
 
 INSERT INTO AppointmentType(type_id, type_name) VALUES
     ('INFOCEN', 'Information Center'),
-    ('DOCREQ', 'Request of Document')
+    ('DOCREQ', 'Document Request')
 ;
 
 INSERT INTO AuthenticationID(auth_abbreviation, auth_name) VALUES
     ('SCH', 'School ID'),
     ('GOV', 'Government-Issued ID'),
-    ('PVT', 'Private ID')
+    ('PVT', 'Private ID'),
+    ('KLD', 'KLD School ID')
 ;
 
 INSERT INTO TypeDocRelationship(type_id, doc_abbreviation) VALUES
@@ -90,34 +91,34 @@ INSERT INTO UserDetails(kld_id, firstname, middlename, surname, email, phone_num
 ;
 
 INSERT INTO AppointmentList(control_number, user_id, auth_abbreviation, appointment_datetime, appointment_location, typeDoc_relationship_id, comment) VALUES
-    (4829107532468, 1, 'SCH', '2023-11-18 08:00:00', 'KLD Building No. 1', 1, 'Ask about foundation t-shirt refund'),
-    (7263918405723, 2, 'GOV', '2023-11-23 14:00:00', 'KLD Building No. 1', 3, 'Transferee'),
-    (6394821753094, 3, 'SCH', '2023-11-18 08:00:00', 'KLD Building No. 1', 1, 'Join clubs'),
-    (1548926372058, 4, 'SCH', '2023-11-18 08:00:00', 'KLD Building No. 1', 1, 'Canteen fees'),
-    (3094857261934, 5, 'GOV', '2023-11-23 14:00:00', 'KLD Building No. 1', 3, 'Transferee'),
-    (8625019348572, 6, 'SCH', '2023-11-23 14:00:00', 'KLD Building No. 1', 1, 'Inquire about library'),
-    (7482093651823, 7, 'PVT', '2023-11-23 10:00:00', 'KLD Building No. 1', 3, 'To STI'),
-    (9203847651093, 8, 'SCH', '2023-11-23 1:00:00', 'KLD Building No. 1', 1, 'Join IS week event'),
-    (5738102948562, 9, 'GOV', '2023-11-23 10:00:00', 'KLD Building No. 1', 2, 'Get grades'),
-    (3857492016324, 10, 'PVT', '2023-11-23 10:00:00', 'KLD Building No. 1', 3, 'Needed by CvSU'),
-    (4902876315248, 11, 'SCH', '2023-11-18 08:00:00', 'KLD Building No. 1', 1, 'Varsity'),
-    (8765023419852, 12, 'PVT', '2023-11-23 10:00:00', 'KLD Building No. 1', 2, 'Get grades'),
-    (2150984736254, 13, 'PVT', '2023-11-23 15:00:00', 'KLD Building No. 1', 2, 'Get grades'),
-    (7643125098321, 14, 'SCH', '2023-11-23 11:00:00', 'KLD Building No. 1', 4, 'Alumni'),
-    (9326481750674, 15, 'PVT', '2023-11-23 14:00:00', 'KLD Building No. 1', 2, 'For grades'),
-    (6587412039245, 16, 'GOV', '2023-11-23 15:00:00', 'KLD Building No. 1', 3, 'Transfering ASAP'),
-    (3492856701826, 17, 'SCH', '2023-11-23 09:00:00', 'KLD Building No. 1', 4, 'Alumni'),
-    (5726318940567, 18, 'SCH', '2023-11-23 11:00:00', 'KLD Building No. 1', 5, 'Needed by security guard'),
-    (1098273456823, 19, 'SCH', '2023-11-23 11:00:00', 'KLD Building No. 1', 4, 'Graduated'),
-    (4562098132745, 20, 'GOV', '2023-11-23 09:00:00', 'KLD Building No. 1', 2, 'To see grades'),
-    (8274361095482, 21, 'SCH', '2023-11-23 11:00:00', 'KLD Building No. 1', 4, 'Graduate'),
-    (5032987162475, 22, 'GOV', '2023-11-23 09:00:00', 'KLD Building No. 1', 3, 'Transfering ASAP'),
-    (7641285039726, 23, 'PVT', '2023-11-23 09:00:00', 'KLD Building No. 1', 2, 'Get grades'),
-    (9358726104328, 24, 'SCH', '2023-11-23 13:00:00', 'KLD Building No. 1', 4, 'Alumni'),
-    (2184563970813, 25, 'PVT', '2023-11-23 09:00:00', 'KLD Building No. 1', 3, 'Transfering ASAP'),
-    (6793412058236, 26, 'SCH', '2023-11-23 13:00:00', 'KLD Building No. 1', 5, 'To see courses'),
-    (3948671520618, 27, 'SCH', '2023-11-23 13:00:00', 'KLD Building No. 1', 4, 'To get degree'),
-    (5621934807894, 28, 'PVT', '2023-11-23 15:00:00', 'KLD Building No. 1', 2, 'Get grades'),
-    (1093847526083, 29, 'SCH', '2023-11-23 13:00:00', 'KLD Building No. 1', 5, 'Need schedule'),
-    (8456723901627, 30, 'SCH', '2023-11-23 13:00:00', 'KLD Building No. 1', 5, 'Need schedule')
+    (4829107532468, 1, 'KLD', '2023-11-18 08:00:00', 'KLD Building No. 1', 1, 'Ask about foundation t-shirt refund'),
+    (7263918405723, 2, 'KLD', '2023-11-23 14:00:00', 'KLD Building No. 1', 3, 'Transferee'),
+    (6394821753094, 3, 'KLD', '2023-11-18 08:00:00', 'KLD Building No. 1', 1, 'Join clubs'),
+    (1548926372058, 4, 'KLD', '2023-11-18 08:00:00', 'KLD Building No. 1', 1, 'Canteen fees'),
+    (3094857261934, 5, 'KLD', '2023-11-23 14:00:00', 'KLD Building No. 1', 3, 'Transferee'),
+    (8625019348572, 6, 'KLD', '2023-11-23 14:00:00', 'KLD Building No. 1', 1, 'Inquire about library'),
+    (7482093651823, 7, 'KLD', '2023-11-23 10:00:00', 'KLD Building No. 1', 3, 'To STI'),
+    (9203847651093, 8, 'KLD', '2023-11-23 1:00:00', 'KLD Building No. 1', 1, 'Join IS week event'),
+    (5738102948562, 9, 'KLD', '2023-11-23 10:00:00', 'KLD Building No. 1', 2, 'Get grades'),
+    (3857492016324, 10, 'KLD', '2023-11-23 10:00:00', 'KLD Building No. 1', 3, 'Needed by CvSU'),
+    (4902876315248, 11, 'KLD', '2023-11-18 08:00:00', 'KLD Building No. 1', 1, 'Varsity'),
+    (8765023419852, 12, 'KLD', '2023-11-23 10:00:00', 'KLD Building No. 1', 2, 'Get grades'),
+    (2150984736254, 13, 'KLD', '2023-11-23 15:00:00', 'KLD Building No. 1', 2, 'Get grades'),
+    (7643125098321, 14, 'KLD', '2023-11-23 11:00:00', 'KLD Building No. 1', 4, 'Alumni'),
+    (9326481750674, 15, 'KLD', '2023-11-23 14:00:00', 'KLD Building No. 1', 2, 'For grades'),
+    (6587412039245, 16, 'KLD', '2023-11-23 15:00:00', 'KLD Building No. 1', 3, 'Transfering ASAP'),
+    (3492856701826, 17, 'KLD', '2023-11-23 09:00:00', 'KLD Building No. 1', 4, 'Alumni'),
+    (5726318940567, 18, 'KLD', '2023-11-23 11:00:00', 'KLD Building No. 1', 5, 'Needed by security guard'),
+    (1098273456823, 19, 'KLD', '2023-11-23 11:00:00', 'KLD Building No. 1', 4, 'Graduated'),
+    (4562098132745, 20, 'KLD', '2023-11-23 09:00:00', 'KLD Building No. 1', 2, 'To see grades'),
+    (8274361095482, 21, 'KLD', '2023-11-23 11:00:00', 'KLD Building No. 1', 4, 'Graduate'),
+    (5032987162475, 22, 'KLD', '2023-11-23 09:00:00', 'KLD Building No. 1', 3, 'Transfering ASAP'),
+    (7641285039726, 23, 'KLD', '2023-11-23 09:00:00', 'KLD Building No. 1', 2, 'Get grades'),
+    (9358726104328, 24, 'KLD', '2023-11-23 13:00:00', 'KLD Building No. 1', 4, 'Alumni'),
+    (2184563970813, 25, 'KLD', '2023-11-23 09:00:00', 'KLD Building No. 1', 3, 'Transfering ASAP'),
+    (6793412058236, 26, 'KLD', '2023-11-23 13:00:00', 'KLD Building No. 1', 5, 'To see courses'),
+    (3948671520618, 27, 'KLD', '2023-11-23 13:00:00', 'KLD Building No. 1', 4, 'To get degree'),
+    (5621934807894, 28, 'KLD', '2023-11-23 15:00:00', 'KLD Building No. 1', 2, 'Get grades'),
+    (1093847526083, 29, 'KLD', '2023-11-23 13:00:00', 'KLD Building No. 1', 5, 'Need schedule'),
+    (8456723901627, 30, 'KLD', '2023-11-23 13:00:00', 'KLD Building No. 1', 5, 'Need schedule')
 ;

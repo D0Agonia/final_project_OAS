@@ -30,7 +30,7 @@
               Your appointment has been confirmed.
             </p>
             <p class="title-desc fs-6 fw-semibold">
-              Control Number: <span>123456789</span>
+              Control Number: <span><?php echo isset($_GET['control_number']) ? $_GET['control_number'] : '';?></span>
             </p>
             <p class="title-desc fs-6 w-75 fw-semibold">
               NOTE: please remember your control number, you may use it to view
@@ -39,16 +39,14 @@
             <p class="title-desc fs-6">
               See you in Kolehiyo ng Lungsod ng Dasmariñas!
             </p>
-            <form action="#" class="btn-form mt-5">
-                <button
-                  type="submit"
-                  class="btn-home fw-semibold"
-                  data-bs-toggle="modal"
-                  data-bs-target="#confirmModal"
-                >
-                  Proceed
-                </button>
-            </form>
+            <button
+              type="submit"
+              class="btn-home fw-semibold"
+              data-bs-toggle="modal"
+              data-bs-target="#confirmModal"
+            >
+              Proceed
+            </button>
           </div>
         </div>
       </section>

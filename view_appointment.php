@@ -1,3 +1,7 @@
+<?php
+include __DIR__ . '/php/view_appointment_form.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -37,7 +41,10 @@
             class="img-fluid login-icon"
             style="width: 200px; height: 200px"
           />
-          <form action="" class="form">
+          <form method="post" class="form">
+            <?php if($show_error == true){
+              echo '<p class="text-center fw-bold text-danger">' . $error_message . '</p>';
+            }?>
             <div class="form-floating control-VA">
               <input
                 type="password"
@@ -59,11 +66,11 @@
               <label for="last-name" class="form-label">Last Name</label>
             </div>
             <div class="btn-submit-box d-flex justify-content-center">
-              <a
-                href="view-appointment_page"
-                type="button"
+              <input
+                type="submit"
+                value="Proceed"
+                name="view_appointment"
                 class="btn-submit fw-semibold"
-                >Proceed</a
               >
             </div>
           </form>

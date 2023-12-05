@@ -44,12 +44,7 @@ include __DIR__ . '/php/login_guest_form.php';
             style="width: 200px; height: 200px"
           />
           <form method="post" class="form">
-            <?php 
-            if($_SESSION['showError'] == true){
-              echo '<p class="text-center fw-bold text-danger">' . $error_display . '</p>';}
-            elseif($_SESSION['showSuccess'] == true){
-              echo '<p class="text-center fw-bold text-success">' . $success_display . '</p>';}
-            ?>
+            <p class="text-center fw-bold text-danger" id="text-response"></p>
             <div class="form-floating txtGuest-email">
               <input
                 type="email"
@@ -57,7 +52,6 @@ include __DIR__ . '/php/login_guest_form.php';
                 id="guest-email"
                 placeholder="Enter your Email"
                 name="email"
-                value="<?php echo $guestEmail_value_email; ?>"
               />
               <label for="email" class="form-label">Email Address</label>
             </div>
@@ -70,19 +64,17 @@ include __DIR__ . '/php/login_guest_form.php';
                 name="otp"
               />
               <input
-                type="submit" 
-                class="btn-send" 
+                type="button" 
+                class="btn-send otp_send" 
                 id="button-addon2"
                 value="Send"
                 name="otp_send"
-                data-bs-toggle="modal"
-                data-bs-target="#confirmModal"
               />
             </div>
             <div class="btn-submit-box d-flex justify-content-center">
               <input
-                type="submit"
-                class="btn-submit fw-semibold"
+                type="button"
+                class="btn-submit fw-semibold otp_submit"
                 id="submit"
                 value="Proceed"
                 name="submit_button"
@@ -124,6 +116,71 @@ include __DIR__ . '/php/login_guest_form.php';
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
     ></script>
-    <script></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+      var session = <?php echo json_encode($_SESSION); ?>
+
+      $(document).ready(function () {
+        $(".otp_send").click(function () {
+          event.preventDefault();
+          let data = {};
+          data.email = document.querySelector('#guest-email').value;
+          data.session = session;
+          data = JSON.stringify(data);
+
+          $.ajax({
+            url: "phpAction/send_otp.php",
+            method: "POST",
+            data: {jsonData: data},
+            dataType: "json",
+            beforeSend: function(xhr) {
+              xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            },
+            success: function(response){
+              if(response.processed == true){
+                document.querySelector('#text-response').textContent = null;
+                session = response.session;
+                $('#confirmModal').modal('show');
+              }
+              else{
+                document.querySelector('#text-response').textContent = response.message;
+              }
+            },
+            error: function(error){
+              console.error(error);
+            }
+          });
+        });
+        $(".otp_submit").click(function () {
+          event.preventDefault();
+          let data = {};
+          data.otp = document.querySelector('#otp-guest').value;
+          data.session = session;
+          data = JSON.stringify(data);
+
+          $.ajax({
+            url: "phpAction/verify_otp.php",
+            method: "POST",
+            data: {jsonData: data},
+            dataType: "json",
+            beforeSend: function(xhr) {
+              xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            },
+            success: function(response){
+              if(response.processed == true){
+                document.querySelector('#text-response').textContent = null;
+                window.location.href = window.location.origin + "/index-student-guest";
+              }
+              else{
+                document.querySelector('#text-response').textContent = response.message;
+              }
+            },
+            error: function(error){
+              console.error(error);
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>
