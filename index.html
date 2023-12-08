@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Admin panel</title>
+  </head>
+
+  <body>
+    <!-- Main container -->
+    <div class="container">
+      <!-- Topbar -->
+      <div class="topbar">
+        <div class="logo">
+          <h3>Online Appointment System</h3>
+        </div>
+        <div class="search">
+          <input type="text" name="search" placeholder="search here" />
+          <label for="search"><i class="fas fa-search"></i></label>
+        </div>
+        <i class="fas fa-bell"></i>
+        <div class="user">
+          <img src="img/user.png" alt="" />
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="sidenav">
+        <a href="index.html">Dashboard</a>
+
+        <!-- Appointment Management Dropdown -->
+        <button class="dropdown-btn">
+          Appointment Management
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+          <a href="appointmentstable.html">Table</a>
+        </div>
+
+        <!-- User Management Dropdown -->
+        <button class="dropdown-btn">
+          User Management
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+          <a href="students.html">Student</a>
+          <a href="registration.html">Student Registration</a>
+          <a href="staff.html">Staff Registration</a>
+        </div>
+
+        <!-- System Monitoring Dropdown -->
+        <button class="dropdown-btn">
+          System Monitoring
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+          <a href="appointment.html">Maintenance Button</a>
+        </div>
+
+        <!-- Settings Dropdown -->
+        <button class="dropdown-btn">
+          Settings
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+          <a href="darkmode.js">Dark Mode</a>
+          <a href="#">Back up and Recovery</a>
+          <a href="#">Report Generation </a>
+        </div>
+
+        <a href="logout.html">Logout</a>
+      </div>
+
+      <!-- Main content -->
+      <div class="main">
+        <!-- Cards -->
+        <div class="cards">
+          <!-- Card 1 -->
+          <div class="card">
+            <div class="card-content">
+              <div class="number">0</div>
+              <a href="walkins.html">
+                <div class="card-name">Walkins</div>
+              </a>
+            </div>
+            <div class="icon-box">
+              <i class="fas fa-users"></i>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card">
+            <div class="card-content">
+              <div class="number">0</div>
+              <a href="guest.html">
+                <div class="card-name">Students</div>
+              </a>
+            </div>
+            <div class="icon-box">
+              <i class="fas fa-users"></i>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card">
+            <div class="card-content">
+              <div class="number">0</div>
+              <a href="guest2.html">
+                <div class="card-name">Guest</div>
+              </a>
+            </div>
+            <div class="icon-box">
+              <i class="fas fa-users"></i>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="card">
+            <div class="card-content">
+              <div class="number">0</div>
+              <a href="Todays.html">
+                <div class="card-name">Today's Appointment</div>
+              </a>
+            </div>
+            <div class="icon-box">
+              <i class="fas fa-users"></i>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="card">
+            <div class="card-content">
+              <div class="number">0</div>
+              <div class="card-name">Cancelled Appointments</div>
+            </div>
+            <div class="icon-box">
+              <i class="fas fa-users"></i>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="card">
+            <div class="card-content">
+              <div class="number">0</div>
+              <div class="card-name">Follow-up Appointments</div>
+            </div>
+            <div class="icon-box">
+              <i class="fas fa-users"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts">
+          <!-- Chart 1 -->
+          <div class="chart">
+            <h2>Appointments (past 12 months)</h2>
+            <div>
+              <canvas id="lineChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 2 -->
+          <div class="chart doughnut-chart">
+            <h2>Appointment Today</h2>
+            <div>
+              <canvas id="doughnut"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <script src="chart1.js"></script>
+    <script src="chart2.js"></script>
+    <script src="appoint.js"></script>
+  </body>
+</html>
