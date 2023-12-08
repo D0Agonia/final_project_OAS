@@ -3,9 +3,6 @@ require_once '../php/database_functions.php';
 require_once '../php/functions.php';
 require_once '../php/sanitize_functions.php';
 
-// Checks if user is not logged in. Will redirect to index.html if so
-tokenRedirect('', 'Location: index');
-
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest' && $_SERVER["REQUEST_METHOD"] === "POST") {
     $control_number; $TypeDocRelationship; $typeDoc_relationship_id; $ID_FLAG; $input_ID; $DOCREQ_Values = array();
     
@@ -32,8 +29,12 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
         $userInput['lname'] = sanitizeInput($userInput['lname']);
         $userInput['email'] = sanitizeInput($userInput['email']);
         $userInput['contact_no'] = sanitizeInput($userInput['contact_no']);
-        $userInput['student-id'] = sanitizeInput($userInput['student-id']);
-        $userInput['guest-id'] = sanitizeInput($userInput['guest-id']);
+        if(isset($userInput['student-id'])){
+            $userInput['student-id'] = sanitizeInput($userInput['student-id']);
+        }
+        if(isset($userInput['guest-id'])){
+            $userInput['guest-id'] = sanitizeInput($userInput['guest-id']);
+        }
         $userInput['idType'] = sanitizeInput($userInput['idType']);
         $userInput['identification'] = sanitizeInput($userInput['identification']);
         $userInput['appointmentDate'] = sanitizeInput($userInput['appointmentDate']);
@@ -70,8 +71,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
             echo json_encode(['processed' => true, 'control_number' => $control_number]);
         }
         DestroySessionToken($_COOKIE["session_token"]);
-        deleteCookie('session_token'); session_destroy();
-        deteCookie('appointmentSession');
+        deleteCookie('session_token'); deleteCookie('appointmentSession');
         exit();
     }
 }

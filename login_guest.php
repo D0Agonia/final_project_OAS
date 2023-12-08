@@ -89,7 +89,7 @@ include __DIR__ . '/php/login_guest_form.php';
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title fw-bold">OTP Notice</h5>
+            <h5 class="modal-title fw-bold">Successfully Sent OTP!</h5>
             <button class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body fw-light">
@@ -154,6 +154,7 @@ include __DIR__ . '/php/login_guest_form.php';
         $(".otp_submit").click(function () {
           event.preventDefault();
           let data = {};
+          data.email = document.querySelector('#guest-email').value;
           data.otp = document.querySelector('#otp-guest').value;
           data.session = session;
           data = JSON.stringify(data);

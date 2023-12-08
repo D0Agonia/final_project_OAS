@@ -3,9 +3,6 @@ require_once '../php/database_functions.php';
 require_once '../php/email_logic.php';
 require_once '../php/functions.php';
 
-// Checks if user has already logged in. Will redirect to index-student-guest.html if so
-tokenRedirect('Location: index-student-guest', '');
-
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest' && $_SERVER["REQUEST_METHOD"] === "POST") {
     // Inserts information and details, in preparation for regex
     if(isset($_POST['jsonData'])) {
@@ -37,20 +34,12 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
     elseif($_SESSION['otpCooldown'] > time()){
         $output['processed'] = false; $output['message'] = 'ERROR: OTP Cooldown';
     }
-    // Case [ACCEPT]: Inputs satisfied (First creation of guest user)
+    // Case [ACCEPT]: Inputs satisfied
     elseif(filter_var($email, FILTER_VALIDATE_EMAIL) == true && filterEmail($email) == true 
-    && $_SESSION['otpCooldown'] <= time() && $_SESSION['guestMade'] == false){
+    && $_SESSION['otpCooldown'] <= time()){
         $email = sanitizeInput($email);
-        $otpResult = insertGuest();
+        $otpResult = insertGuest($email);
 
-        $_SESSION['otpCooldown'] = time() + 60;
-        $_SESSION['sendMail'] = true;
-
-        $output['processed'] = true;
-    }
-    // Case [ACCEPT]: Inputs satisfied (Rerequest of OTP)
-    elseif(filter_var($email, FILTER_VALIDATE_EMAIL) == true && filterEmail($email) == true 
-    && $_SESSION['otpCooldown'] <= time() && $_SESSION['guestMade'] == true){
         $_SESSION['otpCooldown'] = time() + 60;
         $_SESSION['sendMail'] = true;
 

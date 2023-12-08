@@ -49,7 +49,7 @@ include __DIR__ . '/php/view_appointment_page_form.php';
               </tr>
               <tr>
                 <td class="info-identifier">Full Name</td>
-                <td class="user-details"><script>buildName(<?php echo $user['firstname'] . ", " . $user['middlename'] . ", " . $user['surname']?>);</script></td>
+                <td class="user-details" id="js-fullname"></td>
               </tr>
               <tr>
                 <td class="info-identifier">Contact Number</td>
@@ -63,7 +63,7 @@ include __DIR__ . '/php/view_appointment_page_form.php';
               } elseif(isset($user['guest_id'])){ echo '
               <tr>
                 <td class="info-identifier">Type of ID</td>
-                <td class="user-details">' . $displayAuthName . '</td>
+                <td class="user-details">' . $auth_name . '</td>
               </tr>
               <tr>
                 <td class="info-identifier">Identification No.</td>
@@ -83,44 +83,39 @@ include __DIR__ . '/php/view_appointment_page_form.php';
               </tr>
               <tr>
                 <td class="info-identifier">Building</td>
-                <td class="user-details"><?php echo $appointment['appointment_location]']?></td>
+                <td class="user-details"><?php echo $appointment['appointment_location']?></td>
               </tr>
               <tr>
                 <td class="info-identifier">Appointment Type</td>
-                <td class="user-details"><?php echo $displayAppointmentType?></td>
+                <td class="user-details"><?php echo $type_name[0]?></td>
               </tr>
               <?php for($i = 0; $i < count($appointment['typeDoc_relationship_id']); $i++){ 
-              for($j = 0; $j < count($docNames); $i++){
-                if($j == $appointment['typeDoc_relationship_id'] && $appointment['typeDoc_relationship_id'] != 0){
-                  $displayDocumentRequested = $docNames[$j]; echo '
-                  <tr>
-                    <td class="info-identifier">Document Requested</td>
-                    <td class="user-details"></td>
-                  </tr>';
-                  break;
-                }
-              }
+              if($type_id[$i] == 'DOCREQ'){ echo '
+              <tr>
+                <td class="info-identifier">Document Requested</td>
+                <td class="user-details">' . $doc_name[$i] . '</td>
+              </tr>';}
               }?>
               <tr>
                 <td class="info-identifier">Date</td>
-                <td class="user-details"><script>grabDate(<?php echo $appointment['appointment_datetime']?>);</script></td>
+                <td class="user-details" id="js-date"></td>
               </tr>
               <tr>
                 <td class="info-identifier">Time</td>
-                <td class="user-details"><script>convertTo12hr(grabDate(<?php echo $appointment['appointment_datetime']?>));</script></td>
+                <td class="user-details" id="js-time"></td>
               </tr>
             </table>
-            <form action="#">
+            <form method="post">
               <div class="btn-box">
-                <a
-                  href="reschedule-page"
-                  type="button"
-                  class="btn-appointment fw-semibold"
-                >
-                  Reschedule Appointment
-                </a>
+                <input
+                type="submit"
+                class="btn-appointment fw-semibold"
+                id="reschedule"
+                value="Reschedule Appointment"
+                name="reschedule_button"
+                />
                 <button
-                  type="submit"
+                  type="button"
                   class="btn-appointment fw-semibold"
                   data-bs-toggle="modal"
                   data-bs-target="#cancelModal"
@@ -144,14 +139,22 @@ include __DIR__ . '/php/view_appointment_page_form.php';
             <p>Do you really want to cancel this appointment?</p>
           </div>
           <div class="modal-footer">
-            <a href="index?i=1" class="btn-home fw-semibold">Yes</a>
-            <button
-              type="button"
-              class="btn-back fw-semibold"
-              data-bs-dismiss="modal"
-            >
-              No
-            </button>
+            <form method="post">
+              <input
+              type="submit"
+              class="btn-home fw-semibold"
+              id="home"
+              value="Yes"
+              name="home_button"
+              />
+              <button
+                type="button"
+                class="btn-back fw-semibold"
+                data-bs-dismiss="modal"
+              >
+                No
+              </button>
+            </form>
           </div>
         </div>
       </div>
@@ -173,32 +176,23 @@ include __DIR__ . '/php/view_appointment_page_form.php';
       crossorigin="anonymous"
     ></script>
     <script>
+      $(document).ready(function () {
+        document.querySelector('#js-fullname').textContent = buildName(<?php echo "'" . $user['firstname'] . "', '" . $user['middlename'] . "', '" . $user['surname'] . "'"?>);
+        document.querySelector('#js-date').textContent = grabDate(<?php echo "'" . $appointment['appointment_datetime'] . "'"?>);
+        document.querySelector('#js-time').textContent = convertTo12hr(grabTime(<?php echo "'" . $appointment['appointment_datetime'] . "'"?>));
+      });
       function convertTo12hr(time24hr) {
-        var [hours, minutes] = time24hr.split(':');
+        var [hours, minutes, seconds] = time24hr.split(':');
         hours = parseInt(hours, 10);
         minutes = parseInt(minutes, 10);
+        
         var meridiem = hours >= 12 ? 'PM' : 'AM';
         hours = (hours % 12 || 12).toString().padStart(2, '0');
         minutes = minutes < 10 ? '0' + minutes : minutes;
+        
         var time12hr = hours + ':' + minutes + ' ' + meridiem;
 
         return time12hr;
-      }
-      function convertTo24hr(time12hr) {
-        var [time, meridiem] = time12hr.split(' ');
-        var [hours, minutes] = time.split(':');
-        hours = parseInt(hours, 10);
-
-        if (meridiem === 'PM' && hours < 12) {
-          hours += 12;
-        } else if (meridiem === 'AM' && hours === 12) {
-          hours = 0;
-        }
-
-        hours = hours.toString().padStart(2, '0');
-        minutes = parseInt(minutes, 10);
-
-        return hours + ':' + (minutes < 10 ? '0' + minutes : minutes);
       }
       function buildName(firstname, middlename, surname) {
         // Construct the full name without middle initial

@@ -3,9 +3,6 @@ require_once '../php/database_functions.php';
 require_once '../php/functions.php';
 require_once '../php/sanitize_functions.php';
 
-// Checks if user is not logged in. Will redirect to index.html if so
-tokenRedirect('', 'Location: index');
-
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest' && $_SERVER["REQUEST_METHOD"] === "POST") {
     // Inserts information and details, in preparation for regex
     if(isset($_POST['jsonData'])) {

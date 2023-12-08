@@ -47,23 +47,13 @@ include __DIR__ . '/php/view_appointment_form.php';
             }?>
             <div class="form-floating control-VA">
               <input
-                type="password"
+                type="text"
                 class="form-control"
                 id="control-no"
-                placeholder="Enter Student ID"
+                placeholder="Enter Control Number"
                 name="control-no"
               />
               <label for="control-no" class="form-label">Control no.</label>
-            </div>
-            <div class="form-floating last-nameVA">
-              <input
-                type="password"
-                class="form-control"
-                id="last-name"
-                placeholder="Enter your otp"
-                name="last-name"
-              />
-              <label for="last-name" class="form-label">Last Name</label>
             </div>
             <div class="btn-submit-box d-flex justify-content-center">
               <input

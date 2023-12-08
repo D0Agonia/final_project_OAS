@@ -79,8 +79,8 @@ function fetchDetails($input_token){
 
         // Fetches user details tied to the kld_id of the session_token
         if(preg_match("/^KLD/", $login_id)){
-            $query = "SELECT kld_id, firstname, middlename, surname, email, phone_number FROM UserDetails WHERE kld_id = ? OR guest_id = ?";
-            $stmt = $conn->prepare($query); $stmt->bind_param("ss", $login_id, $login_id);
+            $query = "SELECT kld_id, firstname, middlename, surname, email, phone_number FROM UserDetails WHERE kld_id = ?";
+            $stmt = $conn->prepare($query); $stmt->bind_param("s", $login_id);
             $stmt->execute(); $stmt->store_result(); $stmt->bind_result($kld_id, $firstname, $middlename, $surname, $email, $phone_number);
             $stmt->fetch();
 
@@ -94,18 +94,25 @@ function fetchDetails($input_token){
                 'contactNum' => $phone_number
             );
             
+            $stmt->close();
             return $details;
         }
         elseif(preg_match("/^GUEST/", $login_id)){
+            $query = "SELECT email FROM UserDetails WHERE guest_id = ?";
+            $stmt = $conn->prepare($query); $stmt->bind_param("s", $login_id);
+            $stmt->execute(); $stmt->store_result(); $stmt->bind_result($email);
+            $stmt->fetch();
+
             $details = array(
                 'loginID' => $login_id,
                 'fName' => '',
                 'mName' => '',
                 'lName' => '',
-                'email' => '',
+                'email' => $email,
                 'contactNum' => ''
             );
 
+            $stmt->close();
             return $details;
         }
     }
@@ -222,7 +229,7 @@ function insertDetails($input_ID, $input_firstname, $input_middlename, $input_su
     }
 }
 
-function insertGuest(){
+function insertGuest($input_email){
     global $conn;
     
     try{
@@ -233,17 +240,35 @@ function insertGuest(){
             $stmt->execute(); $stmt->store_result(); $otpSimilar_count = $stmt->num_rows;
         } while($otpSimilar_count > 0);
 
-        // Generates guest_id, while ensuring no such other guest_id exists
-        do{ $autogen_guestID = 'GUEST' . str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
-            $query = "SELECT guest_id FROM GuestCredentials WHERE guest_id = ?";
-            $stmt = $conn->prepare($query); $stmt->bind_param("s", $autogen_guestID);
-            $stmt->execute(); $stmt->store_result(); $guestIDSimilar_count = $stmt->num_rows;
-        } while($guestIDSimilar_count > 0);
+        // Selects existing guest id of user
+        $query = "SELECT guest_id FROM UserDetails WHERE email = ?";
+        $stmt = $conn->prepare($query); $stmt->bind_param("s", $input_email);
+        $stmt->execute(); $stmt->store_result(); $stmt->bind_result($guest_guestID);
+        $stmt->fetch();
 
-        // Insertion into database
-        $query = "INSERT INTO GuestCredentials(guest_id, otp_code, otp_expiration) VALUES(?, ?, NOW() + INTERVAL 1 HOUR)";
-        $stmt = $conn->prepare($query); $stmt->bind_param("ss", $autogen_guestID, $otp);
-        $stmt->execute(); $stmt->close();
+        if($guest_guestID != NULL){
+            // Sets the OTP password to here
+            $query = "UPDATE GuestCredentials SET otp_code = ?, otp_expiration = ? WHERE guest_id = ?";
+            $stmt = $conn->prepare($query); $stmt->bind_param("sss", $otp, (new DateTime())->modify('+1 hour')->format('Y-m-d H:i:s'), $guest_guestID);
+            $stmt->execute(); $stmt->close();
+        }
+        else{
+            // Generates guest_id, while ensuring no such other guest_id exists
+            do{ $autogen_guestID = 'GUEST' . str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+                $query = "SELECT guest_id FROM GuestCredentials WHERE guest_id = ?";
+                $stmt = $conn->prepare($query); $stmt->bind_param("s", $autogen_guestID);
+                $stmt->execute(); $stmt->store_result(); $guestIDSimilar_count = $stmt->num_rows;
+            } while($guestIDSimilar_count > 0);
+
+            // Insertion into database
+            $query = "INSERT INTO GuestCredentials(guest_id, otp_code, otp_expiration) VALUES(?, ?, NOW() + INTERVAL 1 HOUR)";
+            $stmt = $conn->prepare($query); $stmt->bind_param("ss", $autogen_guestID, $otp);
+            $stmt->execute();
+
+            $query = "INSERT INTO UserDetails(guest_id, email) VALUES (?, ?)";
+            $stmt = $conn->prepare($query); $stmt->bind_param("ss", $autogen_guestID, $input_email);
+            $stmt->execute(); $stmt->close();
+        }
 
         return $otp;
     }
@@ -448,7 +473,7 @@ function updateDetails($input_ID, $input_firstname, $input_middlename, $input_su
                 return true;
             } break;
         case 'UPDATE_GUEST_ID':
-            if(searchGuestID($input_ID) == true){
+            if(searchGuestID($input_ID) == false){
                 $query = "INSERT INTO UserDetails(guest_id, firstname, middlename, surname, email, phone_number) VALUES(?, ?, ?, ?, ?, ?)";
                 $stmt = $conn->prepare($query); $stmt->bind_param("ssssss", $input_ID, $input_firstname, $input_middlename, $input_surname, $input_email, $input_phoneNumber);
                 $stmt->execute(); $stmt->close();
@@ -457,7 +482,7 @@ function updateDetails($input_ID, $input_firstname, $input_middlename, $input_su
             }
             elseif(searchGuestDetails($input_ID) == true){
                 $query = "UPDATE UserDetails SET firstname = ?, middlename = ?, surname = ?, email = ?, phone_number = ? WHERE guest_id = ?";
-                $stmt = $conn->prepare($query); $stmt->bind_param("ssssss", $input_ID, $input_firstname, $input_middlename, $input_surname, $input_email, $input_phoneNumber);
+                $stmt = $conn->prepare($query); $stmt->bind_param("ssssss", $input_firstname, $input_middlename, $input_surname, $input_email, $input_phoneNumber, $input_ID);
                 $stmt->execute(); $stmt->close();
 
                 return true;
@@ -472,17 +497,12 @@ function updateDetails($input_ID, $input_firstname, $input_middlename, $input_su
     }
 }
 
-function verifyAppointment($input_controlNumber, $input_lName){
+function verifyAppointment($input_controlNumber){
     global $conn;
 
     try{
-        $query = "SELECT user_id FROM UserDetails WHERE surname = ?";
-        $stmt = $conn->prepare($query); $stmt->bind_param("s", $input_lName);
-        $stmt->execute(); $stmt->store_result(); $stmt->bind_result($input_userId);
-        $stmt->fetch();
-
-        $query = "SELECT control_number FROM AppointmentList WHERE control_number = ? AND user_id = ?";
-        $stmt = $conn->prepare($query); $stmt->bind_param("ss", $input_controlNumber, $input_userId);
+        $query = "SELECT control_number FROM AppointmentList WHERE control_number = ?";
+        $stmt = $conn->prepare($query); $stmt->bind_param("s", $input_controlNumber);
         $stmt->execute(); $stmt->store_result(); $controlNumber_count = $stmt->num_rows;
 
         $stmt->close();
@@ -492,7 +512,7 @@ function verifyAppointment($input_controlNumber, $input_lName){
         logError($e);
     }
 
-    if($controlNumber_count > 0){
+    if($controlNumber_count = 1){
         return true;
     }
     else{
@@ -521,17 +541,30 @@ function verifyChangePasswordCode($input_code){
     }
 }
 
-function verifyGuestLogin($input_otp){
+function verifyGuestLogin($input_email, $input_otp){
     global $conn;
     
     try{
         // Fetches guest_id from GuestCredentials tied to the input otp
-        $query = "SELECT guest_id FROM GuestCredentials WHERE otp_code = ?";
+        $query = "SELECT guest_id, otp_expiration FROM GuestCredentials WHERE otp_code = ?";
         $stmt = $conn->prepare($query); $stmt->bind_param("s", $input_otp);
-        $stmt->execute(); $stmt->store_result(); $stmt->bind_result($guest_guestID);
+        $stmt->execute(); $stmt->store_result(); $stmt->bind_result($guest_guestID, $otp_expiration);
         $stmt->fetch();
 
-        if($guest_guestID != NULL){
+        $query = "SELECT guest_id FROM UserDetails WHERE email = ?";
+        $stmt = $conn->prepare($query); $stmt->bind_param("s", $input_email);
+        $stmt->execute(); $stmt->store_result(); $stmt->bind_result($user_guestID);
+        $stmt->fetch();
+
+        if(date('Y-m-d H:i:s') >= $otp_expiration){
+            // Destroys otp
+            $query = "UPDATE GuestCredentials SET otp_code = NULL, otp_expiration = NULL WHERE otp_code = ?";
+            $stmt = $conn->prepare($query); $stmt->bind_param("s", $input_otp);
+            $stmt->execute(); $stmt->close();
+            return '1';
+        }
+
+        if($guest_guestID != NULL && $user_guestID != NULL && $guest_guestID == $user_guestID){
             CreateGuestSessionToken($guest_guestID);
 
             // Fetches session_token tied to the guest_id
@@ -547,10 +580,15 @@ function verifyGuestLogin($input_otp){
 
             return $session_token;
         }
-        // Returns '1' if guest_id not found
-        else{
+        // Returns '2' if guest_id not found
+        elseif($guest_guestID == NULL && $user_guestID == NULL){
             $stmt->close();
-            return '1';
+            return '2';
+        }
+        // Returns '3' if guest_id from email do not match
+        elseif($guest_guestID != $user_guestID){
+            $stmt->close();
+            return '3';
         }
     }
     catch(Exception $e){

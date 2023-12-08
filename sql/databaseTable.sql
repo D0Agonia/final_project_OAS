@@ -17,6 +17,12 @@ CREATE TABLE AuthenticationID(
     auth_name VARCHAR(32) NOT NULL
 );
 
+CREATE TABLE AdminCredentials(
+    kld_id VARCHAR(13) PRIMARY KEY NOT NULL,
+    hash_password BINARY(32) NOT NULL,
+    salt_password VARCHAR(32) NOT NULL
+);
+
 CREATE TABLE UserCredentials(
     kld_id VARCHAR(13) PRIMARY KEY NOT NULL,
     hash_password BINARY(32) NOT NULL,
@@ -57,10 +63,10 @@ CREATE TABLE UserDetails(
     user_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     kld_id VARCHAR(13),
     guest_id VARCHAR(11),
-    firstname VARCHAR(32) NOT NULL,
+    firstname VARCHAR(32),
     middlename VARCHAR(32),
-    surname VARCHAR(32) NOT NULL,
-    email VARCHAR(128) NOT NULL,
+    surname VARCHAR(32),
+    email VARCHAR(128),
     phone_number VARCHAR(15),
     FOREIGN KEY(kld_id) REFERENCES UserCredentials(kld_id),
     FOREIGN KEY(guest_id) REFERENCES GuestCredentials(guest_id) ON DELETE SET NULL

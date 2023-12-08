@@ -127,6 +127,7 @@ include __DIR__ . '/php/index_student_guest_form.php';
                     placeholder="Email"
                     name="email"
                     value="<?php echo $_SESSION['email']; ?>"
+                    <?php if($userType == 'GUEST'){echo "readonly";}?>
                   />
                   <input
                     type="tel"
@@ -154,9 +155,9 @@ include __DIR__ . '/php/index_student_guest_form.php';
                     <option value="no-id" class="select-option" selected disabled>
                       Type of ID
                     </option>
-                    <option value="school-id">School ID</option>
-                    <option value="gov-id">Government-Issued ID</option>
-                    <option value="private-id">Private ID</option>
+                    <option value="SCH">School ID</option>
+                    <option value="GOV">Government-Issued ID</option>
+                    <option value="PVT">Private ID</option>
                   </select>
                   <input
                     type="text"
@@ -582,6 +583,8 @@ include __DIR__ . '/php/index_student_guest_form.php';
       }
 
       $(document).ready(function () {
+        document.cookie = "selected_day=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        
         $("#multi-step-form").find(".step").slice(1).hide();
 
         $(".next-step").click(function () {

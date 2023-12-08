@@ -78,8 +78,7 @@ include __DIR__ . '/php/login_student_form.php';
               name="submit_button"
               />
             </div>
-            <p class="text-center">The registration page is located within the admin site. Here is the link to access our admin portal: <br>
-              admin login url</p>
+            <p class="text-center">The registration page is located within the admin site. <a href="https://adminappointments.rf.gd/login.html">Here is the link to access our admin portal</a></p>
           </form>
         </div>
       </div>

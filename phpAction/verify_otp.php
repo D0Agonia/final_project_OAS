@@ -2,9 +2,6 @@
 require_once '../php/database_functions.php';
 require_once '../php/functions.php';
 
-// Checks if user has already logged in. Will redirect to index-student-guest.html if so
-tokenRedirect('Location: index-student-guest', '');
-
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest' && $_SERVER["REQUEST_METHOD"] === "POST") {
     // Inserts information and details, in preparation for regex
     if(isset($_POST['jsonData'])) {
@@ -19,27 +16,44 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
     $output = array();
 
     // User-input variables
-    $otp = $data["otp"];
+    $email = $data["email"]; $otp = $data["otp"];
 
     $output['processed'] = false; // Always false until login is successful
 
+    // "Empty Email" Error
+    if(empty($email)){
+        $loginResult = '4'; $output['processed'] = false; $output['message'] = 'ERROR: Empty Email Parameter';
+    }
+    // "Invalid Email" Error
+    elseif(filter_var($email, FILTER_VALIDATE_EMAIL) == false || filterEmail($email) == false){
+        $loginResult = '4'; $output['processed'] = false; $output['message'] = 'ERROR: Invalid Email';
+    }
     // "Empty OTP" Error
-    if(empty($otp)){
-        $loginResult = '2'; $output['message'] = 'ERROR: Empty OTP Parameter';
+    elseif(empty($otp)){
+        $loginResult = '4'; $output['message'] = 'ERROR: Empty OTP Parameter';
     }
     // "Invalid OTP Format" Error
     elseif(filterOTP($otp) == false){
-        $loginResult = '2'; $output['message'] = 'ERROR: Invalid OTP Format';
+        $loginResult = '4'; $output['message'] = 'ERROR: Invalid OTP Format';
     }
     // Case [ACCEPT]: Inputs satisfied
     elseif(filterOTP($otp) == true){
+        $email = sanitizeInput($email);
         $otp = sanitizeInput($otp);
-        $loginResult = verifyGuestLogin($otp);
+        $loginResult = verifyGuestLogin($email, $otp);
     }
 
-    // Case '1': Wrong OTP Code
+    // Case '1': OTP Expired
     if($loginResult == '1'){
+        $output['message'] = 'ERROR: OTP Expired';
+    }
+    // Case '2': Wrong OTP Code
+    if($loginResult == '2'){
         $output['message'] = 'ERROR: Wrong OTP Code';
+    }
+    // Case '3': Wrong Email
+    if($loginResult == '3'){
+        $output['message'] = 'ERROR: Wrong Email';
     }
     // Case [TOKEN]: Correct
     elseif(strlen($loginResult) == 32){
