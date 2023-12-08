@@ -13,7 +13,7 @@ include __DIR__ . '/php/login_form.php';
   <div class="login-page">
     <div class="form">
       <div class="login-header">
-        <p class="text-success fw-bold fs-1">LOGIN</p>
+        <p class="login-title fs-1">LOGIN</p>
         <p>Please enter your credentials to login.</p>
       </div>
       <form method="post" class="login-form">
