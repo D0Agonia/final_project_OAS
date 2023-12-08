@@ -439,6 +439,28 @@ function searchUserID($input_ID){
     }
 }
 
+function searchUsername($input_username){
+    global $conn;
+    
+    try{ // Searches for username in database given input
+        $query = "SELECT username FROM AdminCredentials WHERE username = ?";
+        $stmt = $conn->prepare($query); $stmt->bind_param("s", $input_username);
+        $stmt->execute(); $stmt->store_result();
+        $username_count = $stmt->num_rows; $stmt->close();
+    }
+    catch(Exception $e){
+        header("Location: ../error_message/error500");
+        logError($e);
+    }
+
+    if($username_count > 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 function searchToken($input_token){
     global $conn;
     
@@ -491,6 +513,42 @@ function updateDetails($input_ID, $input_firstname, $input_middlename, $input_su
             return false;
             break;
     }}
+    catch(Exception $e){
+        header("Location: ../error_message/error500");
+        logError($e);
+    }
+}
+
+function verifyAdminLogin($input_username, $input_password){
+    try{
+        $query = "SELECT hash_password, salt_password FROM AdminCredentials WHERE username = ?";
+        $stmt = $conn->prepare($query); $stmt->bind_param("s", $input_username);
+        $stmt->execute(); $stmt->store_result(); $stmt->bind_result($user_password, $user_salt);
+        $stmt->fetch();
+
+        // Verifies the password
+        if(hash('sha256', $input_password . $user_salt) == bin2hex($user_password)){
+            CreateAdminSessionToken($input_username);
+
+            $query = "SELECT session_token FROM LoginTokens WHERE username = ?";
+            $stmt = $conn->prepare($query); $stmt->bind_param("s", $input_username);
+            $stmt->execute(); $stmt->store_result(); $stmt->bind_result($session_token);
+            $stmt->fetch();
+
+            $stmt->close();
+            return $session_token;
+        }
+        // Returns '1' if username not found
+        elseif(searchUsername($input_username) == false){
+            $stmt->close();
+            return '1';
+        }
+        // Returns '2' if password is incorrect
+        else{
+            $stmt->close();
+            return '2';
+        }
+    }
     catch(Exception $e){
         header("Location: ../error_message/error500");
         logError($e);
@@ -687,6 +745,24 @@ function CreateChangePasswordCode($input_kldID){
     }
 }
 
+function CreateAdminSessionToken($input_username){
+    global $conn;
+
+    try{ do{ $token = lowercaseNumericString(32); // Generates a unique admin session token. 32 characters long.
+        $query = "SELECT session_token FROM LoginTokens WHERE session_token = ?";
+        $stmt = $conn->prepare($query); $stmt->bind_param("s", $token);
+        $stmt->execute(); $stmt->store_result(); $tokenSimilar_count = $stmt->num_rows;
+    } while($tokenSimilar_count > 0);
+        $query = "INSERT INTO LoginTokens(session_token, token_expiration, username) VALUES(?, NOW() + INTERVAL 1 DAY, ?)";
+        $stmt = $conn->prepare($query); $stmt->bind_param("ss", $token, $input_username);
+        $stmt->execute(); $stmt->close();
+    }
+    catch(Exception $e){
+        header("Location: ../error_message/error500");
+        logError($e);
+    }
+}
+
 function CreateGuestSessionToken($input_guest){
     global $conn;
     
@@ -695,7 +771,6 @@ function CreateGuestSessionToken($input_guest){
         $stmt = $conn->prepare($query); $stmt->bind_param("s", $token);
         $stmt->execute(); $stmt->store_result(); $tokenSimilar_count = $stmt->num_rows;
     } while($tokenSimilar_count > 0);
-
         $query = "INSERT INTO LoginTokens(session_token, token_expiration, guest_id) VALUES(?, NOW() + INTERVAL 1 DAY, ?)";
         $stmt = $conn->prepare($query); $stmt->bind_param("ss", $token, $input_guest);
         $stmt->execute(); $stmt->close();
@@ -714,7 +789,6 @@ function CreateUserSessionToken($input_kldID){
         $stmt = $conn->prepare($query); $stmt->bind_param("s", $token);
         $stmt->execute(); $stmt->store_result(); $tokenSimilar_count = $stmt->num_rows;
     } while($tokenSimilar_count > 0);
-
         $query = "INSERT INTO LoginTokens(session_token, token_expiration, kld_id) VALUES(?, NOW() + INTERVAL 1 DAY, ?)";
         $stmt = $conn->prepare($query); $stmt->bind_param("ss", $token, $input_kldID);
         $stmt->execute(); $stmt->close();
